@@ -48,7 +48,7 @@ const AuthPage = () => {
         <Tabs variant="soft-rounded">
           <TabList mb="1em">
             <Tab width="50%">
-              <div className="bg-red"></div>
+             Login
             </Tab>
             <Tab width="50%">Sign Up</Tab>
           </TabList>
