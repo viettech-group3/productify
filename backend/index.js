@@ -1,9 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const cors = require("cors");
-const UserRouter = require("./routes/User.JS");
-const seedData = require("./config/seed");
-const faker = require("faker");
+const UserRouter = require("./routes/User");
 
 // set up express server
 const app = express();
@@ -19,16 +17,12 @@ const startServer = async () => {
   try {
     // Connect to MongoDB
     await connectDB();
-
-    // Seed data
-    // await seedData();
-
     // Start the server
     app.listen(PORT, () => {
       console.log(`Server started on port ${PORT}`);
     });
   } catch (error) {
-    console.error("Error connecting to MongoDB or seeding data:", error);
+    console.error("Error connecting to MongoDB: ", error);
     process.exit(1);
   }
 };

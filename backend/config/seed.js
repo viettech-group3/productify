@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const faker = require("faker");
-const User = require("../models/user");
+const User = require("../models/User");
+const connectDB = require("./db");
+
+// Connect to MongoDB
+connectDB();
 
 // Generate and seed fake data
 const seedData = async () => {
@@ -9,7 +13,7 @@ const seedData = async () => {
     await User.deleteMany();
 
     // Generate fake users with animal usernames and randomized points
-    const fakeUsers = Array.from({ length: 30 }).map(() => {
+    const fakeUsers = Array.from({ length: 50 }).map(() => {
       const username = faker.internet.userName();
       const email = faker.internet.email();
       const password = faker.internet.password();
@@ -34,4 +38,5 @@ const seedData = async () => {
   }
 };
 
-module.exports = seedData;
+// Run the seedData function
+seedData();
