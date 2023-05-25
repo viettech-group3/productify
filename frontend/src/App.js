@@ -8,6 +8,7 @@ function App() {
   return (
     <ChakraProvider>
       <Router>
+        
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/auth" element={<AuthPage />} />

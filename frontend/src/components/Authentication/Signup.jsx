@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../service/user";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -28,6 +29,8 @@ const Signup = () => {
   const submitHandler = async () => {
     setLoading(true);
     if (!username || !email || !password) {
+      toast.error("You have to fullfill all boxes");
+      setLoading(false);
       return;
     }
     try {
