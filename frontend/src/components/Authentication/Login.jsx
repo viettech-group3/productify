@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../service/user";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,9 +23,12 @@ const Login = () => {
     setShow(!show);
   };
 
+
   const submitHandler = async () => {
     setLoad(true);
     if (!email || !password) {
+      toast.error("You have to fullfill both email and password");
+      setLoad(false);
       return;
     }
     try {
@@ -34,6 +38,7 @@ const Login = () => {
       setLoad(false);
     } catch (error) {
       console.log(error);
+      toast.error("Your Email or Password is not correct");
       setLoad(false);
     }
   };
