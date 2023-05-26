@@ -74,7 +74,9 @@ const Signup = () => {
         </InputGroup>
       </FormControl>
       <Button
-        colorScheme="cyan"
+        background={"#a9caee"}
+        backgroundImage={"linear-gradient(315deg, #fde7f9 0%, #aacaef 74%)"}
+        _hover={{ background:"#a9caee"}}
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
