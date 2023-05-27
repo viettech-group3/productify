@@ -1,0 +1,24 @@
+.circle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #125fe2;
+    font-size: 1.2rem;
+    font-weight: bold;
+    
+  }
+  
+
+.check_edit {
+  border-radius: 20px;
+  border: solid black;
+  transition: transform 0.2s ease-in-out;
+}
+
+.check_edit:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+}

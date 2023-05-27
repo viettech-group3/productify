@@ -1,0 +1,39 @@
+.total {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    background-color: whitesmoke;
+    padding-left: 7rem !important;
+    padding-bottom: 5rem !important;
+    
+}
+
+.title {
+    font-weight: 400;
+    font-size: 3rem;
+    padding-top: 7rem !important;
+}
+
+.icon_sentence {
+    border: solid 1px #a2d2ff;
+    padding: 0.6rem;
+    border-radius: 30px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.icon_sentence:hover {
+    transform: translateY(-5px);
+    background-color: #caf0f8;
+    color: "whitesmoke"
+    
+}
+
+.image {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0.5, 0.7);
+}
