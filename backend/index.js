@@ -1,7 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const cors = require("cors");
-const UserRouter = require("./routes/User.JS");
+const UserRouter = require("./routes/User");
 
 // set up express server
 const app = express();
@@ -13,7 +13,18 @@ app.use("/api/users", UserRouter);
 
 //connect to port
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, async () => {
-  await connectDB();
-  console.log(`Server started on port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    // Connect to MongoDB
+    await connectDB();
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server started on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error connecting to MongoDB: ", error);
+    process.exit(1);
+  }
+};
+
+startServer();
