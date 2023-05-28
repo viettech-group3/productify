@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const createUser = async (username, email, password) => {
+export const createUser = async (email, username, password) => {
   try {
     const config = {
       headers: {
@@ -19,7 +19,6 @@ export const createUser = async (username, email, password) => {
 };
 
 export const loginUser = async (email, password) => {
-  console.log(email, password);
   try {
     const config = {
       headers: {

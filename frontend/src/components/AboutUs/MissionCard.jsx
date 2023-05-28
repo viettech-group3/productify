@@ -6,16 +6,18 @@ import styles from "./MissionCard.module.css"
 
 const MissionCard = (props) => {
     return (
-        <div className={`${styles.check_edit} card my-4`} style={{ width: "18rem", backgroundColor:"whitesmoke" }}>
-            <div className="d-flex align-items-center justify-content-center mt-3">
+        <div className={`${styles.check_edit} card my-4`} style={{ width: "18rem", backgroundColor:"whitesmoke" }}> {/* background's card */}
+            <div className="d-flex align-items-center justify-content-center mt-3"> {/* background's icon' */}
                 <div className={styles.circle}>
-                    <FontAwesomeIcon icon={props.icon} style={{ color: "#125fe2", fontSize: "2rem", paddingTop: "0.5"}} />
+                    <FontAwesomeIcon icon={props.icon} style={{ color: "#aacaef", fontSize: "2rem", paddingTop: "0.5"}} />
                 </div>
             </div>
-            <div className="card-body text-center">
-                <h3 className="card-title pt-3">{props.title}</h3>
+            {/* end of background's icon' */}
+            <div className="card-body text-center"> {/* background's description' */}
+                <h3 className="card-title pt-3" style={{ fontWeight: 600,}}>{props.title}</h3>
                 <p className="card-text py-3">{props.description}</p>
             </div>
+             {/* end of background's description' */}
         </div>
     );
 };

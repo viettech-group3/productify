@@ -5,7 +5,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid #125fe2;
+    border: 2px solid #aacaef;
     font-size: 1.2rem;
     font-weight: bold;
     
@@ -13,7 +13,7 @@
   
 
 .check_edit {
-  border-radius: 20px;
+  border-radius: 40px !important;
   border: solid black;
   transition: transform 0.2s ease-in-out;
 }

@@ -1,15 +1,15 @@
 import React from "react";
 import logo from "../../assets/images/logoBlue.png";
+import styles from "./Footer.module.css"
 
 const Footer = () => {
   return (
-    <>
-      <div class="blockcode">
-        <div class="page-footer shadow">
-          <div class="d-flex flex-column mx-auto py-5" style={{width: "80%"}}>
-            <div class="d-flex flex-wrap justify-content-between">
-              <div class="align-self-center">
-                <a href="/#" class="d-flex align-items-center text-dark">
+
+        <div className={styles.footer}> 
+          <div className="d-flex flex-column mx-auto pb-3" style={{width: "80%"}}> {/* Use Flexbox for this footer */}
+            <div className="d-flex flex-wrap justify-content-between">
+              <div className="align-self-center">
+                <a href="/#" className="d-flex align-items-center text-dark"> {/* Image is a link */}
                   <img
                     alt="logo"
                     src={logo}
@@ -18,95 +18,98 @@ const Footer = () => {
                       position: "relative",
                       top: "-60px",
                       left: "-25px",
-                      marginBottom: "-100px",
+                      marginBottom: "-110px",
                     }}
                   />
-                </a>
-                <div class="">
+                </a>   {/*End of image */}
+                <div className=""> {/* Div have Icons*/}
                   <button
-                    class="btn btn-primary btn-flat py-1"
-                    style={{width: "2.5rem", marginRight: "1rem"}}>
-                    <i class="fa fa-facebook"></i>
+                    className="btn btn-flat py-1"
+                    style={{width: "2.5rem", marginRight: "1rem", backgroundColor: "#aacaef", color: "white"}}>
+                    <i className="fa fa-facebook"></i>
                   </button>
                   <button
-                    class="btn btn-primary btn-flat py-1"
-                    style={{width: "2.5rem", marginRight: "1rem"}}>
-                    <i class="fa fa-twitter"></i>
+                    className="btn btn-flat py-1"
+                    style={{width: "2.5rem", marginRight: "1rem", backgroundColor: "#aacaef", color: "white"}}>
+                    <i className="fa fa-twitter"></i>
                   </button>
                   <button
-                    class="btn btn-primary btn-flat py-1"
-                    style={{width: "2.5rem", marginRight: "1rem"}}>
-                    <i class="fa fa-instagram"></i>
+                    className="btn btn-flat py-1"
+                    style={{width: "2.5rem", marginRight: "1rem", backgroundColor: "#aacaef", color: "white"}}>
+                    <i className="fa fa-instagram"></i>
                   </button>
                 </div>
+                {/* End of icons*/}
               </div>
               <div>
-                <p class="h5 mb-4" style={{fontWeight: "600"}}>
+                <p className="h5 mt-3 mb-2" style={{fontWeight: "600"}}> {/* Text and Link*/}
                   Productify
                 </p>
-                <ul class="p-0" style={{listStyle: "none", cursor: "pointer"}}>
-                  <li class="my-2">
-                    <a class="text-dark" href="/home">
+                <ul className="p-0" style={{listStyle: "none", cursor: "pointer",}}>
+                  <li className="my-2">
+                    <a className={`text-muted ${styles.link_edit}`} href="/home">
                       Home
                     </a>
                   </li>
-                  <li class="my-2">
-                    <a class="text-dark" href="/aboutus">
+                  <li className="my-2 li-edit">
+                    <a className={`text-muted ${styles.link_edit}`} href="/aboutus">
                       About Us
                     </a>
                   </li>
                 </ul>
               </div>
               <div>
-                <p class="h5 mb-4" style={{fontWeight: "600"}}>
+                <p className="h5 mt-3 mb-2" style={{fontWeight: "600"}}>
                   Features
                 </p>
-                <ul class="p-0" style={{listStyle: "none", cursor: "pointer"}}>
-                  <li class="my-2">
-                    <a class="text-dark" href="/">
+                <ul className="p-0" style={{listStyle: "none", cursor: "pointer"}}>
+                  <li className="my-2 li-edit">
+                    <a className={`text-muted ${styles.link_edit}`} href="/">
                       Calendar
                     </a>
                   </li>
-                  <li class="my-2">
-                    <a class="text-dark" href="/">
+                  <li className="my-2 li-edit">
+                    <a className={`text-muted ${styles.link_edit}`} href="/">
                       Top Users
                     </a>
                   </li>
-                  <li class="my-2">
-                    <a class="text-dark" href="/">
+                  <li className="my-2 li-edit">
+                    <a className={`text-muted ${styles.link_edit}`} href="/">
                       Study With Me
                     </a>
                   </li>
                 </ul>
               </div>
               <div>
-                <p class="h5 mb-4" style={{fontWeight: "600"}}>
+                <p className="h5 mt-3 mb-2" style={{fontWeight: "600"}}>
                   Help
                 </p>
-                <ul class="p-0" style={{listStyle: "none", cursor: "pointer"}}>
-                  <li class="my-2">
-                    <a class="text-dark" href="/">
+                <ul className="p-0" style={{listStyle: "none", cursor: "pointer"}}>
+                  <li className="my-2 li-edit">
+                    <a className={`text-muted ${styles.link_edit}`} href="/">
                       Support
                     </a>
                   </li>
-                  <li class="my-2">
-                    <a class="text-dark" href="/auth">
+                  <li className="my-2 li-edit" >
+                    <a className={`text-muted ${styles.link_edit}`} href="/auth">
                       Sign Up
                     </a>
                   </li>
-                  <li class="my-2">
-                    <a class="text-dark" href="/auth">
+                  <li className="my-2 li-edit">
+                    <a className={`text-muted ${styles.link_edit}`} href="/auth">
                       Sign In
                     </a>
                   </li>
                 </ul>
               </div>
+              {/* End of text links*/}
             </div>
           </div>
         </div>
-      </div>
-    </>
+
   );
 };
 
 export default Footer;
+
+
