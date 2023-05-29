@@ -8,7 +8,7 @@ const Div2 = () => {
     <div className={`${styles.total} container-fluid`}>
       <div className="row pt-5" >
         <div className="col-6 pt-4">
-          <h1 className={`${styles.title} pb-2` }>IDENTITY</h1> {/* Title */}
+          <h1 className={`${styles.title} pb-2` }>TEAM</h1> {/* Title */}
           <p style={{paddingBottom: "3rem"}}> {/* paragraph */}
             "Productify" is an innovative task management application crafted by
             a dedicated team of four mentees from Viet Tech Mentorship. Our team
