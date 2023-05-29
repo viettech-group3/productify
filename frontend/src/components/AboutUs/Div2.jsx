@@ -17,15 +17,15 @@ const Div2 = () => {
           </p>
           <div className={` ${styles.icon_sentence} d-flex align-items-center mt-4`}> {/* Icons + Sentence */}
             <FontAwesomeIcon className="pe-3" icon={faAddressBook} style={{color: "#aacaef", fontSize: "2rem", paddingTop: "0.5", }}  />
-            <span>Tech enthusiasts on a mission to revolutionize management.</span>
+            <span>Revolutionizing management as tech enthusiasts.</span>
           </div>
           <div className={` ${styles.icon_sentence} d-flex align-items-center mt-4 `}> {/* Icons + Sentence */}
             <FontAwesomeIcon className="pe-3" icon={faChessQueen} style={{color: "#aacaef", fontSize: "2rem", paddingTop: "0.5"}} />
-            <span>Driven by passion and expertise, we simplify productivity.</span>
+            <span>Simplifying productivity with passion and expertise.</span>
           </div>
           <div className={` ${styles.icon_sentence} d-flex align-items-center mt-4 `}> {/* Icons + Sentence */}
             <FontAwesomeIcon className="pe-3" icon={faEnvelopeOpen} style={{color: "#aacaef", fontSize: "2rem", paddingTop: "0.5"}} />
-            <span>Innovators creating intuitive solutions for efficient workflow.</span>
+            <span>Innovating intuitive solutions for streamlined workflow efficiency.</span>
           </div>
         </div>
         <div className="col-6 pt-4"> {/* Image of calendar */}

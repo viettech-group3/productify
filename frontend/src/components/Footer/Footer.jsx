@@ -16,9 +16,9 @@ const Footer = () => {
                     width="250px"
                     style={{
                       position: "relative",
-                      top: "-60px",
+                      top: "-40px",
                       left: "-25px",
-                      marginBottom: "-110px",
+                      marginBottom: "-100px",
                     }}
                   />
                 </a>   {/*End of image */}
@@ -42,7 +42,7 @@ const Footer = () => {
                 {/* End of icons*/}
               </div>
               <div>
-                <p className="h5 mt-3 mb-2" style={{fontWeight: "600"}}> {/* Text and Link*/}
+                <p className="h5 mb-2" style={{fontWeight: "600", marginTop: "2rem"}}> {/* Text and Link*/}
                   Productify
                 </p>
                 <ul className="p-0" style={{listStyle: "none", cursor: "pointer",}}>
@@ -59,7 +59,7 @@ const Footer = () => {
                 </ul>
               </div>
               <div>
-                <p className="h5 mt-3 mb-2" style={{fontWeight: "600"}}>
+                <p className="h5 mb-2" style={{fontWeight: "600", marginTop: "2rem"}}>
                   Features
                 </p>
                 <ul className="p-0" style={{listStyle: "none", cursor: "pointer"}}>
@@ -81,7 +81,7 @@ const Footer = () => {
                 </ul>
               </div>
               <div>
-                <p className="h5 mt-3 mb-2" style={{fontWeight: "600"}}>
+                <p className="h5 mb-2" style={{fontWeight: "600", marginTop: "2rem"}}>
                   Help
                 </p>
                 <ul className="p-0" style={{listStyle: "none", cursor: "pointer"}}>
