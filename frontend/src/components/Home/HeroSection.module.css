@@ -1,0 +1,93 @@
+.container {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%; /* Adjust the height of the container to fill the viewport */
+  }
+  
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 120px;
+    padding-bottom: 50px;
+    font-family: 'Montserrat', sans-serif;
+    /* max-width: 600px; */
+    text-align: center;
+    z-index: 2;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: 5rem;
+    color: black;
+    margin-bottom: 20px;
+    font-weight: 900;
+    opacity: 0; /* Set initial opacity to 0 */
+    transform: translateX(-100%); /* Start position outside the left edge */
+    animation: flyIn 1s ease forwards; /* Apply fly-in animation */
+}
+
+@keyframes flyIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%); /* Start position outside the left edge */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* End position at the center */
+  }
+}  
+  .description {
+    color: black;
+    max-width: 800px;
+    font-size: 1.2rem;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px; /* Adjust the gap between the buttons as needed */
+  }
+  
+  .button {
+    background-color: #fff;
+    color: #000;
+    padding: 10px 50px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 10%;
+    transition: background-color 0.5s ease;
+  }
+
+  .button:hover {
+    background-color: #aacaef; /* Change the background color on hover */
+    color: #fff; /* Change the text color on hover */
+  }
+  
+  .imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image {
+    max-width: 1000px;
+    text-align: center;
+    border-radius: 20px;
+  }
+  
+  .gradientBackground {
+    background-color: #fde7f9;
+    background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+    width: 100%;
+    height: 100%;
+  }
+
+  
