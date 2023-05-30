@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../service/user";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -79,7 +79,7 @@ const Signup = () => {
       <Button
         background={"#a9caee"}
         backgroundImage={"linear-gradient(315deg, #fde7f9 0%, #aacaef 74%)"}
-        _hover={{ background:"#a9caee"}}
+        _hover={{ background: "#a9caee" }}
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}

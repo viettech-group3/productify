@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const generateToken = require("../utils/auth");
+const { generateToken } = require("../utils/auth");
 const bcrypt = require("bcryptjs");
 
 //Sign up function
@@ -33,6 +33,7 @@ const signUp = async (req, res) => {
         id: newUserSaved.id,
         username: newUserSaved.username,
         email: newUserSaved.email,
+        token: generateToken(newUserSaved._id),
       },
     });
   } catch (error) {
@@ -56,7 +57,7 @@ const login = async (req, res) => {
         _id: existingUser._id,
         username: existingUser.username,
         email: existingUser.email,
-        //token: generateToken(existingUser._id),    /This one lead to a bug, let's solve them tomorrow
+        token: generateToken(existingUser._id),
       });
     } else {
       return res.status(401).json({ msg: "Invalid credentials" });
