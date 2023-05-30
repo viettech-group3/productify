@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../service/user";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +22,6 @@ const Login = () => {
   const handleClick = () => {
     setShow(!show);
   };
-
 
   const submitHandler = async () => {
     setLoad(true);
@@ -63,10 +62,7 @@ const Login = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
           <InputRightElement width="4.5em">
-            <Button 
-            h="1.75em" 
-            size="sm" 
-            onClick={handleClick}>
+            <Button h="1.75em" size="sm" onClick={handleClick}>
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
@@ -75,7 +71,7 @@ const Login = () => {
       <Button
         // background={"#a9caee"}
         backgroundImage={"linear-gradient(315deg, #fde7f9 0%, #aacaef 74%)"}
-        _hover={{ background:"#a9caee"}}
+        _hover={{ background: "#a9caee" }}
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
