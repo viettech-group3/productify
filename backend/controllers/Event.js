@@ -7,7 +7,8 @@ const { invite } = require("../utils/invite");
 
 const createEvent = async (req, res) => {
   try {
-    const { name, describe, start, end, invited, creatorId } = req.body;
+    const { name, describe, start, end, invited } = req.body;
+    let creatorId = req.user._id;
 
     // Create a new event and save
     const event = new Event({
