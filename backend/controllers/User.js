@@ -56,7 +56,7 @@ const login = async (req, res) => {
         _id: existingUser._id,
         username: existingUser.username,
         email: existingUser.email,
-        token: generateToken(existingUser._id),
+        //token: generateToken(existingUser._id),    /This one lead to a bug, let's solve them tomorrow
       });
     } else {
       return res.status(401).json({ msg: "Invalid credentials" });
