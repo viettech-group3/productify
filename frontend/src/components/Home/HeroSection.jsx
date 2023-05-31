@@ -7,7 +7,7 @@ import Signup from "../../components/Authentication/Signup";
 
 const HeroSection = () => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container}`}>
       <div className={`${styles.gradientBackground}`}>
         <div>
           <div className={styles.content}>
@@ -32,7 +32,7 @@ const HeroSection = () => {
             <img 
               src={myImage}
               alt="Calendar Demo Image"
-              className={styles.image}
+              className={`${styles.image}`}
             />
           </div>
         </div>
