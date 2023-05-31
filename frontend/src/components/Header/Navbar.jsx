@@ -13,10 +13,10 @@ const Navbar = () => {
                     <a className={styles.navbarLink} href="/Home">Home</a>
                 </li>
                 <li className={styles.navbarItem}>
-                    <a className={styles.navbarLink} href="/">About</a>
+                    <a className={styles.navbarLink} href="/aboutus">About</a>
                 </li>
                 <li className={styles.navbarItem}>
-                    <a className={styles.navbarLink} href="/">Calendar</a>
+                    <a className={styles.navbarLink} href="/calendar">Calendar</a>
                 </li>
                 <li className={styles.navbarItem}>
                     <a className={styles.navbarLink} href="/">Top Users</a>
