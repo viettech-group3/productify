@@ -4,6 +4,7 @@ import AuthPage from "./pages/AuthPage";
 import { ChakraProvider } from "@chakra-ui/react";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs"
+import Calendar from "./pages/Calendar"
 
 import ReactDOM from 'react-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -22,6 +23,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/calendar" element={<Calendar />} /> 
         </Routes>
       </Router>
     </ChakraProvider>

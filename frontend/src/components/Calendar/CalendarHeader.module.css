@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+  
+.icon {
+  margin-right: 50px;
+}
+  
+.date {
+  margin-left: 50px;
+}
+  
+.button {
+  background-color: #fff;
+  color: #000;
+  padding: 10px 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 10%;
+  transition: background-color 0.5s ease;
+  margin-right: 50px;
+  margin-left: 50px;
+  border: 2px solid #aacaef;
+}
+
+.button:hover {
+  background-color: #aacaef; /* Change the background color on hover */
+  color: #fff; /* Change the text color on hover */
+}
