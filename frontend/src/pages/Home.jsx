@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "../components/Header/Navbar";
 import HeroSection from "../components/Home/HeroSection";
-import Div1 from "../components/AboutUs/Div1";
-import Div2 from "../components/AboutUs/Div2";
+import Div1 from "../components/ContentDiv/MissionDiv";
+import Div2 from "../components/ContentDiv/TeamDiv";
 import Footer from "../components/Footer/Footer";
 
 const Home = () => {
