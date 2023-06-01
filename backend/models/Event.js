@@ -23,12 +23,6 @@ const eventSchema = new mongoose.Schema({
     enum: ["ongoing", "completed", "overdue"],
     default: "ongoing",
   },
-  //   invited: [
-  //     {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: "User",
-  //     },
-  //   ],
 });
 
 const Event = mongoose.model("Event", eventSchema);
