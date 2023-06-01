@@ -7,7 +7,7 @@
     margin-left: 20px;
 }
   
-.button1 {
+.iconButton {
     background-color: #fff;
     margin-bottom: 20px;
     color: #000;
@@ -16,12 +16,12 @@
     cursor: pointer;
     border-radius: 10%;
     transition: background-color 0.5s ease;
-    border: 2px solid #aacaef;
+    border: 2px solid var(--main-blue);
     width: 200px;
 }
   
-.button1:hover {
-    background-color: #aacaef;
+.iconButton:hover {
+    background-color: var(--main-blue);
     color: #fff;
 }
 
@@ -32,6 +32,6 @@
 .points {
     font-style: italic;
     font-weight: 600;
-    color: #aacaef;
+    color: var(--main-blue);
 }
   

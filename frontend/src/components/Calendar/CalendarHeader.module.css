@@ -20,7 +20,7 @@
 }
 
 .button {
-  background-color: #fff;
+  background-color: white;
   color: #000;
   padding: 10px 50px;
   font-size: 1.2rem;
@@ -28,11 +28,11 @@
   margin-left: 20px;
   border-radius: 10%;
   transition: background-color 0.5s ease;
-  border: 2px solid #aacaef;
+  border: 2px solid var(--main-blue);
 }
 
 .button:hover {
-  background-color: #aacaef;
+  background-color: var(--main-blue);
   color: #fff;
 }
 
@@ -48,7 +48,7 @@
   padding: 0.6 rem;
   border-radius: 30px;
   transition: transform 0.2s ease-in-out;
-  background-color: #aacaef;
+  background-color: var(--main-blue);
   cursor: pointer;
   margin-right: 150px;
   margin-left: 20px;
@@ -60,14 +60,14 @@
   color: whitesmoke;
   }
   
-  .sentence {
+.sentence {
   margin-right: 30px;
   margin-left: 15px;
   font-size: 18px;
   font-weight: 600;
   color: #fff;
-  }
+}
 
-  .today {
-    margin-left: 50px;
-  }
+.today {
+  margin-left: 50px;
+}
