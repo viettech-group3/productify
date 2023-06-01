@@ -3,7 +3,7 @@ import styles from "./Day.module.css";
 import dayjs from "dayjs";
 
 function Day({ day, row }) {
-  const isToday = day.format("DD-MM-YY") === dayjs().format("DD-MM-YY"); // Check if the day is today
+  const isToday = day.isSame(dayjs(), 'day');  // Check if the day is today
   const circleColor = isToday ? "#aacaef" : ""; // If it is today, the circle will be blue
 
   const handleClick = () => {

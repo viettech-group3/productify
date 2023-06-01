@@ -19,12 +19,12 @@ const UserSearch = () => {
     <div>
         <h2 className={styles.button1}>Meet with...</h2>
         <form onSubmit={handleSearchSubmit}>
-        <input className = {styles.search}
-            type="text"
-            placeholder="Search for people"
-            value={searchQuery}
-            onChange={handleSearchChange}
-        />
+          <input className = {styles.search}
+              type="text"
+              placeholder="Search for people"
+              value={searchQuery}
+              onChange={handleSearchChange}
+          />
         <button className={styles.searchButton} type="submit">Search</button>
         </form>
     </div>
