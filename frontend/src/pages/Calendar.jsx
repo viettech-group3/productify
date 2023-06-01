@@ -16,10 +16,10 @@ function Calendar() {
         <CalendarHeader />
       </div>
       <div className="row">
-        <div className="col-2">
+        <div className="col-3">
           <SideBar />
         </div>
-        <div className="col-10">
+        <div className="col-9">
           <Month month={monthTest} />
         </div> 
       </div>
