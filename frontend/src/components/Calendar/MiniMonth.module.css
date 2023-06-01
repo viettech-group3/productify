@@ -4,13 +4,13 @@
     overflow: hidden;
     margin-top: 20px;
     margin-left: 20px;
-  }
+}
   
-  .week {
+.week {
     display: flex;
-  }
+}
   
-  .day {
+.day {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -19,12 +19,12 @@
     width: 2rem;
     border: solid #dedede;
     border-collapse: collapse;
-  }
+}
   
-  .today {
+.today {
     border: none;
     background-color: #aacaef;
     border-radius: 50%;
     color: white;
-  }
+}
   

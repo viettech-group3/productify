@@ -1,5 +1,4 @@
 .box_day {
-    /* border: solid #dedede;
     border-collapse: collapse; */
     height: 3rem;
     width: 3rem;
@@ -19,8 +18,8 @@
     border: none;
     background-color: #aacaef;
     border-radius: 50%;
-    width: 32px; /* Adjust the width to make the circle bigger */
-    height: 32px; /* Adjust the height to make the circle bigger */
+    width: 32px; 
+    height: 32px; 
     display: flex;
     justify-content: center;
     align-items: center;
