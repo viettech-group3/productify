@@ -54,16 +54,16 @@
   margin-left: 20px;
   }
 
-  .icon_sentence:hover {
-    transform: translateY(-5px);
-    background-color: #caf0f8;
-    color: whitesmoke;
-    }
-    
-    .sentence {
-    margin-right: 30px;
-    margin-left: 15px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    }
+.icon_sentence:hover {
+  transform: translateY(-5px);
+  background-color: #caf0f8;
+  color: whitesmoke;
+  }
+  
+  .sentence {
+  margin-right: 30px;
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  }
