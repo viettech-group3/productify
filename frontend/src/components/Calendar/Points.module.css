@@ -1,13 +1,13 @@
 .taskList {
     list-style-type: none;
     padding: 0;
-  }
+}
   
-  .tasks {
+.tasks {
     margin-left: 20px;
-  }
+}
   
-  .button1 {
+.button1 {
     background-color: #fff;
     margin-bottom: 20px;
     color: #000;
@@ -18,12 +18,12 @@
     transition: background-color 0.5s ease;
     border: 2px solid #aacaef;
     width: 200px;
-  }
+}
   
-  .button1:hover {
+.button1:hover {
     background-color: #aacaef;
     color: #fff;
-  }
+}
 
 .label {
     margin-left: 5px;
