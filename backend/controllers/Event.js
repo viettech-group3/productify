@@ -1,10 +1,9 @@
-const Event = require("../models/Event");
-const EventParticipation = require("../models/EventParticipation");
-const User = require("../models/User");
-const { invite } = require("../utils/invite");
+const Event = require('../models/Event');
+const EventParticipation = require('../models/EventParticipation');
+const User = require('../models/User');
+const { invite } = require('../utils/invite');
 
-// create a new event function
-
+// Create a new event function
 const createEvent = async (req, res) => {
   try {
     const { name, describe, start, end, invited } = req.body;
@@ -23,22 +22,19 @@ const createEvent = async (req, res) => {
     const creatorParticipation = new EventParticipation({
       eventId: event._id,
       userId: creatorId,
-      status: "accepted",
+      status: 'accepted',
     });
     await creatorParticipation.save();
 
-    //Invited is an array of emails
+    // Invited is an array of emails
     if (invited) {
       // Create a new event participation for the invited users by mapping
-
       const invitedParticipation = invited.map(
-        async (email) => await invite(email, event._id) // a bunch of promises in an array
+        async email => await invite(email, event._id), // a bunch of promises in an array
       );
-
-      //make sure all promise is fullfilled
+      //Make sure all promise is fullfilled
       await Promise.all(invitedParticipation);
     }
-
     res.status(201).json({ event: event });
   } catch (error) {
     console.log(`Failed to create event: ${error}`);
@@ -46,19 +42,30 @@ const createEvent = async (req, res) => {
   }
 };
 
-// get all events function Phuoc
-// Lay array of events ( each event is a time period). then show that period on calendar
-const getAllEvents = async (req, res) => {};
+/**
+ * Controller function to get events of a user
+ * Name: getAllEvents
+ * Asignee: Phuoc
+ * req: request object containing user id.
+ * res: response object to return status 200 and events array.
+ */
 
-// mofiying event function chi Jenny
-const modifyEvent = async (req, res) => {};
+/**
+ * Controller function to modify event of a user
+ * Asignee: chi Jenny
+ * Name: modifyEvent
+ * req: request object containing user id, event id, and new event info. For example, new description.
+ * res: response object to return status 200.
+ */
 
-// finish event function chi Jenny
-const finishEvent = async (req, res) => {};
+/**
+ * Controller function when a user finish an event
+ * Asignee: chi Jenny
+ * Name: finishEvent
+ * req: request object containing user id and event id.
+ * res: response object to return status 200.
+ */
 
 module.exports = {
   createEvent,
-  getAllEvents,
-  modifyEvent,
-  finishEvent,
 };
