@@ -12,7 +12,7 @@ const Points = () => {
 
   return (
     <div className={styles.tasks}>
-      <h3 className={styles.button1}>Today's tasks</h3>
+      <h3 className={styles.iconButton}>Today's tasks</h3>
       {scores.map((score) => (
         <div key={score.id} className={styles.taskList}>
           <input type="checkbox" id={`score-${score.id}`} />

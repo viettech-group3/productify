@@ -1,5 +1,5 @@
 .box_day {
-  border: solid #dedede;
+  border: solid var(--main-grey);
   border-collapse: collapse;
   height: 7.8rem;
   width: 7rem;
@@ -17,7 +17,7 @@
 
 .today {
   border: none;
-  background-color: #aacaef;
+  background-color: var(--main-blue);
   border-radius: 50%;
   width: 32px; /* Adjust the width to make the circle bigger */
   height: 32px; /* Adjust the height to make the circle bigger */
@@ -29,7 +29,7 @@
 }
 
 .day:hover {
-  background-color: #dedede; /* Change the background color on hover */
+  background-color: var(--main-grey); /* Change the background color on hover */
   color: #fff; /* Change the text color on hover */
   border-radius: 50%;
   width: 32px;
