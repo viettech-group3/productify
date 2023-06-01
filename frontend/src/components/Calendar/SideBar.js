@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { getMonth } from "../../service/util";
 import MiniMonth from "./MiniMonth";
-import styles from "./SideBar.module.css";
 import Points from "./Points";
 import UserSearch from "./UserSearch";
 
