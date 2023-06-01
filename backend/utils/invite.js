@@ -20,8 +20,6 @@ const invite = async (email, id) => {
       select: "email",
     });
 
-    console.log(invitedParticipation); // Will now include user email
-
     await invitedParticipation.save();
   } catch (error) {
     console.log(`Failed to invite ${email}: ${error}`);
