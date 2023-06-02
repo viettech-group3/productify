@@ -1,9 +1,9 @@
 import { React } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChessQueen, faEnvelopeOpen, faAddressBook } from '@fortawesome/free-solid-svg-icons';
-import styles from "./Div2.module.css"
+import styles from "./TeamDiv.module.css"
 
-const Div2 = () => {
+const TeamDiv = () => {
   return (
     <div className={`${styles.total} container-fluid`}>
       <div className="row pt-5" >
@@ -37,4 +37,4 @@ const Div2 = () => {
   );
 };
 
-export default Div2;
+export default TeamDiv;
