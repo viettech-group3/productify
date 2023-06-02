@@ -1,10 +1,10 @@
 import {React} from 'react';
 import MissionCard from './MissionCard'
-import styles from "./Div1.module.css"
+import styles from "./MissionDiv.module.css"
 import { faRocket, faLightbulb, faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 
-const Div1 = () => {
+const MissionDiv = () => {
     return (
         <div className={`${styles.total} text-center`}>
             <h1 className= {`${styles.mission} text-center pt-5 pb-2`}>MISSION</h1>
@@ -27,4 +27,4 @@ const Div1 = () => {
     )
 };
 
-export default Div1;
+export default MissionDiv;
