@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './Leaderboard.module.css';
+import { BsFillAwardFill } from 'react-icons/bs';
+import ConfettiRain from './ConfettiRain';
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
@@ -50,17 +52,37 @@ const Leaderboard = () => {
 
   return (
     <div className={styles.viewport}>
-      <h1>Leaderboard</h1>
+      <h1 className={styles.congrats}>Top 10 Productive Superstars</h1>
+
+      <ConfettiRain />
 
       <div className={styles.topUsers}>
-        {top3Users.map(user => (
-          <div key={user.id} className={styles.userCard}>
-            <div className={styles.badgeIcon}>
-              {/* Add your badge icon component here */}
-            </div>
-            <div className={styles.username}>{user.username}</div>
+        <div className={styles.userCard}>
+          {/* <div className={styles.points}>{top3Users[1].points} points</div> */}
+          <BsFillAwardFill className={`${styles.rankIcon} ${styles.silver}`} />
+          <div className={styles.badgeIcon}>
+            <span className={styles.rankNumber}>2</span>
           </div>
-        ))}
+          <div className={styles.username}>{top3Users[1].username}</div>
+        </div>
+
+        <div className={styles.userCard}>
+          {/* <div className={styles.points}>{top3Users[0].points} points</div> */}
+          <BsFillAwardFill className={`${styles.rankIcon} ${styles.gold}`} />
+          <div className={styles.badgeIcon}>
+            <span className={styles.rankNumber}>1</span>
+          </div>
+          <div className={styles.username}>{top3Users[0].username}</div>
+        </div>
+
+        <div className={styles.userCard}>
+          {/* <div className={styles.points}>{top3Users[2].points} points</div> */}
+          <BsFillAwardFill className={`${styles.rankIcon} ${styles.bronze}`} />
+          <div className={styles.badgeIcon}>
+            <span className={styles.rankNumber}>3</span>
+          </div>
+          <div className={styles.username}>{top3Users[2].username}</div>
+        </div>
       </div>
 
       <table className={styles.nextUsers}>
