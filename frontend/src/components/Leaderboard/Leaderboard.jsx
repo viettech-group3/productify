@@ -40,30 +40,30 @@ const Leaderboard = () => {
   const sortedUsers = users.sort((a, b) => b.points - a.points);
 
   // Slice the top 6 users into a separate array
-  const topUsers = sortedUsers.slice(0, 6);
+  const topUsers = sortedUsers.slice(0, 13);
 
   // Slice the top 3 users into a separate array
   const top3Users = topUsers.slice(0, 3);
 
   // Slice the remaining users into a separate array
-  const next3Users = topUsers.slice(3);
+  const next10Users = topUsers.slice(3, 10);
 
   return (
-    <div>
+    <div className={styles.viewport}>
       <h1>Leaderboard</h1>
 
-      <div className="top-users">
+      <div className={styles.topUsers}>
         {top3Users.map(user => (
-          <div key={user.id} className="user-card">
-            <div className="badge-icon">
+          <div key={user.id} className={styles.userCard}>
+            <div className={styles.badgeIcon}>
               {/* Add your badge icon component here */}
             </div>
-            <div className="username">{user.username}</div>
+            <div className={styles.username}>{user.username}</div>
           </div>
         ))}
       </div>
 
-      <table className="next-users">
+      <table className={styles.nextUsers}>
         <thead>
           <tr>
             <th>Rank</th>
@@ -72,7 +72,7 @@ const Leaderboard = () => {
           </tr>
         </thead>
         <tbody>
-          {next3Users.map((user, index) => (
+          {next10Users.map((user, index) => (
             <tr key={user.id}>
               <td>{index + 4}</td>
               <td>{user.username}</td>
