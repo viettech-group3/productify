@@ -1,0 +1,60 @@
+/* leaderboard.module.css */
+
+.container {
+  margin: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.top-users {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #f1c40f; /* Set the desired color for the badge icon */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.next-users {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.next-users th,
+.next-users td {
+  padding: 10px;
+}
+
+.next-users th {
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.next-users td {
+  text-align: center;
+}
+
+.next-users tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

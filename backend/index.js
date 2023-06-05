@@ -1,8 +1,8 @@
-const express = require("express");
-const connectDB = require("./config/db");
-const cors = require("cors");
-const UserRouter = require("./routes/User");
-const EventRouter = require("./routes/Event");
+const express = require('express');
+const connectDB = require('./config/db');
+const cors = require('cors');
+const UserRouter = require('./routes/User');
+const EventRouter = require('./routes/Event');
 
 // set up express server
 const app = express();
@@ -12,8 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // set up routes
-app.use("/api/users", UserRouter);
-app.use("/api/events", EventRouter);
+app.use('/api/users', UserRouter);
+app.use('/api/events', EventRouter);
 
 //connect to port
 const PORT = process.env.PORT || 5000;
@@ -26,7 +26,7 @@ const startServer = async () => {
       console.log(`Server started on port ${PORT}`);
     });
   } catch (error) {
-    console.error("Error connecting to MongoDB: ", error);
+    console.error('Error connecting to MongoDB: ', error);
     process.exit(1);
   }
 };
