@@ -36,20 +36,15 @@ const updateInvitationStatus = async (req, res) => {
   const userId = req.user._id;
   const { decision } = req.body;
   const eventId = req.params.id;
+  const event = await Event.findById(eventId);
 
   // wont do anything if decision if not valid or event is already done
-
   if (decision != 'accepted' && decision != 'denied') {
     res.status(400).json({ message: 'Invalidn decision choice' });
-  }
-
-  const event = await Event.findById(eventId);
-  if (event.status != 'ongoing') {
+  } else if (event.status != 'ongoing') {
     res.status(400).json({ message: 'Event is already done' });
-  }
-
-  // update the status only when boh eventId and userId match
-  try {
+  } else {
+    // update the status only when boh eventId and userId match
     const eventParticipation = await EventParticipation.findOneAndUpdate(
       {
         eventId: eventId,
@@ -64,9 +59,6 @@ const updateInvitationStatus = async (req, res) => {
     );
     console.log(eventParticipation);
     res.status(200).json({ message: 'Updated Status' });
-  } catch (error) {
-    console.log(`Failed to update Status event: ${error}`);
-    res.status(500).json({ error: error });
   }
 };
 
