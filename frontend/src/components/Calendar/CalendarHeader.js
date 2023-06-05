@@ -1,12 +1,16 @@
 import React from 'react';
 import styles from "./CalendarHeader.module.css";
 import icon from "../../assets/images/addicon.png";
+import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
+import { toggle } from '../../slices/ShowModalSlice' //Import toggle function to turn on/off Modal
 
 const CalendarHeader = () => {
+    const ShowModal = useSelector(state => state.ShowModal.value); //ShowModal is a boolean state that know as True - showing and False - not showing
+    const dispatch = useDispatch(); //dispatch is touse function to interact with State of Redux
     return (
         <header className={`d-flex align-items-center ${styles.header}`}>
-            <div className={styles.buttonContainer}>
-                <div className={`${styles.icon_sentence} d-flex align-items-center mt-4`}>
+            <div className={styles.buttonContainer} onClick={() => dispatch(toggle())}>
+                <div className={`${styles.icon_sentence} d-flex align-items-center mt-4`} >
                     <img src={icon} alt="Add Icon" className={styles.icon} />
                     <span className={styles.sentence}>Create</span>
                 </div>

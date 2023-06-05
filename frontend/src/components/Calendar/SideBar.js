@@ -3,6 +3,8 @@ import { getMonth } from "../../service/util";
 import MiniMonth from "./MiniMonth";
 import Points from "./Points";
 import UserSearch from "./UserSearch";
+import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
+import { toggle } from '../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
 
 const SideBar = () => {
   const monthTest = getMonth();
