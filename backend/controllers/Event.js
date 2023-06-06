@@ -50,6 +50,16 @@ const createEvent = async (req, res) => {
  * res: response object to return status 200 and events array.
  */
 
+const getAllEvents = async (req, res) => {
+  try {
+    const allEvents = await User.find();
+    res.status(200).json(allEvents); //it returned an array of Events
+
+  } catch (error) {
+    console.log('Failed to fetch all events from database');
+    res.status(500).json({ error: error })
+  }
+}
 /**
  * Controller function to modify event of a user
  * Asignee: chi Jenny
@@ -68,4 +78,5 @@ const createEvent = async (req, res) => {
 
 module.exports = {
   createEvent,
+  getAllEvents
 };
