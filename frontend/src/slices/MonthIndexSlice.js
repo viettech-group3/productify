@@ -12,11 +12,15 @@ export const MonthIndexSlice = createSlice({
         },
         decrease: state => {
             state.value = state.value - 1
+        },
+        reset: state => {
+            state.value = dayjs().month();
         }
+
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { increase, decrease } = MonthIndexSlice.actions
+export const { increase, decrease, reset } = MonthIndexSlice.actions
 
 export default MonthIndexSlice.reducer
