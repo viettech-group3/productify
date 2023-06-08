@@ -2,17 +2,18 @@ import { getMonth } from '../service/util';
 import Month from '../components/Calendar/Month';
 import CalendarHeader from '../components/Calendar/CalendarHeader';
 import SideBar from '../components/Calendar/SideBar';
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import Navbar from '../components/Header/Navbar';
 import Footer from '../components/Footer/Footer';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
-import { toggle } from '../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
 import EventModal from '../components/Calendar/EventModal/EventModal';
+import TodayModal from '../components/Calendar/TodayTaskModal/TodayModal';
 
 function Calendar() {
   const ShowModal = useSelector(state => state.ShowModal.value); //ShowModal is a boolean state that know as True - showing and False - not showing
+  const MonthIndex = useSelector(state => state.MonthIndex.value);
   const dispatch = useDispatch(); //dispatch is touse function to interact with State of Redux
-  const monthTest = getMonth();
+  const [currentMonth, setCurrentMonth] = useState(getMonth(MonthIndex));
   return (
     <div
       className="container-fluid App"
@@ -22,6 +23,7 @@ function Calendar() {
         display: 'flex',
         flexDirection: 'column',
         fontFamily: 'Montserrat',
+        padding: '0px',
       }}
     >
       <Navbar />
@@ -34,9 +36,10 @@ function Calendar() {
             <SideBar />
           </div>
           <div className="col-9">
+            <TodayModal />
             {ShowModal ? <EventModal /> : null}{' '}
             {/* If showModal is true => Displaying <EventModal/> */}
-            <Month month={monthTest} />
+            <Month month={currentMonth} />
           </div>
         </div>
       </div>
