@@ -3,19 +3,21 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  display: flex;
 }
 
 .ModalCard {
-  width: 20rem;
-  height: 25rem;
-  border: 2px solid black;
+  width: 30rem;
+  height: 30rem;
+  border: 2px solid whitesmoke;
   border-radius: 10px;
   background-color: white;
+  padding: 20px;
 }
 
 .ModalTitle {
@@ -24,8 +26,14 @@
   justify-content: end;
   height: 10%;
   width: 100%;
-  border-radius: 10px;
   background-color: whitesmoke;
+  margin-bottom: 10px;
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ModalCard:hover {
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
 }
 
 .closeButton {
