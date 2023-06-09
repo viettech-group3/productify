@@ -1,0 +1,13 @@
+.dayView_gridWrapper {
+  display: flex;
+}
+
+.dayView_gridSideTime {
+  display: flex;
+  flex-direction: column;
+}
+
+.dayView_gridMain {
+  border: 2px solid;
+  width: 100%;
+}
