@@ -68,12 +68,16 @@ const getAllEvents = async (req, res) => {
         return await Event.find({ _id: id, status: { $in: ['overdue', 'ongoing'] } }); // return an array
       })
     );
-    res.status(200).json(eventsOfThisUser)
+
+    const flattenedEvents = eventsOfThisUser.flat(); // Flattens the array of arrays
+
+    res.status(200).json(flattenedEvents)
   } catch (error) {
     console.log('Failed to fetch all events from database');
     res.status(500).json({ error: error })
   }
 }
+
 /**
  * Controller function to modify event of a user
  * Asignee: chi Jenny
