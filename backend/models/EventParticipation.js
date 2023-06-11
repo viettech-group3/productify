@@ -1,26 +1,28 @@
 // create a user moongose model with email,username and password
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const eventParticipationSchema = new mongoose.Schema({
   eventId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Event",
+    ref: 'Event',
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
   },
 
   status: {
     type: String,
-    enum: ["pending", "accepted", "denied"],
-    default: "pending",
+    enum: ['pending', 'accepted', 'denied'],
+    default: 'pending',
   },
 });
 
+eventParticipationSchema.index({ eventId: 1, userId: 1 }, { unique: true });
+
 const EventParticipation = mongoose.model(
-  "EventParticipation",
-  eventParticipationSchema
+  'EventParticipation',
+  eventParticipationSchema,
 );
 
 module.exports = EventParticipation;
