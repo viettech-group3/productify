@@ -2,6 +2,7 @@ const Event = require('../models/Event');
 const EventParticipation = require('../models/EventParticipation');
 const User = require('../models/User');
 const { invite } = require('../utils/invite');
+const { points } = require('../utils/points');
 
 // Create a new event function
 const createEvent = async (req, res) => {
@@ -104,17 +105,6 @@ const finishEvent = async (req, res) => {
       res.status(400).json({ message: 'Event already completed' });
     }
 
-    // get the point based on the time difference between start and end time
-    let period = event.end.getTime() - event.start.getTime();
-    period = period / 1000 / 60 / 60; // convert from milisecond to hours
-    let point = period * 10;
-
-    // check if the event is already overdue and deduct point accordingly
-    const currentTime = new Date();
-    if (event.end.getTime() < currentTime.getTime()) {
-      point = Math.floor(point / 2);
-    }
-
     // Find EventParticipation of the users with that event ID and status == accepted,
     // then for each Event Participation, update the point of that user
 
@@ -123,13 +113,15 @@ const finishEvent = async (req, res) => {
       status: 'accepted',
     });
 
-    for (let i = 0; i < participation.length; i++) {
-      await User.findByIdAndUpdate(
-        { _id: participation[i].userId },
-        { $inc: { points: point } },
+    const updatedEvents = participation.map(participation => {
+      return User.findByIdAndUpdate(
+        { _id: participation.userId },
+        { $inc: { points: points(event.start, event.end) } },
         { new: true },
       );
-    }
+    });
+    await Promise.all(updatedEvents);
+
     await Event.findByIdAndUpdate(
       { _id: eventId },
       { status: 'completed' },
