@@ -7,12 +7,17 @@
 }
 
 .dayView_gridSideTime {
-  display: flex;
-  flex-direction: column;
   width: 50px;
   height: 100%;
   justify-content: space-evenly; /* Use space-evenly to evenly distribute the items */
   align-items: center; /* Center align the items horizontally */
+}
+
+.dayView_gridSideTime div {
+  height: 37.5px;
+  text-align: center;
+  position: relative;
+  top: 25px;
 }
 
 .dayView_gridMain {
@@ -26,8 +31,4 @@
 
 .boxInDayView {
   border-bottom: 0.01px solid;
-}
-
-.dayView_gridSideTime span {
-  padding-top: 12px;
 }

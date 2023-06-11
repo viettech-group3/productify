@@ -21,31 +21,30 @@ const DayView = () => {
             <div className={styles.dayView_grid}>
                 <div className={styles.dayView_gridWrapper}>{/*THis is flexbox*/}
                     <div className={styles.dayView_gridSideTime}>
-                        <span></span>
-                        <span>1 AM</span>
-                        <span>2 AM</span>
-                        <span>3 AM</span>
-                        <span>4 AM</span>
-                        <span>5 AM</span>
-                        <span>6 AM</span>
-                        <span>7 AM</span>
-                        <span>8 AM</span>
-                        <span>9 AM</span>
-                        <span>10 AM</span>
-                        <span>11 AM</span>
-                        <span>12 PM</span>
-                        <span>1 PM</span>
-                        <span>2 PM</span>
-                        <span>3 PM</span>
-                        <span>4 PM</span>
-                        <span>5 PM</span>
-                        <span>6 PM</span>
-                        <span>7 PM</span>
-                        <span>8 PM</span>
-                        <span>9 PM</span>
-                        <span>10 PM</span>
-                        <span>11 PM</span>
-                        <span>12 AM</span>
+                        <div>1 AM</div>
+                        <div>2 AM</div>
+                        <div>3 AM</div>
+                        <div>4 AM</div>
+                        <div>5 AM</div>
+                        <div>6 AM</div>
+                        <div>7 AM</div>
+                        <div>8 AM</div>
+                        <div>9 AM</div>
+                        <div>10 AM</div>
+                        <div>11 AM</div>
+                        <div>12 PM</div>
+                        <div>1 PM</div>
+                        <div>2 PM</div>
+                        <div>3 PM</div>
+                        <div>4 PM</div>
+                        <div>5 PM</div>
+                        <div>6 PM</div>
+                        <div>7 PM</div>
+                        <div>8 PM</div>
+                        <div>9 PM</div>
+                        <div>10 PM</div>
+                        <div>11 PM</div>
+                        <div>12 AM</div>
                     </div>
                     <div className={styles.dayView_gridMain}>
                         {boxes}
