@@ -16,7 +16,7 @@ const EventRouter = express.Router();
 // Set up routes
 EventRouter.post('/create', protect, createEvent);
 EventRouter.post('/invite/:id', protect, invitedUserEmails);
-//EventRouter.get('/get', protect, getAllEvents);
+EventRouter.get('/get', protect, getAllEvents);
 EventRouter.put('/modify/:id', protect, modifyEvent);
 EventRouter.post('/finish/:id', protect, finishEvent);
 EventRouter.put('/updateStatus/:id', protect, updateInvitationStatus);

@@ -1,19 +1,31 @@
-const User = require("../models/User");
-const { generateToken } = require("../utils/auth");
-const bcrypt = require("bcryptjs");
+const User = require('../models/User');
+const { generateToken } = require('../utils/auth');
+const bcrypt = require('bcryptjs');
 
-//Sign up function
+// Get leaderboard function
+const leaderboard = async (req, res) => {
+  try {
+    // get all users
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error fetching leaderboard', error);
+    res.status(500).json({ error: 'Failed to fetch leaderboard' });
+  }
+};
+
+// Sign up function
 const signUp = async (req, res) => {
   let { email, username, password } = req.body;
   // simple validation
   if (!email || !username || !password) {
-    return res.status(400).json({ msg: "Please enter all fields" });
+    return res.status(400).json({ msg: 'Please enter all fields' });
   }
   // check for existing user
   try {
     const userExist = await User.findOne({ email });
     if (userExist) {
-      return res.status(400).json({ msg: "User already exists" });
+      return res.status(400).json({ msg: 'User already exists' });
     }
 
     // hash password
@@ -47,7 +59,7 @@ const login = async (req, res) => {
 
   // simple validation
   if (!email || !password) {
-    return res.status(400).json({ msg: "Please enter all fields" });
+    return res.status(400).json({ msg: 'Please enter all fields' });
   }
   // check for existing user
   try {
@@ -60,11 +72,11 @@ const login = async (req, res) => {
         token: generateToken(existingUser._id),
       });
     } else {
-      return res.status(401).json({ msg: "Invalid credentials" });
+      return res.status(401).json({ msg: 'Invalid credentials' });
     }
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
 };
 
-module.exports = { signUp, login };
+module.exports = { signUp, login, leaderboard };
