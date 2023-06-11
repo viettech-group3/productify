@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getMonth } from "../../service/util";
 import MiniMonth from "./MiniMonth";
 import Points from "./Points";
 import UserSearch from "./UserSearch";
+import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 
 const SideBar = () => {
-  const monthTest = getMonth();
+  const MonthIndex = useSelector(state => state.MonthIndex.value);
+  const [currentMonth, setCurrentMonth] = useState(getMonth(MonthIndex));
+  useEffect(() => {
+    //When MonthIndex is changed by redux dispatch => Then change currentMonth
+    setCurrentMonth(getMonth(MonthIndex));
+  }, [MonthIndex]);
 
   return (
     <div>
       <div>
-        <MiniMonth month={monthTest} />
+        <MiniMonth month={currentMonth} />
       </div>
       <div>
         <Points />

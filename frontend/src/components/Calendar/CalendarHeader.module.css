@@ -52,14 +52,14 @@
   cursor: pointer;
   margin-right: 150px;
   margin-left: 20px;
-  }
+}
 
 .icon_sentence:hover {
   transform: translateY(-5px);
   background-color: #caf0f8;
   color: whitesmoke;
-  }
-  
+}
+
 .sentence {
   margin-right: 30px;
   margin-left: 15px;
@@ -70,4 +70,13 @@
 
 .today {
   margin-left: 50px;
+}
+
+.buttonArrow {
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.buttonArrow:hover {
+  background-color: #ced4da;
 }
