@@ -1,6 +1,15 @@
 import React from 'react'
 import styles from './DayView.module.css'
 const DayView = () => {
+
+    const boxes = []
+    for (let i = 0; i < 23; i++) {
+        boxes.push(
+            <div className={styles.boxInDayView}>
+
+            </div>
+        )
+    }
     return (
         <div className={styles.container}>
             <div className={styles.dayViewHeader}>Current Date/Month/Year</div>
@@ -12,6 +21,7 @@ const DayView = () => {
             <div className={styles.dayView_grid}>
                 <div className={styles.dayView_gridWrapper}>{/*THis is flexbox*/}
                     <div className={styles.dayView_gridSideTime}>
+                        <span></span>
                         <span>1 AM</span>
                         <span>2 AM</span>
                         <span>3 AM</span>
@@ -35,8 +45,11 @@ const DayView = () => {
                         <span>9 PM</span>
                         <span>10 PM</span>
                         <span>11 PM</span>
+                        <span>12 AM</span>
                     </div>
-                    <div className={styles.dayView_gridMain}></div>
+                    <div className={styles.dayView_gridMain}>
+                        {boxes}
+                    </div>
                 </div>
             </div>
         </div>
