@@ -44,7 +44,6 @@ const DayView = () => {
                         <div>9 PM</div>
                         <div>10 PM</div>
                         <div>11 PM</div>
-                        <div>12 AM</div>
                     </div>
                     <div className={styles.dayView_gridMain}>
                         {boxes}
