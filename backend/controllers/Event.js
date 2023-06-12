@@ -84,29 +84,6 @@ const getAllEvents = async (req, res) => {
 };
 
 
-
-const getAllEvents = async (req, res) => {
-  try {
-    const userId = req.user._id; //Fetch the UserId of current User
-    const participation = await EventParticipation.find({   //Find in EventParticipation, which Participation have the same userId with current user, and status is "accepted"
-      userId: userId,
-      status: 'accepted',
-    })
-    const eventsIdOfThisUser = participation.map((eventParticipation) => {  //After have the EventParticipation, we can access t
-      return eventParticipation.eventId;
-    })
-
-    const eventsOfThisUser = await Promise.all( //We need this line beacuse Event.find() is a Promise (it can be success or failed), this line only accept success Promise
-      eventsIdOfThisUser.map(async (id) => {
-        return await Event.find({ _id: id, status: { $in: ['overdue', 'ongoing'] } }); // return an array
-      })
-    );
-    res.status(200).json(eventsOfThisUser)
-  } catch (error) {
-    console.log('Failed to fetch all events from database');
-    res.status(500).json({ error: error })
-  }
-}
 /**
  * Controller function to modify event of a user
  * Asignee: chi Jenny
