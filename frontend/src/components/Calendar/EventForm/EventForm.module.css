@@ -1,3 +1,8 @@
+.form {
+  max-height: 30rem;
+  overflow-y: auto;
+}
+
 .input {
   width: 100%;
   padding: 8px;
@@ -78,7 +83,10 @@
 }
 
 .labelColumn .label {
-  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 51px;
 }
 
 .inputColumn {
@@ -96,4 +104,20 @@
 .icon {
   margin-right: 10px;
   color: var(--main-blue);
+}
+
+.addGuestButton {
+  position: relative;
+  bottom: 10px;
+}
+
+.emailList {
+  position: relative;
+  top: -40px;
+  margin-left: 9rem;
+}
+
+.invitedEmail {
+  border: solid 1px;
+  border-radius: 10px;
 }

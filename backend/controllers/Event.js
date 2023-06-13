@@ -26,6 +26,7 @@ const createEvent = async (req, res) => {
       status: 'accepted',
     });
     await creatorParticipation.save();
+    //Add a populate below this code to ref userId into email in database
 
     // Invited is an array of emails
     if (invited) {
@@ -200,4 +201,8 @@ const checkIfEventOverdue = async (req, res) => {
 
 module.exports = {
   createEvent,
+  getAllEvents,
+  modifyEvent,
+  finishEvent,
+  checkIfEventOverdue
 };

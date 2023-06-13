@@ -14,7 +14,7 @@ const DayView = () => {
         <div className={styles.container}>
             <div className={styles.dayViewHeader}>Current Date/Month/Year</div>
             <div className={styles.dayView_onTopRow}>
-                <div>UTC-7</div>
+                <div style={{ width: "50px", fontSize: "13px", textAlign: 'center' }}>UTC-7</div>
                 <div className={styles.dayView_onTopRow_Border}></div>
             </div>
 

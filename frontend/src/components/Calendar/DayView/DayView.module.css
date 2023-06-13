@@ -1,5 +1,5 @@
 .dayView_grid {
-  height: 900px;
+  height: 1200px;
 }
 .dayView_gridWrapper {
   display: flex;
@@ -14,7 +14,8 @@
 }
 
 .dayView_gridSideTime div {
-  height: 37.5px;
+  font-size: 13px;
+  height: 50px /* height of dayView_grid / 24 = 900/24 */;
   text-align: center;
   position: relative;
   top: 25px;
@@ -24,11 +25,21 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border: 0.01px solid;
+  border: 0.01px solid #adb5bd;
   height: 100%;
   width: 100%;
 }
 
 .boxInDayView {
-  border-bottom: 0.01px solid;
+  border-bottom: 0.01px solid #adb5bd;
+}
+
+.dayView_onTopRow {
+  display: flex;
+}
+
+.dayView_onTopRow_Border {
+  width: 100%;
+  border-left: 1px solid #adb5bd;
+  border-right: 1px solid #adb5bd;
 }
