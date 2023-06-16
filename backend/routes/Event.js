@@ -2,7 +2,7 @@
 const express = require('express');
 const {
   createEvent,
-  //getAllEvents,
+  getAllEvents,
   modifyEvent,
   finishEvent,
 } = require('../controllers/Event');
