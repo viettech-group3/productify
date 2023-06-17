@@ -24,7 +24,7 @@ const CalendarHeader = () => {
           <img src={icon} alt="Add Icon" className={styles.icon} />
           <span className={styles.sentence}>Create</span>
         </div>
-        <div onClick={handleInvitationBox}>Show Invitation Box</div>{' '}
+        <div onClick={handleInvitationBox}>Show Invitation Box</div>
         <button onClick={handleInvitationBox}>Unshow Invitation Box</button>
         {/*we can add icon then */}
         <button

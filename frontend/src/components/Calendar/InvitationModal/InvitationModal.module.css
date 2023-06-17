@@ -9,6 +9,7 @@
   align-items: center;
   z-index: 1000;
   display: flex;
+  pointer-events: none;
 }
 
 .invitationModal {
