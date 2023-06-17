@@ -51,7 +51,6 @@ const createEvent = async (req, res) => {
  * req: request object containing user id.
  * res: response object to return status 200 and events array.
  */
-
 const getAllEvents = async (req, res) => {
   try {
     const userId = req.user._id; //Fetch the UserId of current User
@@ -83,6 +82,52 @@ const getAllEvents = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
+
+
+//Add this events to display on MOnth View
+const getAllEventsToday = async (req, res) => {
+  try {
+    let currentDate1 = new Date(req.query.currentDate);
+    currentDate1 = new Date(currentDate1)
+    const userId = req.user._id; //Fetch the UserId of current User
+    const participation = await EventParticipation.find({
+      //Find in EventParticipation, which Participation have the same userId with current user, and status is "accepted"
+      userId: userId,
+      status: 'accepted',
+    });
+    const eventsIdOfThisUser = participation.map(eventParticipation => {
+      //After have the EventParticipation, we can access t
+      return eventParticipation.eventId;
+    });
+
+    const eventsOfThisUser = await Promise.all(
+      //We need this line beacuse Event.find() is a Promise (it can be success or failed), this line only accept success Promise
+      eventsIdOfThisUser.map(async id => {
+        return await Event.find({
+          _id: id,
+          status: { $in: ['overdue', 'ongoing'] },
+        }); // return an array
+      }),
+    );
+    const flattenedEvents = eventsOfThisUser.flat(); // Flattens the array of arrays, make 2D array become 1D array
+    const todayEvents = flattenedEvents.filter(event => {
+      const start = new Date(event.start);
+      const end = new Date(event.end);
+      // Check if the start date matches the current date (ignoring the time)
+      return (
+        start.getTime() <= currentDate1.getTime() &&
+        currentDate1.getTime() <= end.getTime()
+      );
+    });
+
+    res.status(200).json(todayEvents);
+  } catch (error) {
+    console.log('Failed to fetch all TODAY events from database');
+    res.status(500).json({ error: error });
+  }
+};
+
+
 
 
 /**
@@ -202,6 +247,7 @@ const checkIfEventOverdue = async (req, res) => {
 module.exports = {
   createEvent,
   getAllEvents,
+  getAllEventsToday,
   modifyEvent,
   finishEvent,
   checkIfEventOverdue
