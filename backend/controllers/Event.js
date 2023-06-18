@@ -87,8 +87,48 @@ const getAllEvents = async (req, res) => {
 //Add this events to display on MOnth View
 const getAllEventsToday = async (req, res) => {
   try {
-    let currentDate1 = new Date(req.query.currentDate);
-    currentDate1 = new Date(currentDate1)
+    const currentDate = new Date(req.query.currentDate);
+    const userId = req.user._id;
+
+    const participation = await EventParticipation.find({
+      userId: userId,
+      status: 'accepted',
+    });
+
+    const eventsIdOfThisUser = participation.map(eventParticipation => {
+      return eventParticipation.eventId;
+    });
+
+    const eventsOfThisUser = await Event.find({
+      _id: { $in: eventsIdOfThisUser },
+      status: { $in: ['overdue', 'ongoing'] },
+    });
+
+    const todayEvents = eventsOfThisUser.filter(event => {
+      const start = new Date(event.start);
+      const end = new Date(event.end);
+      const startOfCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0, 1);
+      const endOfCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59, 999);
+      console.log(start, end, startOfCurrentDate, endOfCurrentDate, "Date is: ", event.start.toString(), event.end.toString())
+      const minTime = Math.min(start.getTime(), end.getTime(), startOfCurrentDate.getTime(), endOfCurrentDate.getTime())
+      const maxTime = Math.max(start.getTime(), end.getTime(), startOfCurrentDate.getTime(), endOfCurrentDate.getTime())
+      return ((maxTime - minTime) < 24 * 60 * 60 * 1000 + (end.getTime() - start.getTime()));
+    });
+
+
+    res.status(200).json(todayEvents);
+  } catch (error) {
+    console.log('Failed to fetch all TODAY events from the database:', error.message);
+    res.status(500).json({ error: 'Failed to fetch events' });
+  }
+};
+
+
+const getAllEventsMonths = async (req, res) => {
+  try {
+    let startDate = new Date(req.query.startDate);
+    let endDate = new Date(req.query.endDate);
+    console.log(startDate, endDate)
     const userId = req.user._id; //Fetch the UserId of current User
     const participation = await EventParticipation.find({
       //Find in EventParticipation, which Participation have the same userId with current user, and status is "accepted"
@@ -109,24 +149,21 @@ const getAllEventsToday = async (req, res) => {
         }); // return an array
       }),
     );
-    const flattenedEvents = eventsOfThisUser.flat(); // Flattens the array of arrays, make 2D array become 1D array
-    const todayEvents = flattenedEvents.filter(event => {
-      const start = new Date(event.start);
-      const end = new Date(event.end);
+    const flattenedEvents = eventsOfThisUser.flat(); // Flattens the array of arrays (of this user's events), make 2D array become 1D array
+    const monthEvents = flattenedEvents.filter(event => {
       // Check if the start date matches the current date (ignoring the time)
       return (
-        start.getTime() <= currentDate1.getTime() &&
-        currentDate1.getTime() <= end.getTime()
+        startDate.getTime() <= event.start.getTime() &&
+        event.end.getTime() <= endDate.getTime()
       );
     });
 
-    res.status(200).json(todayEvents);
+    res.status(200).json(monthEvents);
   } catch (error) {
-    console.log('Failed to fetch all TODAY events from database');
+    console.log('Failed to fetch all Month events from database');
     res.status(500).json({ error: error });
   }
 };
-
 
 
 
@@ -248,6 +285,7 @@ module.exports = {
   createEvent,
   getAllEvents,
   getAllEventsToday,
+  getAllEventsMonths,
   modifyEvent,
   finishEvent,
   checkIfEventOverdue

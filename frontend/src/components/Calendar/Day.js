@@ -8,6 +8,7 @@ import axios from 'axios'
 
 function Day({ day, row }) {
   console.log("day is:", day.toString())
+  const currentDate = new Date(day)
   const ShowModal = useSelector(state => state.ShowModal.value); //ShowModal is a boolean state that know as True - showing and False - not showing
   const MonthIndex = useSelector(state => state.MonthIndex.value)
   //const TodayEvents = useSelector(state => state.TodayEvents.value);
@@ -18,44 +19,19 @@ function Day({ day, row }) {
   const exampleTokenForPhuoc =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NjE1NzQxOSwiZXhwIjoxNjg4NzQ5NDE5fQ.u2Xv7d9vm62wFiNQEJgq4Mak6LBBjpe9I69Dl4BH8eA';
 
-  const [todayEvents, setTodayEvents] = useState([])
 
-  useEffect(() => {
-    const source = axios.CancelToken.source();
+  const MonthEvents = useSelector(state => state.MonthEvents.value)
+  const todayEvents = MonthEvents.filter(event => {
+    const start = new Date(event.start);
+    const end = new Date(event.end);
+    const startOfCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0, 1);
+    const endOfCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59, 999);
+    console.log(start, end, startOfCurrentDate, endOfCurrentDate, "Date is: ", event.start.toString(), event.end.toString())
+    const minTime = Math.min(start.getTime(), end.getTime(), startOfCurrentDate.getTime(), endOfCurrentDate.getTime())
+    const maxTime = Math.max(start.getTime(), end.getTime(), startOfCurrentDate.getTime(), endOfCurrentDate.getTime())
+    return ((maxTime - minTime) < 24 * 60 * 60 * 1000 + (end.getTime() - start.getTime()));
+  });
 
-    const fetchEvents = async () => {
-      try {
-        const response = await axios.get(
-          'http://localhost:5000/api/events/getToday',
-          {
-            params: {
-              currentDate: day,
-            },
-            headers: {
-              Authorization: `Bearer ${exampleTokenForPhuoc}`,
-            },
-            cancelToken: source.token,
-          }
-        );
-
-        console.log("reponse.data of", day.toString(), "is", response.data);
-        setTodayEvents(response.data);
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          console.log('Request canceled', error.message);
-        } else {
-          console.error(error);
-        }
-      }
-    };
-
-    fetchEvents();
-
-    return () => {
-      source.cancel();
-    };
-
-  }, [RefetchEvents, MonthIndex, day]);
 
   return (
     <td key={day} className={styles.box_day} onClick={() => dispatch(toggle())}>
