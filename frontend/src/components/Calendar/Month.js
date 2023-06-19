@@ -9,28 +9,47 @@ import { set, add, remove, update } from '../../slices/MonthEventsSlice'
 export default function Month({ month }) {
   const exampleTokenForPhuoc =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NjE1NzQxOSwiZXhwIjoxNjg4NzQ5NDE5fQ.u2Xv7d9vm62wFiNQEJgq4Mak6LBBjpe9I69Dl4BH8eA';
-  let MonthEvents = useSelector(state => state.MonthEvents.value)
-  let MonthIndex = useSelector(state => state.MonthIndex.value)
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const startDate = month[0][0]
   const endDate = month[4][6]
+  console.log(123)
   useEffect(() => {
-    axios.get('http://localhost:5000/api/events/getMonth', {
-      params: {
-        startDate: startDate,
-        endDate: endDate,
-      },
-      headers: {
-        Authorization: `Bearer ${exampleTokenForPhuoc}`,
+    let cancelRequest = null;
+
+    const fetchData = async () => {
+      try {
+        const source = axios.CancelToken.source();
+        cancelRequest = source.cancel;
+
+        const response = await axios.get('http://localhost:5000/api/events/getMonth', {
+          params: {
+            startDate: startDate,
+            endDate: endDate,
+          },
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
+          cancelToken: source.token,
+        });
+
+        dispatch(set(response.data));  //Update MonthEvents Global state in Redux Store
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log('Request canceled', error.message);
+        } else {
+          console.log('Error:', error.message)
+        }
       }
-    }).then((response) => {
-      dispatch(set(response.data));
-      console.log("monthEvents:", MonthEvents)
-    }).catch((error) => {
-      console.log("There is some error when we try to fetch Month Events")
-      console.log(error)
-    })
-  }, [MonthIndex])
+    };
+
+    fetchData();
+
+    return () => {
+      if (cancelRequest) {
+        cancelRequest('Request canceled');
+      }
+    };
+  }, [month]);
 
   return (
     <div className={styles.container}>

@@ -37,7 +37,7 @@ const createEvent = async (req, res) => {
       //Make sure all promise is fullfilled
       await Promise.all(invitedParticipation);
     }
-    res.status(201).json({ event: event });
+    res.status(201).json(event.toJSON());
   } catch (error) {
     console.log(`Failed to create event: ${error}`);
     res.status(500).json({ error: error });
@@ -151,12 +151,14 @@ const getAllEventsMonths = async (req, res) => {
     );
     const flattenedEvents = eventsOfThisUser.flat(); // Flattens the array of arrays (of this user's events), make 2D array become 1D array
     const monthEvents = flattenedEvents.filter(event => {
-      // Check if the start date matches the current date (ignoring the time)
-      return (
-        startDate.getTime() <= event.start.getTime() &&
-        event.end.getTime() <= endDate.getTime()
-      );
+      const startOfEvent = new Date(event.start);
+      const endOfEvent = new Date(event.end);
+      const startOfCurrentMonth = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0, 0, 0, 1);
+      const endOfCurrentMonth = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), 23, 59, 59, 999);
+      console.log(startOfEvent, endOfEvent, startOfCurrentMonth, endOfCurrentMonth, "Date is: ", event.start.toString(), event.end.toString())
+      return (startOfEvent <= endOfCurrentMonth && endOfEvent >= startOfCurrentMonth);
     });
+
 
     res.status(200).json(monthEvents);
   } catch (error) {

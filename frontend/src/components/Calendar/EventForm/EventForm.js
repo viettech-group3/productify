@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 import { toggle } from '../../../slices/ShowModalSlice' //Import toggle function to turn on/off Modal
+import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
 
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
@@ -41,6 +42,7 @@ const EventForm = () => {
   const handleSubmit = async event => {
     event.preventDefault();
     console.log(event);
+    dispatch(toggle())
     try {
       const response = await axios.post(
         'http://localhost:5000/api/events/create',
@@ -51,15 +53,18 @@ const EventForm = () => {
             Authorization: `Bearer ${exampleTokenForPhuoc}`
           },
         },
-      );
-      console.log('Response:', response);
+      ).then((response) => {
+        console.log('Response:', response);
+        dispatch((add(response.data)))
+      })
+
     } catch (error) {
       console.log(
         'There is an error when try to send POST REQUEST to http://localhost:5000/api/events/create',
       );
       console.log('ERROR: ', error);
     }
-    dispatch(toggle())
+
   };
 
   const handleAddGuest = () => {
