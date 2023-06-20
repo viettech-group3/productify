@@ -10,6 +10,8 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@livekit/components-react": "^1.0.5",
+    "@livekit/components-styles": "^1.0.1",
     "@mui/material": "^5.13.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
