@@ -5,12 +5,13 @@ const { invite } = require('../utils/invite');
 
 // Invite user emails function
 const invitedUserEmails = async (req, res) => {
+  const invitor = req.user._id;
   const { invited } = req.body;
   const eventId = req.params.id;
   if (!invited) return res.status(400).json({ error: 'No invited users' });
   else {
     const invitedParticipation = invited.map(
-      async email => await invite(email, eventId),
+      async email => await invite(email, eventId, invitor),
     );
     await Promise.all(invitedParticipation);
     res.status(201).json({ message: 'Invited users' });
@@ -19,11 +20,36 @@ const invitedUserEmails = async (req, res) => {
 
 /**
  * Controller function to get all pending invitations of a user
- * Asignee: chi Robin
+ * Asignee: Jenny
  * Name: getPendingInvitations
  * req: request object containing user id.
  * res: response object to return status 200.
  */
+const getPendingInvitations = async (req, res) => {
+  try {
+    // need to change schema to get the person who send the invitation
+    const userId = req.user._id;
+    const participation = await EventParticipation.find({
+      userId: userId,
+      status: 'pending',
+    });
+
+    const result = await Promise.all(
+      participation.map(async participation => {
+        const invitor = await User.findById(participation.invitedBy);
+        let tempEvent = await Event.findById(participation.eventId);
+        tempEvent = JSON.parse(JSON.stringify(tempEvent));
+        const modifiedResult = { ...tempEvent, invitedBy: invitor.email };
+        return modifiedResult;
+      }),
+    );
+
+    res.status(201).json({ invitedEvents: result });
+  } catch (error) {
+    console.log('Failed to fetch pending Inviattions of a user');
+    res.status(500).json({ error: error });
+  }
+};
 
 /**
  * Controller function when a user accept or decline an invitation
@@ -62,4 +88,8 @@ const updateInvitationStatus = async (req, res) => {
   }
 };
 
-module.exports = { invitedUserEmails, updateInvitationStatus };
+module.exports = {
+  invitedUserEmails,
+  updateInvitationStatus,
+  getPendingInvitations,
+};

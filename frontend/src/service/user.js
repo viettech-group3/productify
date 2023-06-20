@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const createUser = async (email, username, password) => {
   try {
     const config = {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
     };
     const { data } = await axios.post(
-      "http://localhost:5000/api/users",
+      'http://localhost:5000/api/users',
       { username, email, password },
-      config
+      config,
     );
     return data;
   } catch (error) {
@@ -22,13 +22,13 @@ export const loginUser = async (email, password) => {
   try {
     const config = {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
     };
     const { data } = await axios.post(
-      "http://localhost:5000/api/users/login",
+      'http://localhost:5000/api/users/login',
       { email, password },
-      config
+      config,
     );
     return data;
   } catch (error) {
