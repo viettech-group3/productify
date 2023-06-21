@@ -1,3 +1,7 @@
+p {
+  margin-bottom: 0 !important;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -9,10 +13,28 @@
   align-items: center;
   z-index: 1000;
   display: flex;
-  pointer-events: none;
 }
 
 .invitationModal {
   border: 2px solid;
   background-color: whitesmoke;
+  padding: 3px 10px 3px 10px;
+}
+
+.invitationModal:hover {
+  cursor: pointer;
+}
+
+.eachInvitation {
+  border: 2px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eachInvitation p {
+  padding: 0px 5px 0px 5px;
+}
+
+.modalHeader {
 }

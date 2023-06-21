@@ -12,7 +12,6 @@ import DayView from '../components/Calendar/DayView/DayView';
 function Calendar() {
   const ShowModal = useSelector(state => state.ShowModal.value); //ShowModal is a boolean state that know as True - showing and False - not showing
   const MonthIndex = useSelector(state => state.MonthIndex.value);
-  const dispatch = useDispatch(); //dispatch is touse function to interact with State of Redux
   const [currentMonth, setCurrentMonth] = useState(getMonth(MonthIndex));
   useEffect(() => {
     //When MonthIndex is changed by redux dispatch => Then change currentMonth

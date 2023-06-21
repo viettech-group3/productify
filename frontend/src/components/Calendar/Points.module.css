@@ -1,37 +1,36 @@
 .taskList {
-    list-style-type: none;
-    padding: 5px;
+  list-style-type: none;
+  padding: 5px;
 }
-  
+
 .tasks {
-    margin-left: 20px;
+  margin-left: 20px;
 }
-  
+
 .iconButton {
-    background-color: #fff;
-    margin-bottom: 20px;
-    color: #000;
-    padding: 10px 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border-radius: 10%;
-    transition: background-color 0.5s ease;
-    border: 2px solid var(--main-blue);
-    width: 200px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  color: #000;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 10%;
+  transition: background-color 0.5s ease;
+  border: 2px solid var(--main-blue);
+  width: 200px;
 }
-  
+
 .iconButton:hover {
-    background-color: var(--main-blue);
-    color: #fff;
+  background-color: var(--main-blue);
+  color: #fff;
 }
 
 .label {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 .points {
-    font-style: italic;
-    font-weight: 600;
-    color: var(--main-blue);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--main-blue);
 }
-  

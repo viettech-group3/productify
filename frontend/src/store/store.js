@@ -4,13 +4,15 @@ import MonthIndexReducer from '../slices/MonthIndexSlice'
 import ShowTodayTasksReducer from '../slices/ShowTodayTasksSlice'
 import TodayEventsReducer from '../slices/TodayEventsSlice'
 import MonthEventsReducer from '../slices/MonthEventsSlice'
+import ShowInvitationReducer from '../slices/ShowInvitationModal'
 
 export default configureStore({
-    reducer: {
-        ShowModal: ShowModalReducer,
-        MonthIndex: MonthIndexReducer,
-        ShowTodayTasks: ShowTodayTasksReducer,
-        TodayEvents: TodayEventsReducer,
-        MonthEvents: MonthEventsReducer
-    }
+  reducer: {
+    ShowModal: ShowModalReducer,
+    MonthIndex: MonthIndexReducer,
+    ShowTodayTasks: ShowTodayTasksReducer,
+    TodayEvents: TodayEventsReducer,
+    MonthEvents: MonthEventsReducer,
+    ShowInvitationModal: ShowInvitationReducer,
+  }
 })

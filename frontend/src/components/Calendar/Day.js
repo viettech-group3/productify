@@ -3,6 +3,8 @@ import styles from "./Day.module.css";
 import dayjs from "dayjs";
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 import { toggle } from '../../slices/ShowModalSlice' //Import toggle function to turn on/off Modal
+import { filterTodayEvents } from "../../service/util";
+import { current } from "@reduxjs/toolkit";
 
 
 function Day({ day, row }) {
@@ -12,15 +14,7 @@ function Day({ day, row }) {
   const circleColor = isToday ? "#aacaef" : ""; // If it is today, the circle will be blue
 
   const MonthEvents = useSelector(state => state.MonthEvents.value)
-  const todayEvents = MonthEvents.filter(event => {  //Algorithm to filter which events is on today
-    const start = new Date(event.start);
-    const end = new Date(event.end);
-    const startOfCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0, 1);
-    const endOfCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59, 999);
-    const minTime = Math.min(start.getTime(), end.getTime(), startOfCurrentDate.getTime(), endOfCurrentDate.getTime())
-    const maxTime = Math.max(start.getTime(), end.getTime(), startOfCurrentDate.getTime(), endOfCurrentDate.getTime())
-    return ((maxTime - minTime) < 24 * 60 * 60 * 1000 + (end.getTime() - start.getTime()));
-  });
+  const todayEvents = filterTodayEvents(MonthEvents, currentDate); //filter all today events from MonthEvents state
 
 
   return (

@@ -14,11 +14,11 @@ export default function Month({ month }) {
   const endDate = month[4][6]
   console.log(123)
   useEffect(() => {
-    let cancelRequest = null;
+    let cancelRequest = null; //This is set up to cacel request if we try to send to many requests at the same time (such as moving forward/backward month too fast and send GET requests continuously)
 
     const fetchData = async () => {
       try {
-        const source = axios.CancelToken.source();
+        const source = axios.CancelToken.source(); //Token to check status of request
         cancelRequest = source.cancel;
 
         const response = await axios.get('http://localhost:5000/api/events/getMonth', {
@@ -44,7 +44,7 @@ export default function Month({ month }) {
 
     fetchData();
 
-    return () => {
+    return () => { //This is cleanup function of useEffect() to cancel old request before making the new request
       if (cancelRequest) {
         cancelRequest('Request canceled');
       }
