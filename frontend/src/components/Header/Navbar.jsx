@@ -1,12 +1,12 @@
-import React from "react";
-import styles from "./Navbar.module.css";
-import logo from "../../assets/images/logoBlue.png";
+import React from 'react';
+import styles from './Navbar.module.css';
+import logo from '../../assets/images/logoBlue.png';
 
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <a href="/Home">
-        <img src={logo} alt="Logo" className={styles.logo} />{" "}
+        <img src={logo} alt="Logo" className={styles.logo} />{' '}
         {/* Add the logo */}
       </a>
       <ul className={styles.navbarNav}>

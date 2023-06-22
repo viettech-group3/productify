@@ -1,33 +1,33 @@
 .button1 {
-    background-color: #fff;
-    margin-bottom: 20px;
-    color: #000;
-    margin-top: 20px;
-    padding: 10px 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-left: 20px;
-    border-radius: 10%;
-    transition: background-color 0.5s ease;
-    border: 2px solid #aacaef;
-    width: 200px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  color: #000;
+  margin-top: 20px;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 20px;
+  border-radius: 10%;
+  transition: background-color 0.5s ease;
+  border: 2px solid #aacaef;
+  width: 200px;
 }
-  
+
 .button1:hover {
-    background-color: #aacaef;
-    color: #fff;
+  background-color: #aacaef;
+  color: #fff;
 }
 
 .search {
-    margin-left: 20px;
-    margin-right: 20px;
-    border-radius: 10%;
-    padding: 10px 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 10%;
+  padding: 10px 10px;
 }
 
 .searchButton {
-    background-color: #aacaef;
-    color: #fff;
-    padding: 10px 10px;
-    border-radius: 10%;
+  background-color: #aacaef;
+  color: #fff;
+  padding: 10px 10px;
+  border-radius: 10%;
 }

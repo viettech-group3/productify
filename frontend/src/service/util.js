@@ -13,3 +13,15 @@ export function getMonth(month = dayjs().month()) {
   });
   return daysMatrix;
 }
+
+export function filterTodayEvents(MonthEvents, currentDate) {
+  return MonthEvents.filter(event => {  //Algorithm to filter which events is on today
+    const start = new Date(event.start);
+    const end = new Date(event.end);
+    const startOfCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0, 1);
+    const endOfCurrentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59, 999);
+    const minTime = Math.min(start.getTime(), end.getTime(), startOfCurrentDate.getTime(), endOfCurrentDate.getTime())
+    const maxTime = Math.max(start.getTime(), end.getTime(), startOfCurrentDate.getTime(), endOfCurrentDate.getTime())
+    return ((maxTime - minTime) < 24 * 60 * 60 * 1000 + (end.getTime() - start.getTime())); //If day and event intersect in any range
+  });
+}

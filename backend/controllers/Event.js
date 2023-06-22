@@ -3,6 +3,7 @@ const EventParticipation = require('../models/EventParticipation');
 const User = require('../models/User');
 const { invite } = require('../utils/invite');
 const { points } = require('../utils/points');
+const { filterTodayEvents, filterMonthEvents } = require('../utils/filterEvents')
 
 // Create a new event function
 const createEvent = async (req, res) => {
@@ -26,6 +27,7 @@ const createEvent = async (req, res) => {
       status: 'accepted',
     });
     await creatorParticipation.save();
+    //Add a populate below this code to ref userId into email in database
 
     // Invited is an array of emails
     if (invited) {
@@ -36,7 +38,7 @@ const createEvent = async (req, res) => {
       //Make sure all promise is fullfilled
       await Promise.all(invitedParticipation);
     }
-    res.status(201).json({ event: event });
+    res.status(201).json(event); //Adjust this return to fetch it easily in MonthEvents Redux Store
   } catch (error) {
     console.log(`Failed to create event: ${error}`);
     res.status(500).json({ error: error });
@@ -50,7 +52,6 @@ const createEvent = async (req, res) => {
  * req: request object containing user id.
  * res: response object to return status 200 and events array.
  */
-
 const getAllEvents = async (req, res) => {
   try {
     const userId = req.user._id; //Fetch the UserId of current User
@@ -64,7 +65,7 @@ const getAllEvents = async (req, res) => {
       return eventParticipation.eventId;
     });
 
-    const eventsOfThisUser = await Promise.all(
+    let eventsOfThisUser = await Promise.all(
       //We need this line beacuse Event.find() is a Promise (it can be success or failed), this line only accept success Promise
       eventsIdOfThisUser.map(async id => {
         return await Event.find({
@@ -74,14 +75,88 @@ const getAllEvents = async (req, res) => {
       }),
     );
 
-    const flattenedEvents = eventsOfThisUser.flat(); // Flattens the array of arrays
+    eventsOfThisUser = eventsOfThisUser.flat(); // Flattens the array of arrays
 
-    res.status(200).json(flattenedEvents);
+    res.status(200).json(eventsOfThisUser);
   } catch (error) {
     console.log('Failed to fetch all events from database');
     res.status(500).json({ error: error });
   }
 };
+
+
+//Add this events to display on MOnth View
+const getAllEventsToday = async (req, res) => {
+  try {
+    const currentDate = new Date(req.query.currentDate);
+    const userId = req.user._id;
+
+    const participation = await EventParticipation.find({
+      userId: userId,
+      status: 'accepted',
+    });
+
+    const eventsIdOfThisUser = participation.map(eventParticipation => {
+      return eventParticipation.eventId;
+    });
+
+    let eventsOfThisUser = await Promise.all(
+      //We need this line beacuse Event.find() is a Promise (it can be success or failed), this line only accept success Promise
+      eventsIdOfThisUser.map(async id => {
+        return await Event.find({
+          _id: id,
+          status: { $in: ['overdue', 'ongoing'] },
+        }); // return an array
+      }),
+    );
+
+    eventsOfThisUser = eventsOfThisUser.flat(); // Flattens the array of arrays
+    const todayEvents = filterTodayEvents(eventsOfThisUser, currentDate) //filter all event that ongoing on currentDate
+
+    res.status(200).json(todayEvents);
+  } catch (error) {
+    console.log('Failed to fetch all TODAY events from the database:', error.message);
+    res.status(500).json({ error: 'Failed to fetch events' });
+  }
+};
+
+
+const getAllEventsMonths = async (req, res) => {
+  try {
+    let startDate = new Date(req.query.startDate);
+    let endDate = new Date(req.query.endDate);
+    const userId = req.user._id; //Fetch the UserId of current User
+    const participation = await EventParticipation.find({
+      //Find in EventParticipation, which Participation have the same userId with current user, and status is "accepted"
+      userId: userId,
+      status: 'accepted',
+    });
+    const eventsIdOfThisUser = participation.map(eventParticipation => {
+      //After have the EventParticipation, we can access t
+      return eventParticipation.eventId;
+    });
+
+    let eventsOfThisUser = await Promise.all(
+      //We need this line beacuse Event.find() is a Promise (it can be success or failed), this line only accept success Promise
+      eventsIdOfThisUser.map(async id => {
+        return await Event.find({
+          _id: id,
+          status: { $in: ['overdue', 'ongoing'] },
+        }); // return an array
+      }),
+    );
+    eventsOfThisUser = eventsOfThisUser.flat(); // Flattens the array of arrays (of this user's events), make 2D array become 1D array
+    const monthEvents = filterMonthEvents(eventsOfThisUser, startDate, endDate) //Filter all events that ongoing in this month
+
+
+    res.status(200).json(monthEvents);
+  } catch (error) {
+    console.log('Failed to fetch all Month events from database');
+    res.status(500).json({ error: error });
+  }
+};
+
+
 
 /**
  * Controller function to modify event of a user
@@ -200,6 +275,9 @@ const checkIfEventOverdue = async (req, res) => {
 module.exports = {
   createEvent,
   getAllEvents,
+  getAllEventsToday,
+  getAllEventsMonths,
   modifyEvent,
   finishEvent,
+  checkIfEventOverdue
 };

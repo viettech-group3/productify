@@ -1,0 +1,45 @@
+.dayView_grid {
+  height: 1200px;
+}
+.dayView_gridWrapper {
+  display: flex;
+  height: 100%;
+}
+
+.dayView_gridSideTime {
+  width: 50px;
+  height: 100%;
+  justify-content: space-evenly; /* Use space-evenly to evenly distribute the items */
+  align-items: center; /* Center align the items horizontally */
+}
+
+.dayView_gridSideTime div {
+  font-size: 13px;
+  height: 50px /* height of dayView_grid / 24 = 900/24 */;
+  text-align: center;
+  position: relative;
+  top: 25px;
+}
+
+.dayView_gridMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: 0.01px solid #adb5bd;
+  height: 100%;
+  width: 100%;
+}
+
+.boxInDayView {
+  border-bottom: 0.01px solid #adb5bd;
+}
+
+.dayView_onTopRow {
+  display: flex;
+}
+
+.dayView_onTopRow_Border {
+  width: 100%;
+  border-left: 1px solid #adb5bd;
+  border-right: 1px solid #adb5bd;
+}
