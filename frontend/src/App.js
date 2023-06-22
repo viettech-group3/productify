@@ -19,7 +19,7 @@ function App() {
     <ChakraProvider>
       <Router>
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />

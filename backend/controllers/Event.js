@@ -33,7 +33,7 @@ const createEvent = async (req, res) => {
     if (invited) {
       // Create a new event participation for the invited users by mapping
       const invitedParticipation = invited.map(
-        async email => await invite(email, event._id), // a bunch of promises in an array
+        async email => await invite(email, event._id, creatorId), // a bunch of promises in an array
       );
       //Make sure all promise is fullfilled
       await Promise.all(invitedParticipation);

@@ -66,10 +66,12 @@ const login = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser && existingUser.matchPassword(password)) {
       res.status(200).json({
-        _id: existingUser._id,
-        username: existingUser.username,
-        email: existingUser.email,
-        token: generateToken(existingUser._id),
+        user: {
+          _id: existingUser._id,
+          username: existingUser.username,
+          email: existingUser.email,
+          token: generateToken(existingUser._id),
+        },
       });
     } else {
       return res.status(401).json({ msg: 'Invalid credentials' });
