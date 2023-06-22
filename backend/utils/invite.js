@@ -13,12 +13,7 @@ const invite = async (email, id, invitor) => {
       userId: invitedUser._id,
       status: 'pending',
       invitedBy: invitor,
-    });
-
-    // Populate 'userId' field with only 'email' field from User document
-    await EventParticipation.populate(invitedParticipation, {
-      path: 'userId',
-      select: 'email',
+      userId: invitedUser.email,
     });
 
     await invitedParticipation.save();

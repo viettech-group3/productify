@@ -29,7 +29,7 @@ const Login = () => {
   const submitHandler = async () => {
     setLoad(true);
     if (!email || !password) {
-      toast.error('You have to fullfill both email and password');
+      toast.error('You have to fill in both email and password');
       setLoad(false);
       return;
     }

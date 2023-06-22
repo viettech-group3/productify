@@ -32,7 +32,7 @@ const Signup = () => {
   const submitHandler = async () => {
     setLoading(true);
     if (!username || !email || !password) {
-      toast.error('You have to fullfill all boxes');
+      toast.error('You have to fill in all boxes');
       setLoading(false);
       return;
     }

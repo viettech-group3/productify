@@ -37,8 +37,8 @@ const getPendingInvitations = async (req, res) => {
     const result = await Promise.all(
       participation.map(async participation => {
         const invitor = await User.findById(participation.invitedBy);
-        let tempEvent = await Event.findById(participation.eventId);
-        tempEvent = JSON.parse(JSON.stringify(tempEvent));
+        let tempEvent = await Event.findById(participation.eventId).lean();
+        //tempEvent = JSON.parse(JSON.stringify(tempEvent));
         const modifiedResult = { ...tempEvent, invitedBy: invitor.email };
         return modifiedResult;
       }),
