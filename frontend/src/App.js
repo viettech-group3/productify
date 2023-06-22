@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/auth" element={<AuthPage />} />
-          <Route path="/aboutus" element={<AboutUs />} />
+          {/* <Route path="/aboutus" element={<AboutUs />} /> */}
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
         </Routes>

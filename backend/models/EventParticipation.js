@@ -16,6 +16,10 @@ const eventParticipationSchema = new mongoose.Schema({
     enum: ['pending', 'accepted', 'denied'],
     default: 'pending',
   },
+  invitedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 eventParticipationSchema.index({ eventId: 1, userId: 1 }, { unique: true });
