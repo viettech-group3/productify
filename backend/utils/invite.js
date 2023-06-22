@@ -13,7 +13,6 @@ const invite = async (email, id, invitor) => {
       userId: invitedUser._id,
       status: 'pending',
       invitedBy: invitor,
-      userId: invitedUser.email,
     });
 
     await invitedParticipation.save();
