@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 const UserRouter = require('./routes/User');
 const EventRouter = require('./routes/Event');
+const StudyRouter = require('./routes/StudyWithMe');
 
 // set up express server
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 // set up routes
 app.use('/api/users', UserRouter);
 app.use('/api/events', EventRouter);
+app.use('/api/studywithme', StudyRouter);
 
 //connect to port
 const PORT = process.env.PORT || 5000;
