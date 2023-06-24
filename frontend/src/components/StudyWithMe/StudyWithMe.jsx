@@ -1,16 +1,30 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function StudyWithMe() {
   const [username, setUsername] = useState('');
   const [roomname, setRoomname] = useState('');
+  const [activeRooms, setActiveRooms] = useState([]);
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const fetchActiveRooms = async () => {
+  //     // Fetch active rooms from the backend
+  //     const response = await axios.get(
+  //       'localhost:8080/api/studywithme/activeRoom',
+  //     );
+  //     const { rooms } = response.data;
+  //     setActiveRooms(rooms);
+  //   };
+
+  //   fetchActiveRooms();
+  // }, []);
 
   const handleCreateRoom = async () => {
     // Send username and roomname to the backend to generate a token
     const response = await axios.post(
-      'http://localhost:5000/api/studywithme/generateToken',
+      'http://localhost:8080/api/studywithme/generateToken',
       {
         userName: username,
         roomName: roomname,
@@ -23,6 +37,10 @@ function StudyWithMe() {
     // Redirect the user to the generated token route
     navigate(`/studywithme/${token}`);
   };
+
+  // const handleJoinRoom = () => {
+  //   navigate(`/studywithme/${room.userName}`);
+  // };
 
   return (
     <div>
@@ -40,6 +58,24 @@ function StudyWithMe() {
         onChange={e => setRoomname(e.target.value)}
       />
       <button onClick={handleCreateRoom}>Create Room</button>
+
+      {/* <div>
+        <h2>Active Rooms</h2>
+        {activeRooms.length > 0 ? (
+          <ul>
+            {activeRooms.map(room => (
+              <li key={room.name}>
+                <span>{roomname}</span>
+                <button onClick={() => handleJoinRoom(room.token)}>
+                  Join Room
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No active rooms</p>
+        )}
+      </div> */}
     </div>
   );
 }
