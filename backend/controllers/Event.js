@@ -3,7 +3,10 @@ const EventParticipation = require('../models/EventParticipation');
 const User = require('../models/User');
 const { invite } = require('../utils/invite');
 const { points } = require('../utils/points');
-const { filterTodayEvents, filterMonthEvents } = require('../utils/filterEvents')
+const {
+  filterTodayEvents,
+  filterMonthEvents,
+} = require('../utils/filterEvents');
 
 // Create a new event function
 const createEvent = async (req, res) => {
@@ -84,7 +87,6 @@ const getAllEvents = async (req, res) => {
   }
 };
 
-
 //Add this events to display on MOnth View
 const getAllEventsToday = async (req, res) => {
   try {
@@ -111,15 +113,17 @@ const getAllEventsToday = async (req, res) => {
     );
 
     eventsOfThisUser = eventsOfThisUser.flat(); // Flattens the array of arrays
-    const todayEvents = filterTodayEvents(eventsOfThisUser, currentDate) //filter all event that ongoing on currentDate
+    const todayEvents = filterTodayEvents(eventsOfThisUser, currentDate); //filter all event that ongoing on currentDate
 
     res.status(200).json(todayEvents);
   } catch (error) {
-    console.log('Failed to fetch all TODAY events from the database:', error.message);
+    console.log(
+      'Failed to fetch all TODAY events from the database:',
+      error.message,
+    );
     res.status(500).json({ error: 'Failed to fetch events' });
   }
 };
-
 
 const getAllEventsMonths = async (req, res) => {
   try {
@@ -131,6 +135,7 @@ const getAllEventsMonths = async (req, res) => {
       userId: userId,
       status: 'accepted',
     });
+    console.log('participation', participation);
     const eventsIdOfThisUser = participation.map(eventParticipation => {
       //After have the EventParticipation, we can access t
       return eventParticipation.eventId;
@@ -145,9 +150,10 @@ const getAllEventsMonths = async (req, res) => {
         }); // return an array
       }),
     );
+    console.log('eventsOfThisUser', eventsOfThisUser);
     eventsOfThisUser = eventsOfThisUser.flat(); // Flattens the array of arrays (of this user's events), make 2D array become 1D array
-    const monthEvents = filterMonthEvents(eventsOfThisUser, startDate, endDate) //Filter all events that ongoing in this month
-
+    const monthEvents = filterMonthEvents(eventsOfThisUser, startDate, endDate); //Filter all events that ongoing in this month
+    console.log('monthEvents', monthEvents);
 
     res.status(200).json(monthEvents);
   } catch (error) {
@@ -155,8 +161,6 @@ const getAllEventsMonths = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
-
-
 
 /**
  * Controller function to modify event of a user
@@ -279,5 +283,5 @@ module.exports = {
   getAllEventsMonths,
   modifyEvent,
   finishEvent,
-  checkIfEventOverdue
+  checkIfEventOverdue,
 };

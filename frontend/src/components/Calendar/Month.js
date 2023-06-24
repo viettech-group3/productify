@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
-import Day from "./Day";
-import styles from "./Month.module.css";
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import Day from './Day';
+import styles from './Month.module.css';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
-import { set, add, remove, update } from '../../slices/MonthEventsSlice'
-
+import { set, add, remove, update } from '../../slices/MonthEventsSlice';
 
 export default function Month({ month }) {
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NjE1NzQxOSwiZXhwIjoxNjg4NzQ5NDE5fQ.u2Xv7d9vm62wFiNQEJgq4Mak6LBBjpe9I69Dl4BH8eA';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4NzQwMTkxNywiZXhwIjoxNjg5OTkzOTE3fQ.JsBEi0kmi7NygvHCZiwmQecP-6T0njtEb6DcVT14WpQ';
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
-  const startDate = month[0][0]
-  const endDate = month[4][6]
-  console.log(123)
+  const startDate = month[0][0];
+  const endDate = month[4][6];
+  console.log(123);
   useEffect(() => {
     let cancelRequest = null; //This is set up to cacel request if we try to send to many requests at the same time (such as moving forward/backward month too fast and send GET requests continuously)
 
@@ -21,30 +20,34 @@ export default function Month({ month }) {
         const source = axios.CancelToken.source(); //Token to check status of request
         cancelRequest = source.cancel;
 
-        const response = await axios.get('http://localhost:5000/api/events/getMonth', {
-          params: {
-            startDate: startDate,
-            endDate: endDate,
+        const response = await axios.get(
+          'http://localhost:5000/api/events/getMonth',
+          {
+            params: {
+              startDate: startDate,
+              endDate: endDate,
+            },
+            headers: {
+              Authorization: `Bearer ${exampleTokenForPhuoc}`,
+            },
+            cancelToken: source.token,
           },
-          headers: {
-            Authorization: `Bearer ${exampleTokenForPhuoc}`,
-          },
-          cancelToken: source.token,
-        });
+        );
 
-        dispatch(set(response.data));  //Update MonthEvents Global state in Redux Store
+        dispatch(set(response.data)); //Update MonthEvents Global state in Redux Store
       } catch (error) {
         if (axios.isCancel(error)) {
           console.log('Request canceled', error.message);
         } else {
-          console.log('Error:', error.message)
+          console.log('Error:', error.message);
         }
       }
     };
 
     fetchData();
 
-    return () => { //This is cleanup function of useEffect() to cancel old request before making the new request
+    return () => {
+      //This is cleanup function of useEffect() to cancel old request before making the new request
       if (cancelRequest) {
         cancelRequest('Request canceled');
       }
@@ -55,7 +58,6 @@ export default function Month({ month }) {
     <div className={styles.container}>
       <div className="flex-1">
         <table className={`table ${styles.table}`}>
-
           <thead>
             <tr>
               <th className={styles.center}>Sun</th>
@@ -71,7 +73,7 @@ export default function Month({ month }) {
             {month.map((week, i) => (
               <tr key={i}>
                 {week.map((day, j) => (
-                  <Day day={day} key={j} row={i} />  /*Headers */
+                  <Day day={day} key={j} row={i} /> /*Headers */
                 ))}
               </tr>
             ))}

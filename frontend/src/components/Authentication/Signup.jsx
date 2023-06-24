@@ -38,8 +38,9 @@ const Signup = () => {
     }
     try {
       const response = await createUser(email, username, password);
+      localStorage.setItem('user', JSON.stringify(response));
+      setLoading(false);
 
-      dispatch(setUser(response));
       navigate('/calendar');
     } catch (error) {
       console.log(error);

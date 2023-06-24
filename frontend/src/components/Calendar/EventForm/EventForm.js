@@ -9,15 +9,15 @@ import {
   faCalendar,
 } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
-import { toggle } from '../../../slices/ShowModalSlice' //Import toggle function to turn on/off Modal
+import { toggle } from '../../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
 import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
 
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NjE1NzQxOSwiZXhwIjoxNjg4NzQ5NDE5fQ.u2Xv7d9vm62wFiNQEJgq4Mak6LBBjpe9I69Dl4BH8eA';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4NzQwMTkxNywiZXhwIjoxNjg5OTkzOTE3fQ.JsBEi0kmi7NygvHCZiwmQecP-6T0njtEb6DcVT14WpQ';
   //Example token to pass protect in backend route (We'll delete it later)
-  const [eventsData, setEventsData] = useState([]);   //EventData is a state
+  const [eventsData, setEventsData] = useState([]); //EventData is a state
   const [formData, setFormData] = useState({
     name: '',
     describe: '',
@@ -27,7 +27,7 @@ const EventForm = () => {
     invited: [],
   });
 
-  const [invitedGuest, setInvitedGuest] = useState([]) //state to store all of emails in an array
+  const [invitedGuest, setInvitedGuest] = useState([]); //state to store all of emails in an array
 
   const handleChange = e => {
     console.log('input infor', e);
@@ -42,44 +42,41 @@ const EventForm = () => {
   const handleSubmit = async event => {
     event.preventDefault();
     console.log(event);
-    dispatch(toggle())
+    dispatch(toggle());
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/events/create',
-        formData,
-        {
+      const response = await axios
+        .post('http://localhost:5000/api/events/create', formData, {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${exampleTokenForPhuoc}`
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
           },
-        },
-      ).then((response) => {
-        console.log('Response:', response);
-        dispatch((add(response.data)))
-      })
-
+        })
+        .then(response => {
+          console.log('Response:', response);
+          dispatch(add(response.data));
+        });
     } catch (error) {
       console.log(
         'There is an error when try to send POST REQUEST to http://localhost:5000/api/events/create',
       );
       console.log('ERROR: ', error);
     }
-
   };
 
   const handleAddGuest = () => {
-    console.log(123)
-    let newGuest = formData.invitedInput
-    setInvitedGuest(oldArray => [...oldArray, formData.invitedInput])
-    setFormData(prevData => ({ //keep everything and change invitedInput to ''
+    console.log(123);
+    let newGuest = formData.invitedInput;
+    setInvitedGuest(oldArray => [...oldArray, formData.invitedInput]);
+    setFormData(prevData => ({
+      //keep everything and change invitedInput to ''
       ...prevData,
       invited: [...prevData.invited, newGuest],
       invitedInput: '',
-    }))
-  }
+    }));
+  };
   return (
     <div>
-      <form onSubmit={handleSubmit} className={styles.form} id='my-form'>
+      <form onSubmit={handleSubmit} className={styles.form} id="my-form">
         <input
           type="text"
           id="title"
@@ -90,18 +87,16 @@ const EventForm = () => {
           value={formData.name}
           onChange={handleChange}
         />
-
         <span className={styles.buttonGroup}>
           <button className={styles.typeButton}>Event</button>
           <button className={styles.typeButton}>Task</button>
           <button className={styles.typeButton}>Reminder</button>
         </span>
         <br />
-
         <div className={styles.formRow}>
           <div className={styles.labelColumn}>
             {/* <FontAwesomeIcon icon={faAlignLeft} className={styles.icon} /> */}
-            <label className={styles.label} htmlFor="descriptionInput" >
+            <label className={styles.label} htmlFor="descriptionInput">
               <FontAwesomeIcon icon={faAlignLeft} className={styles.icon} />
               Description
             </label>
@@ -156,20 +151,29 @@ const EventForm = () => {
             />
           </div>
         </div>
-        <button type="button" className={` btn btn-primary ${styles.addGuestButton}`} onClick={handleAddGuest}>Add Guest</button> {/* Button to add Guest  */}
+        <button
+          type="button"
+          className={` btn btn-primary ${styles.addGuestButton}`}
+          onClick={handleAddGuest}
+        >
+          Add Guest
+        </button>{' '}
+        {/* Button to add Guest  */}
         <div className={styles.emailList}>
           {invitedGuest.map(email => (
             <div className={styles.invitedEmail}>{email}</div>
           ))}
         </div>
-      </form >
+      </form>
 
       <div className={styles.submitContainer}>
-        <button type="submit" className={styles.submitButton} form='my-form'>  {/* Form attribute to connect with form, because this button is outside of form */}
+        <button type="submit" className={styles.submitButton} form="my-form">
+          {' '}
+          {/* Form attribute to connect with form, because this button is outside of form */}
           Submit
         </button>
       </div>
-    </div >
+    </div>
   );
 };
 

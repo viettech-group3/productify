@@ -35,8 +35,7 @@ const Login = () => {
     }
     try {
       const data = await loginUser(email, password);
-      dispatch(setUser(data));
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data));
       navigate('/calendar');
       setLoad(false);
     } catch (error) {

@@ -5,7 +5,7 @@ import logo from '../../assets/images/logoBlue.png';
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
-      <a href="/Home">
+      <a href="/">
         <img src={logo} alt="Logo" className={styles.logo} />{' '}
         {/* Add the logo */}
       </a>

@@ -8,6 +8,7 @@ import Footer from '../components/Footer/Footer';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 import EventModal from '../components/Calendar/EventModal/EventModal';
 import DayView from '../components/Calendar/DayView/DayView';
+import UserStateSlice from '../slices/UserStateSlice';
 
 function Calendar() {
   const ShowModal = useSelector(state => state.ShowModal.value); //ShowModal is a boolean state that know as True - showing and False - not showing
