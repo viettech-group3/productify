@@ -19,6 +19,9 @@ p {
   border: 2px solid;
   background-color: whitesmoke;
   padding: 3px 10px 3px 10px;
+  width: 800px;
+  height: 800px;
+  border-radius: 20px;
 }
 
 .invitationModal:hover {
@@ -28,8 +31,9 @@ p {
 .eachInvitation {
   border: 2px solid;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .eachInvitation p {

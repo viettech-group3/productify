@@ -94,24 +94,25 @@ const InvitationModal = () => {
             <div className={styles.eachInvitation}>
               <p>{invitation.creator}</p>
               <p>{invitation.name}</p>
-              <p>{invitation.describe}</p>
               <p>{invitation.invitedBy}</p>
-              <button
-                onClick={() => {
-                  handleAcceptInvitation(invitation._id);
-                }}
-                className="btn btn-primary"
-              >
-                Accept
-              </button>
-              <button
-                onClick={() => {
-                  handleDenyInvitation(invitation._id);
-                }}
-                className="btn btn-primary"
-              >
-                Deny
-              </button>
+              <div>
+                <button
+                  onClick={() => {
+                    handleAcceptInvitation(invitation._id);
+                  }}
+                  className="btn btn-primary"
+                >
+                  Accept
+                </button>
+                <button
+                  onClick={() => {
+                    handleDenyInvitation(invitation._id);
+                  }}
+                  className="btn btn-primary"
+                >
+                  Deny
+                </button>
+              </div>
             </div>
           ))}
         </div>
