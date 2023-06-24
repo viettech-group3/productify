@@ -34,8 +34,14 @@ const generateRoomToken = async (req, res) => {
 };
 
 const getRooms = async (req, res) => {
-  const rooms = await Room.find();
-  res.json(rooms);
+  try {
+    const rooms = await Room.find();
+    const activeRooms = rooms.filter(room => room.attendees > 0);
+    res.json({ activeRooms });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'getRooms error' });
+  }
 };
 
 const leaveRoom = async (req, res) => {
@@ -43,7 +49,8 @@ const leaveRoom = async (req, res) => {
   roomName = roomName.trim();
   await Room.findOneAndUpdate(
     { name: roomName },
-    { attendees: attendees - 1 },
+    // { attendees: attendees - 1 },
+    { $inc: { attendees: -1 } },
     { new: true },
   );
   res.json({ message: 'success' });
