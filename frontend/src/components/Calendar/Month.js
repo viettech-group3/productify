@@ -4,10 +4,11 @@ import styles from './Month.module.css';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 import { set, add, remove, update } from '../../slices/MonthEventsSlice';
+import { getAllEventsMonths } from '../../service/event';
 
 export default function Month({ month }) {
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4NzQwMTkxNywiZXhwIjoxNjg5OTkzOTE3fQ.JsBEi0kmi7NygvHCZiwmQecP-6T0njtEb6DcVT14WpQ';
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user.user.token;
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const startDate = month[0][0];
   const endDate = month[4][6];
@@ -28,7 +29,7 @@ export default function Month({ month }) {
               endDate: endDate,
             },
             headers: {
-              Authorization: `Bearer ${exampleTokenForPhuoc}`,
+              Authorization: `Bearer ${token}`,
             },
             cancelToken: source.token,
           },

@@ -23,7 +23,6 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleClick = () => {
     setShow(!show);
@@ -39,7 +38,6 @@ const Signup = () => {
     try {
       const response = await createUser(email, username, password);
       localStorage.setItem('user', JSON.stringify(response));
-      setLoading(false);
 
       navigate('/calendar');
     } catch (error) {

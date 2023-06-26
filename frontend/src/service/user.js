@@ -1,5 +1,18 @@
 import axios from 'axios';
 
+export const fetchUsers = async () => {
+  try {
+    const response = await axios.get(
+      'http://localhost:5000/api/users/leaderboard',
+    );
+    console.log('response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw new Error('Failed to fetch users');
+  }
+};
+
 export const createUser = async (email, username, password) => {
   try {
     const config = {
@@ -14,6 +27,8 @@ export const createUser = async (email, username, password) => {
     );
     return data;
   } catch (error) {
+    console.log('Error:', error);
+
     throw error;
   }
 };
@@ -32,6 +47,7 @@ export const loginUser = async (email, password) => {
     );
     return data;
   } catch (error) {
+    console.log('Error:', error);
     throw error;
   }
 };

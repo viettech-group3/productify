@@ -11,11 +11,12 @@ import {
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 import { toggle } from '../../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
 import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
+import { createEvent } from '../../../service/event';
 
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4NzQwMTkxNywiZXhwIjoxNjg5OTkzOTE3fQ.JsBEi0kmi7NygvHCZiwmQecP-6T0njtEb6DcVT14WpQ';
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user.user.token;
   //Example token to pass protect in backend route (We'll delete it later)
   const [eventsData, setEventsData] = useState([]); //EventData is a state
   const [formData, setFormData] = useState({
@@ -44,17 +45,9 @@ const EventForm = () => {
     console.log(event);
     dispatch(toggle());
     try {
-      const response = await axios
-        .post('http://localhost:5000/api/events/create', formData, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${exampleTokenForPhuoc}`,
-          },
-        })
-        .then(response => {
-          console.log('Response:', response);
-          dispatch(add(response.data));
-        });
+      const response = await createEvent(formData, token);
+      console.log('Response:', response);
+      dispatch(add(response));
     } catch (error) {
       console.log(
         'There is an error when try to send POST REQUEST to http://localhost:5000/api/events/create',

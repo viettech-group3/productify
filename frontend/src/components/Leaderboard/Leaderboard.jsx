@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './Leaderboard.module.css';
 import { BsFillAwardFill } from 'react-icons/bs';
 import ConfettiRain from './ConfettiRain';
+import { fetchUsers } from '../../service/user';
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
@@ -10,13 +11,9 @@ const Leaderboard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch users from the API
-    const fetchUsers = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          'http://localhost:5000/api/users/leaderboard',
-        );
-        const usersData = response.data;
+        const usersData = await fetchUsers();
         setUsers(usersData);
         setLoading(false);
       } catch (error) {
@@ -26,7 +23,7 @@ const Leaderboard = () => {
       }
     };
 
-    fetchUsers();
+    fetchData();
   }, []);
 
   // Handle loading and error states
@@ -58,7 +55,6 @@ const Leaderboard = () => {
 
       <div className={styles.topUsers}>
         <div className={styles.userCard}>
-          {/* <div className={styles.points}>{top3Users[1].points} points</div> */}
           <BsFillAwardFill className={`${styles.rankIcon} ${styles.silver}`} />
           <div className={styles.badgeIcon}>
             <span className={styles.rankNumber}>2</span>
@@ -67,7 +63,6 @@ const Leaderboard = () => {
         </div>
 
         <div className={styles.userCard}>
-          {/* <div className={styles.points}>{top3Users[0].points} points</div> */}
           <BsFillAwardFill className={`${styles.rankIcon} ${styles.gold}`} />
           <div className={styles.badgeIcon}>
             <span className={styles.rankNumber}>1</span>
@@ -76,7 +71,6 @@ const Leaderboard = () => {
         </div>
 
         <div className={styles.userCard}>
-          {/* <div className={styles.points}>{top3Users[2].points} points</div> */}
           <BsFillAwardFill className={`${styles.rankIcon} ${styles.bronze}`} />
           <div className={styles.badgeIcon}>
             <span className={styles.rankNumber}>3</span>
