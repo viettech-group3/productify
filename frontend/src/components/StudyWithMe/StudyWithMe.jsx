@@ -10,12 +10,11 @@ function StudyWithMe() {
 
   useEffect(() => {
     const fetchActiveRooms = async () => {
-      // Fetch active rooms from the backend
       const response = await axios.get(
         'http://localhost:8080/api/studywithme/activeRoom',
       );
-      const { activeRooms } = response.data;
-      setActiveRooms(activeRooms);
+      setActiveRooms(response.data.activeRooms);
+      console.log(activeRooms);
     };
 
     fetchActiveRooms();
@@ -65,7 +64,7 @@ function StudyWithMe() {
           <ul>
             {activeRooms.map(room => (
               <li key={room.name}>
-                <span>{roomname}</span>
+                <span>{room.name}</span>
                 <button onClick={() => handleJoinRoom(room.token)}>
                   Join Room
                 </button>
