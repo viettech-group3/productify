@@ -19,7 +19,6 @@ export default function Month({ month }) {
       try {
         const source = axios.CancelToken.source(); //Token to check status of request
         cancelRequest = source.cancel;
-
         const response = await axios.get(
           'http://localhost:5000/api/events/getMonth',
           {

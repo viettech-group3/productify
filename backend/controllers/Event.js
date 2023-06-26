@@ -140,7 +140,6 @@ const getAllEventsMonths = async (req, res) => {
       //After have the EventParticipation, we can access t
       return eventParticipation.eventId;
     });
-
     let eventsOfThisUser = await Promise.all(
       //We need this line beacuse Event.find() is a Promise (it can be success or failed), this line only accept success Promise
       eventsIdOfThisUser.map(async id => {
