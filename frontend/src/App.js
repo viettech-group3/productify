@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Calendar from './pages/Calendar';
 import LeaderboardPage from './pages/LeaderboardPage';
+import UserProfile from './pages/UserProfile';
 
 import ReactDOM from 'react-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -23,6 +24,7 @@ function App() {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </Router>
     </ChakraProvider>

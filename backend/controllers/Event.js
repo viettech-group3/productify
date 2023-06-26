@@ -213,6 +213,7 @@ const finishEvent = async (req, res) => {
     // if event is completed, wont do anything
     if (event.status === 'completed') {
       res.status(400).json({ message: 'Event already completed' });
+      return;
     }
 
     // Find EventParticipation of the users with that event ID and status == accepted,
@@ -232,13 +233,13 @@ const finishEvent = async (req, res) => {
     });
     await Promise.all(updatedEvents);
 
-    await Event.findByIdAndUpdate(
+    newEvent = await Event.findByIdAndUpdate(
       { _id: eventId },
       { status: 'completed' },
       { new: true },
     );
 
-    res.status(200).json({ event: event });
+    res.status(200).json({ event: newEvent });
   } catch (error) {
     console.log(`Failed to finish event: ${error}`);
     res.status(500).json({ error: error });
