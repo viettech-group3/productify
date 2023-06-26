@@ -65,3 +65,7 @@
   background-color: #a2d2ff;
   color: white;
 }
+
+.completedEvents {
+  background-color: aqua;
+}

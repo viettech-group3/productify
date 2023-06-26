@@ -73,7 +73,7 @@ const getAllEvents = async (req, res) => {
       eventsIdOfThisUser.map(async id => {
         return await Event.find({
           _id: id,
-          status: { $in: ['overdue', 'ongoing'] },
+          status: { $in: ['overdue', 'ongoing', 'completed'] },
         }); // return an array
       }),
     );
@@ -107,7 +107,7 @@ const getAllEventsToday = async (req, res) => {
       eventsIdOfThisUser.map(async id => {
         return await Event.find({
           _id: id,
-          status: { $in: ['overdue', 'ongoing'] },
+          status: { $in: ['overdue', 'ongoing', 'completed'] },
         }); // return an array
       }),
     );
@@ -146,7 +146,7 @@ const getAllEventsMonths = async (req, res) => {
       eventsIdOfThisUser.map(async id => {
         return await Event.find({
           _id: id,
-          status: { $in: ['overdue', 'ongoing'] },
+          status: { $in: ['overdue', 'ongoing', 'completed'] },
         }); // return an array
       }),
     );

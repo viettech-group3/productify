@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 import { toggle } from '../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
+import { updateStatus } from '../../slices/MonthEventsSlice';
 import { filterTodayEvents } from '../../service/util';
 import { current } from '@reduxjs/toolkit';
 
@@ -23,12 +24,16 @@ function Day({ day, row }) {
 
   const handleEventClick = (e, event) => {
     e.stopPropagation(); //So we don't trigger any parent element of this <div> by onClick
-    setFinish(value => !value);
-    setEventFinish(event);
+    if (event.status !== 'completed') {
+      setFinish(value => !value);
+      setEventFinish(event);
+    }
   };
 
   const handleFinishEventClick = (e, eventFinish) => {
     e.stopPropagation();
+    setFinish(value => !value);
+    dispatch(updateStatus({ _id: eventFinish._id, status: 'completed' }));
     axios
       .post(
         `http://localhost:5000/api/events/finish/${eventFinish._id}`,
@@ -79,7 +84,9 @@ function Day({ day, row }) {
       <div>
         {todayEvents.map((event, idx) => (
           <div
-            className={styles.todayEvents}
+            className={`${styles.todayEvents} ${
+              event.status === 'completed' ? styles.completedEvents : ''
+            }`}
             key={idx}
             onClick={e => {
               handleEventClick(e, event);
