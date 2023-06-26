@@ -153,7 +153,6 @@ const getAllEventsMonths = async (req, res) => {
     console.log('eventsOfThisUser', eventsOfThisUser);
     eventsOfThisUser = eventsOfThisUser.flat(); // Flattens the array of arrays (of this user's events), make 2D array become 1D array
     const monthEvents = filterMonthEvents(eventsOfThisUser, startDate, endDate); //Filter all events that ongoing in this month
-    console.log('monthEvents', monthEvents);
 
     res.status(200).json(monthEvents);
   } catch (error) {
@@ -241,7 +240,7 @@ const finishEvent = async (req, res) => {
 
     res.status(200).json({ event: event });
   } catch (error) {
-    console.log(`Failed to modify event: ${error}`);
+    console.log(`Failed to finish event: ${error}`);
     res.status(500).json({ error: error });
   }
 };
