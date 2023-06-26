@@ -49,8 +49,7 @@ const leaveRoom = async (req, res) => {
   roomName = roomName.trim();
   await Room.findOneAndUpdate(
     { name: roomName },
-    // { attendees: attendees - 1 },
-    { $inc: { attendees: -1 } },
+    { attendees: attendees - 1 },
     { new: true },
   );
   res.json({ message: 'success' });

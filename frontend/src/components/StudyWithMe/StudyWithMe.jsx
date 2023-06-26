@@ -8,18 +8,18 @@ function StudyWithMe() {
   const [activeRooms, setActiveRooms] = useState([]);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchActiveRooms = async () => {
-  //     // Fetch active rooms from the backend
-  //     const response = await axios.get(
-  //       'localhost:8080/api/studywithme/activeRoom',
-  //     );
-  //     const { rooms } = response.data;
-  //     setActiveRooms(rooms);
-  //   };
+  useEffect(() => {
+    const fetchActiveRooms = async () => {
+      // Fetch active rooms from the backend
+      const response = await axios.get(
+        'http://localhost:8080/api/studywithme/activeRoom',
+      );
+      const { activeRooms } = response.data;
+      setActiveRooms(activeRooms);
+    };
 
-  //   fetchActiveRooms();
-  // }, []);
+    fetchActiveRooms();
+  }, []);
 
   const handleCreateRoom = async () => {
     // Send username and roomname to the backend to generate a token
@@ -38,9 +38,9 @@ function StudyWithMe() {
     navigate(`/studywithme/${token}`);
   };
 
-  // const handleJoinRoom = () => {
-  //   navigate(`/studywithme/${room.userName}`);
-  // };
+  const handleJoinRoom = token => {
+    navigate(`/studywithme/${token}`);
+  };
 
   return (
     <div>
@@ -59,9 +59,9 @@ function StudyWithMe() {
       />
       <button onClick={handleCreateRoom}>Create Room</button>
 
-      {/* <div>
+      <div>
         <h2>Active Rooms</h2>
-        {activeRooms.length > 0 ? (
+        {activeRooms.length ? (
           <ul>
             {activeRooms.map(room => (
               <li key={room.name}>
@@ -75,7 +75,7 @@ function StudyWithMe() {
         ) : (
           <p>No active rooms</p>
         )}
-      </div> */}
+      </div>
     </div>
   );
 }
