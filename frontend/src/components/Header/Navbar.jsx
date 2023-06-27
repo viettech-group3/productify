@@ -16,22 +16,17 @@ const Navbar = () => {
           </a>
         </li>
         <li className={styles.navbarItem}>
-          <a className={styles.navbarLink} href="/">
-            About
-          </a>
-        </li>
-        <li className={styles.navbarItem}>
-          <a className={styles.navbarLink} href="/">
+          <a className={styles.navbarLink} href="/calendar">
             Calendar
           </a>
         </li>
         <li className={styles.navbarItem}>
-          <a className={styles.navbarLink} href="/">
+          <a className={styles.navbarLink} href="/leaderboard">
             Top Users
           </a>
         </li>
         <li className={styles.navbarItem}>
-          <a className={styles.navbarLink} href="/">
+          <a className={styles.navbarLink} href="/studywithme">
             Study Room
           </a>
         </li>
