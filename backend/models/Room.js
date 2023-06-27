@@ -10,10 +10,10 @@ const roomSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
-  coverImage: {
-    type: String,
-    required: false,
-  },
+  // coverImage: {
+  //   type: String,
+  //   required: false,
+  // },
 });
 
 const Room = mongoose.model('Room', roomSchema);

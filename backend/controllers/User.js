@@ -16,6 +16,8 @@ const leaderboard = async (req, res) => {
 
 // Sign up function
 const signUp = async (req, res) => {
+  console.log('req.body', req.body);
+
   let { email, username, password } = req.body;
   // simple validation
   if (!email || !username || !password) {

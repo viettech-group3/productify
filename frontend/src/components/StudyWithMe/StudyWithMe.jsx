@@ -5,7 +5,8 @@ import styles from './StudyWithMe.module.css';
 import icon from '../../assets/images/addicon.png';
 
 function StudyWithMe() {
-  const [username, setUsername] = useState('');
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userName = user.username;
   const [roomname, setRoomname] = useState('');
   const [activeRooms, setActiveRooms] = useState([]);
   const navigate = useNavigate();
@@ -25,7 +26,31 @@ function StudyWithMe() {
     fetchActiveRooms();
   }, []);
 
-  const handleCreateRoom = async () => {
+  const handleCreateRoom = async (username, roomname) => {
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+    // Send username and roomname to the backend to generate a token
+    const response = await axios.post(
+      'http://localhost:8080/api/studywithme/generateToken',
+      {
+        userName: username,
+        roomName: roomname,
+        // coverImage: roomImages[Math.floor(Math.random() * roomImages.length)],
+        // coverImage: roomImages[0],
+      },
+      config,
+    );
+
+    const { token } = response.data;
+
+    // Redirect the user to the generated token route
+    navigate(`/studywithme/${token}`);
+  };
+
+  const handleJoinRoom = async (username, roomname) => {
     // Send username and roomname to the backend to generate a token
     const response = await axios.post(
       'http://localhost:8080/api/studywithme/generateToken',
@@ -43,32 +68,29 @@ function StudyWithMe() {
     navigate(`/studywithme/${token}`);
   };
 
-  const handleJoinRoom = token => {
-    navigate(`/studywithme/${token}`);
-  };
-
   return (
     <div className={styles.studyWithMeContainer}>
       <div className={styles.createRoomContainer}>
         <div className={styles.title}>Create New Room</div>
         <div className={styles.inputContainer}>
-          <input
+          {/* <input
             type="text"
             placeholder="Enter your username"
             value={username}
             onChange={e => setUsername(e.target.value)}
-          />
+          /> */}
           <input
             type="text"
             placeholder="Enter room name"
             value={roomname}
             onChange={e => setRoomname(e.target.value)}
           />
-          {/* <button onClick={handleCreateRoom}>Create Room</button> */}
 
           <div
             className={`${styles.icon_sentence} d-flex align-items-center mt-4`}
-            onClick={handleCreateRoom}
+            onClick={() => {
+              handleCreateRoom(userName, roomname);
+            }}
           >
             {/* <img src={icon} alt="Add Icon" className={styles.icon} /> */}
             <span className={styles.sentence}>Create Room</span>
@@ -83,12 +105,13 @@ function StudyWithMe() {
             {activeRooms.map(room => (
               <li key={room.name}>
                 <div className={styles.roomDetails}>
-                  <img src={room.coverImage} alt="Room Cover" />
+                  {/* <img src={room.coverImage} alt="Room Cover" /> */}
                   <span>{room.name}</span>
+                  <h1>{room.attendees}</h1>
                 </div>
                 <button
                   className={styles.joinButton}
-                  onClick={() => handleJoinRoom(room.token)}
+                  onClick={() => handleCreateRoom(userName, room.name)}
                 >
                   Join Room
                 </button>
