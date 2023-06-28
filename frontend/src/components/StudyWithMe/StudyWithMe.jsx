@@ -23,8 +23,9 @@ function StudyWithMe() {
 
   const handleCreateRoom = async () => {
     // Send username and roomname to the backend to generate a token
+    console.log(username, roomname);
     const response = await axios.post(
-      'http://localhost:8080/api/studywithme/generateToken',
+      'http://localhost:5000/api/studywithme/generateToken',
       {
         userName: username,
         roomName: roomname,
