@@ -5,6 +5,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: auto; /* Adjust the height as needed */
+  /* height:  Adjust the height as needed */
   padding: 20px;
+}
+
+.card {
+  background-color: whitesmoke;
+}
+
+.tradeButton {
+  margin-right: 30px;
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--main-blue);
+  border: none;
+}
+
+.tradeButton:hover {
+  background-color: #caf0f8;
+  transform: translateY(-5px);
 }
