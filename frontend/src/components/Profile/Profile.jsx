@@ -1,11 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Profile.module.css';
 import { Card, Button } from 'react-bootstrap';
 import { createAvatar } from '@dicebear/core';
 import { adventurer } from '@dicebear/collection';
 import AvatarCarousel from './AvatarCarousel';
+import myImage from '../../assets/images/logoWhite.png';
+import axios from 'axios';
 
 const Profile = () => {
+  const exampleTokenForPhuoc =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NzkzNjg5OCwiZXhwIjoxNjkwNTI4ODk4fQ.q4zxr2yP4GrH-51AgX6aYUYWLjN78yw_JGTfA_StvXc';
+  const [avatar, setAvatar] = useState('');
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:5000/api/users/getUser',
+          {
+            headers: {
+              Authorization: `Bearer ${exampleTokenForPhuoc}`,
+            },
+          },
+        );
+        console.log('User information:', response.data);
+        setAvatar(response.data.profilepicture);
+      } catch (error) {
+        console.log('There is something wrong with fetching avatar');
+      }
+    };
+    fetchUser();
+  });
+
   const [totalPoints, setTotalPoints] = useState(1000); // for demo
 
   const handleTradePoints = pointsToTrade => {
@@ -24,6 +49,18 @@ const Profile = () => {
 
   return (
     <div className={styles.viewport}>
+      <div className={styles.sidebar}>
+        {/* Hoa */}
+        <img
+          src={`${avatar}`}
+          alt="Calendar Demo Image"
+          className={`${styles.image}`}
+        />
+        <p className={`${styles.paragraph} text-center`}> User Name</p>
+        <p className={`${styles.paragraph} text-center`}> User Email </p>
+        <p className={`${styles.paragraph} text-center`}> Points: 100pts </p>
+      </div>
+
       <Card className={styles.card}>
         <Card.Body>
           <Card.Title>Total Points: {totalPoints}</Card.Title>

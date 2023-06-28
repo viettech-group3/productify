@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  profilepicture: {
+    type: String,
+    default: "https://api.dicebear.com/6.x/adventurer/svg?seed=Angel",
+  }
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
