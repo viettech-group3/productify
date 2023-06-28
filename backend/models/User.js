@@ -1,6 +1,6 @@
-// create a user moongose model with email,username and password
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+// create a user moongose model with email, username and password
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -27,7 +27,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 // Path: backend\models\index.js

@@ -11,7 +11,8 @@ import ReactDOM from 'react-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons';
-import StudyWithMe from './components/StudyWithMe/StudyWithMe';
+// import StudyWithMe from './components/StudyWithMe/StudyWithMe';
+import StudyWithMePage from './pages/StudyWithMePage';
 import StudyRoom from './components/StudyWithMe/StudyRoom';
 
 library.add(fab, faCheckSquare, faCoffee);
@@ -26,7 +27,7 @@ function App() {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
-          <Route exact path="/studywithme" element={<StudyWithMe />} />
+          <Route exact path="/studywithme" element={<StudyWithMePage />} />
           <Route path="/studywithme/:token" element={<StudyRoom />} />
         </Routes>
       </Router>
