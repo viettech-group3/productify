@@ -6,6 +6,8 @@ import { adventurer } from '@dicebear/collection';
 import AvatarCarousel from './AvatarCarousel';
 import myImage from '../../assets/images/logoWhite.png';
 import axios from 'axios';
+import { createAvatar } from '@dicebear/core';
+import { bigSmile } from '@dicebear/collection';
 
 const Profile = () => {
   const exampleTokenForPhuoc =
@@ -53,7 +55,25 @@ const Profile = () => {
 
   const handleTradeRandomAvatar = () => {
     // TODO Logic for trading 100 points for a random avatar
-    handleTradePoints(100);
+    if (points < 100) {
+      alert('Not enough point');
+      return;
+    }
+    const arrAvatar = [...Array(10)].map((_, index) => {
+      const seed = `Avatar${index + 1}`;
+      const currentAvatar = createAvatar(bigSmile, {
+        seed,
+      });
+      const currentAvatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+        currentAvatar.toString(),
+      )}`;
+      return currentAvatarDataUrl;
+    });
+
+    const randomAvatar = Math.floor(Math.random() * 10);
+    console.log(randomAvatar);
+    setAvatar(randomAvatar);
+    setPoints(points - 100);
   };
 
   const handleTradeCustomAvatar = () => {
@@ -64,7 +84,6 @@ const Profile = () => {
   return (
     <div className={styles.viewport}>
       <div className={styles.sidebar}>
-        {/* Hoa */}
         <img
           src={`${avatar}`}
           alt="Calendar Demo Image"
@@ -75,30 +94,28 @@ const Profile = () => {
         <p className={`${styles.paragraph} text-center`}> {points} pts </p>
       </div>
 
-      {/* <div className={styleds.card} */}
-      <Card className={styles.cardContainer}>
-        <Card.Body>
-          <Card.Title>Total Points: {points}</Card.Title>
-          <AvatarCarousel />
-          <div className={styles.buttonContainer}>
-            <Button
-              className={styles.tradeButton}
-              onClick={handleTradeRandomAvatar}
-            >
-              Use Random Avatar for 100 points
-            </Button>
-            <Button
-              // variant="primary"
-              className={styles.tradeButton}
-              onClick={handleTradeCustomAvatar}
-            >
-              Use Custom Avatar for 500 points
-            </Button>
-          </div>
-        </Card.Body>
-      </Card>
-
-      {/* </div> */}
+      <div className={styles.avatarSection}>
+        <Card className={styles.cardContainer}>
+          <Card.Body className={styles.cardBody}>
+            <div className={styles.pointTitle}>Customize your avatar!</div>
+            <AvatarCarousel />
+            <div className={styles.buttonContainer}>
+              <Button
+                className={styles.tradeButton}
+                onClick={handleTradeRandomAvatar}
+              >
+                Use Random Avatar for 100 points
+              </Button>
+              <Button
+                className={styles.tradeButton}
+                onClick={handleTradeCustomAvatar}
+              >
+                Use Custom Avatar for 500 points
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
+      </div>
     </div>
   );
 };

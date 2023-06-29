@@ -1,3 +1,23 @@
-.images {
-  max-height: 200px;
+.carouselItem {
+  display: inline-block !important;
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  align-items: center;
+  text-align: center;
+}
+
+.avatarImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.active {
+  border-radius: 50px;
+  background-color: var(--main-blue);
+}
+
+.carousel-control-next .carousel-control-prev {
+  display: none;
 }
