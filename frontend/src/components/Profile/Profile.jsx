@@ -9,8 +9,11 @@ import axios from 'axios';
 
 const Profile = () => {
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NzkzNjg5OCwiZXhwIjoxNjkwNTI4ODk4fQ.q4zxr2yP4GrH-51AgX6aYUYWLjN78yw_JGTfA_StvXc';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4Nzk5MzI2NiwiZXhwIjoxNjkwNTg1MjY2fQ.lLlluqxq3At3vH1KfIm6ZOwDMnXFt2Tk8hBwkcgujBY';
   const [avatar, setAvatar] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [points, setPoints] = useState(0);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -23,15 +26,26 @@ const Profile = () => {
           },
         );
         console.log('User information:', response.data);
-        setAvatar(response.data.profilepicture);
+        setName(response.data.username);
+        setEmail(response.data.email);
+        setPoints(response.data.points);
+        if (
+          response.data.profilepicture ===
+          'https://api.dicebear.com/6.x/initials/svg?seed=default'
+        ) {
+          setAvatar(
+            'https://api.dicebear.com/6.x/initials/svg?seed=' +
+              response.data.username,
+          );
+        } else {
+          setAvatar(response.data.profilepicture);
+        }
       } catch (error) {
         console.log('There is something wrong with fetching avatar');
       }
     };
     fetchUser();
   });
-
-  const [totalPoints, setTotalPoints] = useState(1000); // for demo
 
   const handleTradePoints = pointsToTrade => {
     // TODO Logic for trading points and updating totalPoints state
@@ -56,14 +70,15 @@ const Profile = () => {
           alt="Calendar Demo Image"
           className={`${styles.image}`}
         />
-        <p className={`${styles.paragraph} text-center`}> User Name</p>
-        <p className={`${styles.paragraph} text-center`}> User Email </p>
-        <p className={`${styles.paragraph} text-center`}> Points: 100pts </p>
+        <p className={`${styles.paragraph} text-center`}> {name} </p>
+        <p className={`${styles.paragraph} text-center`}> {email} </p>
+        <p className={`${styles.paragraph} text-center`}> {points} pts </p>
       </div>
 
-      <Card className={styles.card}>
+      {/* <div className={styleds.card} */}
+      <Card className={styles.cardContainer}>
         <Card.Body>
-          <Card.Title>Total Points: {totalPoints}</Card.Title>
+          <Card.Title>Total Points: {points}</Card.Title>
           <AvatarCarousel />
           <div className={styles.buttonContainer}>
             <Button
@@ -82,6 +97,8 @@ const Profile = () => {
           </div>
         </Card.Body>
       </Card>
+
+      {/* </div> */}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 // create a user moongose model with email,username and password
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -23,15 +23,15 @@ const userSchema = new mongoose.Schema({
   },
   profilepicture: {
     type: String,
-    default: "https://api.dicebear.com/6.x/adventurer/svg?seed=Angel",
-  }
+    default: 'https://api.dicebear.com/6.x/initials/svg?seed=default',
+  },
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 // Path: backend\models\index.js

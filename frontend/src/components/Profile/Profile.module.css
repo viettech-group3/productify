@@ -2,14 +2,21 @@
   background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
   font-family: 'Montserrat';
   height: auto; /* Adjust the height as needed */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  gap: 80px;
   padding: 20px;
 }
 
 .sidebar {
-  width: 350px;
-  padding: 30px;
+  width: 400px;
+  padding: 50px;
   margin-top: 50px;
-  margin-left: 20px;
+  margin-bottom: 50px;
+  margin-left: 50px;
   background-color: whitesmoke;
   border-radius: 50px;
   display: flex;
@@ -22,14 +29,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: whitesmoke;
 }
 
 .image {
-  max-width: 250px;
   text-align: center;
   border-radius: 200px;
   background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
-  margin-bottom: 30px;
   transition: transform 0.2s ease-in-out;
 }
 
@@ -48,19 +54,36 @@
 
 .card {
   background-color: whitesmoke;
+  text-align: center;
+  width: 1100px;
 }
 
-.tradeButton {
+/* .tradeButton {
   margin-right: 30px;
   margin-left: 15px;
   font-size: 18px;
   font-weight: 600;
-  color: #fff;
-  background-color: var(--main-blue);
+  color: #000;
+  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
   border: none;
 }
 
 .tradeButton:hover {
+  background-color: #caf0f8;
+  transform: translateY(-5px);
+} */
+
+.btn-primary {
+  margin-right: 30px;
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+  border: none;
+}
+
+.btn-primary:hover {
   background-color: #caf0f8;
   transform: translateY(-5px);
 }
