@@ -8,7 +8,7 @@ export const createUser = async (email, username, password) => {
       },
     };
     const { data } = await axios.post(
-      'http://localhost:8080/api/users',
+      'http://localhost:5000/api/users',
       { username, email, password },
       config,
     );
@@ -27,7 +27,7 @@ export const loginUser = async (email, password) => {
       },
     };
     const { data } = await axios.post(
-      'http://localhost:8080/api/users/login',
+      'http://localhost:5000/api/users/login',
       { email, password },
       config,
     );

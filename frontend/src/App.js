@@ -14,6 +14,7 @@ import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons';
 // import StudyWithMe from './components/StudyWithMe/StudyWithMe';
 import StudyWithMePage from './pages/StudyWithMePage';
 import StudyRoom from './components/StudyWithMe/StudyRoom';
+import 'react-aspect-ratio/aspect-ratio.css';
 
 library.add(fab, faCheckSquare, faCoffee);
 

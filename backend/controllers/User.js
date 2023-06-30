@@ -43,12 +43,10 @@ const signUp = async (req, res) => {
     // save user
     const newUserSaved = await newUser.save();
     res.status(201).json({
-      user: {
-        id: newUserSaved.id,
-        username: newUserSaved.username,
-        email: newUserSaved.email,
-        token: generateToken(newUserSaved._id),
-      },
+      id: newUserSaved.id,
+      username: newUserSaved.username,
+      email: newUserSaved.email,
+      token: generateToken(newUserSaved._id),
     });
   } catch (error) {
     return res.status(500).json({ msg: error.message });

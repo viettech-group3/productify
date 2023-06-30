@@ -3,13 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './StudyWithMe.module.css';
 import icon from '../../assets/images/addicon.png';
+import { AiOutlineUser } from 'react-icons/ai';
+import '@livekit/components-styles';
 
 function StudyWithMe() {
+  const studyBacground = [
+    'https://i.pinimg.com/736x/e7/0b/ec/e70becaef0d8a63f66cfc2e65a2f947a--jiro-horikoshi-wind-rises.jpg',
+    'https://www.otaquest.com/wp-content/uploads/2020/11/firefox_1lmwlEPH3R-1024x551.jpg',
+    'https://e0.pxfuel.com/wallpapers/982/216/desktop-wallpaper-whisper-of-the-heart-whisper-of-the-heart-studying-anime-study.jpg',
+    'https://clitbait.co.uk/wp-content/uploads/2021/09/lofi-1.png',
+    'https://app.lean.social/backgrounds/lofi-girl-2.jpg',
+    'https://app.lean.social/backgrounds/lofi-girl-3.jpg',
+    'https://app.lean.social/backgrounds/lofi-girl.jpg',
+  ];
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
-  const userName = user.username;
+  const username = user.username;
+
   const [roomname, setRoomname] = useState('');
   const [activeRooms, setActiveRooms] = useState([]);
-  const navigate = useNavigate();
   const importAll = requireContext => requireContext.keys().map(requireContext);
   const roomImages = importAll(
     require.context('../../assets/images', false, /\.(png|jpe?g|svg)$/),
@@ -18,7 +30,7 @@ function StudyWithMe() {
   useEffect(() => {
     const fetchActiveRooms = async () => {
       const response = await axios.get(
-        'http://localhost:8080/api/studywithme/activeRoom',
+        'http://localhost:5000/api/studywithme/activeRoom',
       );
       setActiveRooms(response.data.activeRooms);
     };
@@ -33,7 +45,6 @@ function StudyWithMe() {
       },
     };
     // Send username and roomname to the backend to generate a token
-    console.log(username, roomname);
     const response = await axios.post(
       'http://localhost:5000/api/studywithme/generateToken',
       {
@@ -54,7 +65,7 @@ function StudyWithMe() {
   const handleJoinRoom = async (username, roomname) => {
     // Send username and roomname to the backend to generate a token
     const response = await axios.post(
-      'http://localhost:8080/api/studywithme/generateToken',
+      'http://localhost:5000/api/studywithme/generateToken',
       {
         userName: username,
         roomName: roomname,
@@ -90,7 +101,7 @@ function StudyWithMe() {
           <div
             className={`${styles.icon_sentence} d-flex align-items-center mt-4`}
             onClick={() => {
-              handleCreateRoom(userName, roomname);
+              handleCreateRoom(username, roomname);
             }}
           >
             {/* <img src={icon} alt="Add Icon" className={styles.icon} /> */}
@@ -101,24 +112,29 @@ function StudyWithMe() {
 
       <div className={styles.activeRoomsContainer}>
         <div className={styles.title}>Join Active Rooms</div>
+
         {activeRooms.length ? (
-          <ul>
-            {activeRooms.map(room => (
-              <li key={room.name}>
+          <div className={styles.container}>
+            {activeRooms.map((room, index) => (
+              <div className={styles.roomCard} key={room.name}>
                 <div className={styles.roomDetails}>
-                  {/* <img src={room.coverImage} alt="Room Cover" /> */}
-                  <span>{room.name}</span>
-                  <h1>{room.attendees}</h1>
+                  <img src={studyBacground[index % 7]} alt="Room Cover"></img>
+                  <span className={styles.roomName}>{room.name}</span>
+
+                  <span className={styles.attendees}>
+                    {room.attendees}
+                    <AiOutlineUser />
+                  </span>
                 </div>
                 <button
                   className={styles.joinButton}
-                  onClick={() => handleCreateRoom(userName, room.name)}
+                  onClick={() => handleCreateRoom(username, room.name)}
                 >
                   Join Room
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         ) : (
           <p>No active rooms</p>
         )}

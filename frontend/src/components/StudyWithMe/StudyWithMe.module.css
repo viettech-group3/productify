@@ -3,8 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  /* background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%); */
-  background-color: whitesmoke;
+  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
   font-family: 'Montserrat';
 }
 
@@ -104,4 +103,68 @@ input {
   font-size: 18px;
   font-weight: 600;
   color: #fff;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+
+  overflow: hidden;
+  margin: 0 auto;
+}
+.roomCard {
+  position: relative;
+  /* flex: 0 0 calc(33.33% - 20px); */
+  margin: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.roomCard:hover .joinButton {
+  display: block;
+}
+.roomDetails {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Adjust the height as needed }*/
+}
+.roomDetails img {
+  width: 360px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.roomDetails .roomName {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.roomDetails .attendees {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  color: white;
+  gap: 3px;
+}
+
+.joinButton {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.8; /* Adjust the opacity as desired */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6
+  ); /* Adjust the background color as desired */
+  color: white; /* Adjust the font color as desired */
 }
