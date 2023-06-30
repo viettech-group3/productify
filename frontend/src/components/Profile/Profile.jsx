@@ -4,10 +4,9 @@ import { Card, Button } from 'react-bootstrap';
 import { createAvatar } from '@dicebear/core';
 import { adventurer } from '@dicebear/collection';
 import AvatarCarousel from './AvatarCarousel';
-import myImage from '../../assets/images/logoWhite.png';
-import axios from 'axios';
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
+import axios from 'axios';
 
 const Profile = () => {
   const exampleTokenForPhuoc =
@@ -53,32 +52,86 @@ const Profile = () => {
     // TODO Logic for trading points and updating totalPoints state
   };
 
-  const handleTradeRandomAvatar = () => {
-    // TODO Logic for trading 100 points for a random avatar
-    if (points < 100) {
-      alert('Not enough point');
-      return;
+  const handleTradeRandomAvatar = async () => {
+    try {
+      //check if user have enough points
+      if (points < 100) {
+        alert('Not enough point');
+        return;
+      }
+      //create array of available avatar urls
+      const arrAvatar = [...Array(10)].map((_, index) => {
+        const seed = `Avatar${index + 1}`;
+        const currentAvatar = createAvatar(bigSmile, {
+          seed,
+        });
+        const currentAvatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+          currentAvatar.toString(),
+        )}`;
+
+        return currentAvatarDataUrl;
+      });
+
+      //get a random avatar url
+      const randomIndex = Math.floor(Math.random() * 9);
+      const randomAvatar = arrAvatar[randomIndex];
+
+      //update user infor on database
+      const response = await axios.put(
+        `http://localhost:5000/api/users/update`,
+        { profilepicture: randomAvatar, points: points - 100 },
+        {
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
+        },
+      );
+
+      setAvatar(response.data.profilepicture);
+      setPoints(points - 100);
+    } catch (error) {
+      console.log('There is something wrong with update avatar');
     }
-    const arrAvatar = [...Array(10)].map((_, index) => {
-      const seed = `Avatar${index + 1}`;
+  };
+
+  const handleTradeCustomAvatar = async () => {
+    // TODO Logic for trading 500 points to change to a custom avatar
+    try {
+      //check if user have enough points
+      if (points < 500) {
+        alert('Not enough point');
+        return;
+      }
+
+      let seed = prompt('Please enter the name you want to make avatar with: ');
+      if (seed === null || seed === '') {
+        alert("You can't leave it blank");
+        return;
+      }
+
       const currentAvatar = createAvatar(bigSmile, {
         seed,
       });
       const currentAvatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
         currentAvatar.toString(),
       )}`;
-      return currentAvatarDataUrl;
-    });
 
-    const randomAvatar = Math.floor(Math.random() * 10);
-    console.log(randomAvatar);
-    setAvatar(randomAvatar);
-    setPoints(points - 100);
-  };
+      //update user infor on database
+      const response = await axios.put(
+        `http://localhost:5000/api/users/update`,
+        { profilepicture: currentAvatarDataUrl, points: points - 500 },
+        {
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
+        },
+      );
 
-  const handleTradeCustomAvatar = () => {
-    // TODO Logic for trading 500 points to change to a custom avatar
-    handleTradePoints(500);
+      setAvatar(response.data.profilepicture);
+      setPoints(points - 500);
+    } catch (error) {
+      console.log('There is something wrong with update avatar');
+    }
   };
 
   return (

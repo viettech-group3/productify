@@ -83,7 +83,8 @@ const login = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {  //Not user now, just draft it
+const getUser = async (req, res) => {
+  //Not user now, just draft it
   try {
     const userId = req.user._id; //Get userID
     let currentUser = await User.findById(userId);
@@ -91,28 +92,23 @@ const getUser = async (req, res) => {  //Not user now, just draft it
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
-}
+};
 
-const updateUser = async (req, res) => { //We haven't used and tested it on Postman or frontend
+const updateUser = async (req, res) => {
+  //We haven't used and tested it on Postman or frontend
   try {
     const userId = req.user._id;
-    let updateInformation = req.body //THis is an object with full property for user, if we want to update which property, we have to pass new property. If not, just keep it as past
+    let updateInformation = req.body; //THis is an object with full property for user, if we want to update which property, we have to pass new property. If not, just keep it as past
     const updateUser = await User.findByIdAndUpdate(
       { _id: userId },
       { $set: updateInformation },
-      { new: true },   //return to (updateUser variable) the new data
+      { new: true }, //return to (updateUser variable) the new data
     );
-    res.status(200).json({ user: updatUser });
+    res.status(200).json({ user: updateUser });
   } catch (error) {
     console.log(`Failed to modify user information: ${error}`);
     res.status(500).json({ error: error });
   }
-}
-
+};
 
 module.exports = { signUp, login, leaderboard, getUser, updateUser };
-
-
-
-
-
