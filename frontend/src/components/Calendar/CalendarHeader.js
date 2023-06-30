@@ -11,19 +11,32 @@ import { LeftArrow, RightArrow } from '../../assets/smallComponents/icon';
 
 const CalendarHeader = () => {
   const MonthIndex = useSelector(state => state.MonthIndex.value);
-  const ShowInvitationModal = useSelector(state => state.ShowInvitationModal.value)
+  const ShowInvitationModal = useSelector(
+    state => state.ShowInvitationModal.value,
+  );
   const dispatch = useDispatch(); //dispatch is touse function to interact with State of Redux
   return (
     <header className={`d-flex align-items-center ${styles.header}`}>
       <div className={styles.buttonContainer}>
         <div
-          className={`${styles.icon_sentence} d-flex align-items-center mt-4`}
+          className={`${styles.icon_sentence} d-flex align-items-center mt-3`}
           onClick={() => dispatch(toggle())}
         >
           <img src={icon} alt="Add Icon" className={styles.icon} />
           <span className={styles.sentence}>Create</span>
         </div>
-        <button onClick={() => { dispatch(toggleInvitationModal()) }} className="btn btn-primary">Show/Unshow Invitation Box</button>
+        <button
+          onClick={() => {
+            dispatch(toggleInvitationModal());
+          }}
+          className={`${styles.invitationBoxButton} position-relative`}
+        >
+          Invitation Box
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            2+
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        </button>
         {/*we can add icon then */}
         <button
           className={styles.button}
