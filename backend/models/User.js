@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'https://api.dicebear.com/6.x/initials/svg?seed=default',
   },
+  purchasedAvatars: {
+    // It should be this structure: [[1, 3], [2], [0]] (array of array)
+    type: {
+      type: [number],
+    },
+  },
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {

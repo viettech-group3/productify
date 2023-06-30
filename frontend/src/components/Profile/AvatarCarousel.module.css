@@ -11,6 +11,7 @@
   width: 100px;
   height: 100px;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .active {
@@ -20,4 +21,14 @@
 
 .carousel-control-next .carousel-control-prev {
   display: none;
+}
+
+.avatarWrapper {
+  position: relative;
+}
+
+.productifyLockIcon {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
 }

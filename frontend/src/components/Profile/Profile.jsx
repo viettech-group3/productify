@@ -9,7 +9,8 @@ import axios from 'axios';
 
 const Profile = () => {
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4Nzk5MzI2NiwiZXhwIjoxNjkwNTg1MjY2fQ.lLlluqxq3At3vH1KfIm6ZOwDMnXFt2Tk8hBwkcgujBY';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4ODA5OTMzMywiZXhwIjoxNjkwNjkxMzMzfQ.Z-Wp4NxSogkpYHxNoyIPESmifjwzmFS9p5phWnKXoy0';
+  console.log(exampleTokenForPhuoc);
   const [avatar, setAvatar] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
