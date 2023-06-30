@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './EventModal.module.css';
-import { ButtonGroup } from '@chakra-ui/react';
-import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
-import { toggle } from '../../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
+import { useSelector, useDispatch } from 'react-redux';
+import { toggle } from '../../../slices/ShowModalSlice';
 import EventForm from '../EventForm/EventForm';
 
 const EventModal = () => {
-  const ShowModal = useSelector(state => state.ShowModal.value); //ShowModal is a boolean state that know as True - showing and False - not showing
-  const dispatch = useDispatch(); //dispatch is touse function to interact with State of Redux
+  const ShowModal = useSelector(state => state.ShowModal.value);
+  const dispatch = useDispatch();
+  const modalRef = useRef(null);
+
+  const handleOutsideClick = event => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      dispatch(toggle());
+    }
+  };
+
+  const handleXClick = () => {
+    dispatch(toggle());
+  };
+
   return (
-    <div className={styles.overlay}>
-      <div className={styles.ModalCard}>
+    <div className={styles.overlay} onClick={handleOutsideClick}>
+      <div className={styles.ModalCard} ref={modalRef}>
         <div className={styles.ModalTitle}>
-          <button
-            className={styles.closeButton}
-            onClick={() => dispatch(toggle())}
-          >
+          <button className={styles.closeButton} onClick={handleXClick}>
             X
           </button>
         </div>

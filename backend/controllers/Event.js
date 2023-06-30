@@ -73,7 +73,7 @@ const getAllEvents = async (req, res) => {
       eventsIdOfThisUser.map(async id => {
         return await Event.find({
           _id: id,
-          status: { $in: ['overdue', 'ongoing'] },
+          status: { $in: ['overdue', 'ongoing', 'completed'] },
         }); // return an array
       }),
     );
@@ -107,7 +107,7 @@ const getAllEventsToday = async (req, res) => {
       eventsIdOfThisUser.map(async id => {
         return await Event.find({
           _id: id,
-          status: { $in: ['overdue', 'ongoing'] },
+          status: { $in: ['overdue', 'ongoing', 'completed'] },
         }); // return an array
       }),
     );
@@ -140,20 +140,18 @@ const getAllEventsMonths = async (req, res) => {
       //After have the EventParticipation, we can access t
       return eventParticipation.eventId;
     });
-
     let eventsOfThisUser = await Promise.all(
       //We need this line beacuse Event.find() is a Promise (it can be success or failed), this line only accept success Promise
       eventsIdOfThisUser.map(async id => {
         return await Event.find({
           _id: id,
-          status: { $in: ['overdue', 'ongoing'] },
+          status: { $in: ['overdue', 'ongoing', 'completed'] },
         }); // return an array
       }),
     );
     console.log('eventsOfThisUser', eventsOfThisUser);
     eventsOfThisUser = eventsOfThisUser.flat(); // Flattens the array of arrays (of this user's events), make 2D array become 1D array
     const monthEvents = filterMonthEvents(eventsOfThisUser, startDate, endDate); //Filter all events that ongoing in this month
-    console.log('monthEvents', monthEvents);
 
     res.status(200).json(monthEvents);
   } catch (error) {
@@ -214,6 +212,7 @@ const finishEvent = async (req, res) => {
     // if event is completed, wont do anything
     if (event.status === 'completed') {
       res.status(400).json({ message: 'Event already completed' });
+      return;
     }
 
     // Find EventParticipation of the users with that event ID and status == accepted,
@@ -233,15 +232,15 @@ const finishEvent = async (req, res) => {
     });
     await Promise.all(updatedEvents);
 
-    await Event.findByIdAndUpdate(
+    newEvent = await Event.findByIdAndUpdate(
       { _id: eventId },
       { status: 'completed' },
       { new: true },
     );
 
-    res.status(200).json({ event: event });
+    res.status(200).json({ event: newEvent });
   } catch (error) {
-    console.log(`Failed to modify event: ${error}`);
+    console.log(`Failed to finish event: ${error}`);
     res.status(500).json({ error: error });
   }
 };
