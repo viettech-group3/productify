@@ -41,13 +41,11 @@ const signUp = async (req, res) => {
     // save user
     const newUserSaved = await newUser.save();
     res.status(201).json({
-      user: {
-        id: newUserSaved.id,
-        username: newUserSaved.username,
-        email: newUserSaved.email,
-        token: generateToken(newUserSaved._id),
-        profilepicture: newUserSaved.profilepicture,
-      },
+      id: newUserSaved.id,
+      username: newUserSaved.username,
+      email: newUserSaved.email,
+      token: generateToken(newUserSaved._id),
+      profilepicture: newUserSaved.profilepicture,
     });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -67,13 +65,11 @@ const login = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser && existingUser.matchPassword(password)) {
       res.status(200).json({
-        user: {
-          _id: existingUser._id,
-          username: existingUser.username,
-          email: existingUser.email,
-          token: generateToken(existingUser._id),
-          profilepicture: existingUser.profilepicture, //We will save it into localStorage and show on Navbar
-        },
+        _id: existingUser._id,
+        username: existingUser.username,
+        email: existingUser.email,
+        token: generateToken(existingUser._id),
+        profilepicture: existingUser.profilepicture, //We will save it into localStorage and show on Navbar
       });
     } else {
       return res.status(401).json({ msg: 'Invalid credentials' });
