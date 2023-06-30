@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Profile.module.css';
 import { Card, Button } from 'react-bootstrap';
-import { createAvatar } from '@dicebear/core';
 import { adventurer } from '@dicebear/collection';
 import AvatarCarousel from './AvatarCarousel';
 import { createAvatar } from '@dicebear/core';
