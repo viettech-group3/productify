@@ -11,24 +11,6 @@ const DayView = () => {
     dispatch(fetchTodayEvents(new Date()));
   }, [dispatch]);
 
-  console.log('events', events);
-
-  // const calculateTop = start => {
-  //   const startTime = new Date(start);
-  //   const startHours = startTime.getHours();
-  //   const startMinutes = startTime.getMinutes();
-  //   const startSeconds = startTime.getSeconds();
-
-  //   // Calculate the total minutes from the start time
-  //   const totalMinutes = startHours * 60 + startMinutes + startSeconds / 60;
-
-  //   // Calculate the top position based on the total minutes
-  //   const topPosition = totalMinutes * 50 + 'px';
-  //   console.log('topPosition:', topPosition);
-
-  //   return topPosition; // Assuming each minute has a height of 50px
-  // };
-
   const calculateTop = (start, index) => {
     const startTime = new Date(start);
     const startHours = startTime.getHours();
@@ -42,27 +24,20 @@ const DayView = () => {
   };
 
   const calculateHeight = (start, end) => {
-    // Convert start and end times to Date objects
-    const startTime = new Date(start).toISOString();
-    const endTime = new Date(end).toISOString();
-    console.log('start:', start);
-    console.log('end:', end);
-    console.log('startTime:', startTime);
-    console.log('endTime:', endTime);
-    console.log('duration: ', (endTime - startTime) / (1000 * 60 * 60));
+    const startTime = new Date(start);
+    const endTime = new Date(end);
 
-    // Check if the conversion was successful
-    if (isNaN(startTime.getHours) || isNaN(endTime.getHours)) {
-      console.log('conversion failed');
-      return '0px'; // Return 0 height if the conversion fails
-    }
+    // Calculate the duration in milliseconds
+    const durationMs = endTime - startTime;
 
     // Calculate the duration in hours
-    const duration = (endTime - startTime) / (1000 * 60 * 60);
-    console.log('duration:', duration);
+    const durationHours = durationMs / (1000 * 60 * 60);
 
-    // Calculate the height based on the duration
-    const height = duration * 50 + 'px'; // Assuming each hour has a height of 50px
+    // Calculate the start hour of the event
+    const startHour = startTime.getHours();
+
+    // Calculate the height based on the duration and start hour
+    const height = durationHours * 50 + startHour * 50 + 'px';
 
     return height;
   };
@@ -108,11 +83,7 @@ const DayView = () => {
                 <div className={styles.eventDetails}>
                   <div className={styles.eventTitle}>{event.name}</div>
                   <div>start: {event.start} hours</div>
-
-                  <div>
-                    duration: {(event.end - event.start) / (1000 * 60 * 60)}{' '}
-                    hours
-                  </div>
+                  <div>end: {event.end} hours</div>
                 </div>
               </div>
             ))}
