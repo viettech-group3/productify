@@ -38,18 +38,35 @@ const DayView = () => {
 
     // Calculate the height based on the duration and start hour
     const height = durationHours * 50 + startHour * 50 + 'px';
+    console.log('height:', height);
 
     return height;
   };
 
   const boxes = [];
-  for (let i = 0; i < 23; i++) {
-    boxes.push(<div className={styles.boxInDayView}></div>);
+  for (let i = 0; i < 24; i++) {
+    boxes.push(
+      <div className={styles.boxInDayView} key={i}>
+        {i + 1} {i < 12 ? 'AM' : 'PM'}
+      </div>,
+    );
+  }
+
+  const hourLines = [];
+  for (let i = 0; i < 24; i++) {
+    const hourLinePosition = i * 50 + 'px';
+    hourLines.push(
+      <div
+        className={styles.hourLine}
+        style={{ top: hourLinePosition }}
+        key={i}
+      ></div>,
+    );
   }
 
   return (
     <div className={styles.container}>
-      <div className={styles.dayViewHeader}>Current Date/Month/Year</div>
+      <div className={styles.dayViewHeader}>Wed 5</div>
       <div className={styles.dayView_onTopRow}>
         <div style={{ width: '50px', fontSize: '13px', textAlign: 'center' }}>
           UTC-7
@@ -59,18 +76,10 @@ const DayView = () => {
 
       <div className={styles.dayView_grid}>
         <div className={styles.dayView_gridWrapper}>
-          <div className={styles.dayView_gridSideTime}>
-            {Array.from({ length: 12 }).map((_, index) => (
-              <div key={index}>{index + 1} AM</div>
-            ))}
-
-            {Array.from({ length: 12 }).map((_, index) => (
-              <div key={index}>{index + 1} PM</div>
-            ))}
-          </div>
+          <div className={styles.dayView_gridSideTime}>{boxes}</div>
 
           <div className={styles.dayView_gridMain}>
-            {boxes}
+            {hourLines}
             {events.map((event, index) => (
               <div
                 key={index}

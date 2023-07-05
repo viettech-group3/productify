@@ -36,6 +36,7 @@ function Calendar() {
         flexDirection: 'column',
         fontFamily: 'Montserrat',
         padding: '0px',
+        backgroundColor: 'white',
       }}
     >
       <Navbar />
@@ -49,7 +50,7 @@ function Calendar() {
           </div>
           <div className="col-9" style={{ padding: '0' }}>
             {ShowModal ? <EventModal /> : <></>}
-            {/* <Month month={currentMonth} /> */}
+            <Month month={currentMonth} />
             <DayView currentDate={currentDate} />{' '}
           </div>
         </div>

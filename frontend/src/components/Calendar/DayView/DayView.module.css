@@ -1,5 +1,16 @@
+.container {
+  background-color: white;
+  padding: 20px 20px;
+  border-radius: 10px;
+}
+
+.dayViewHeader {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
 .dayView_grid {
   height: 1200px;
+  background-color: white;
 }
 .dayView_gridWrapper {
   display: flex;
@@ -11,6 +22,7 @@
   height: 100%;
   justify-content: space-evenly;
   align-items: center;
+  margin-right: 20px;
 }
 
 .dayView_gridSideTime div {
@@ -26,25 +38,22 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border: 0.01px solid red;
+  border: 1px solid var(--main-grey);
   height: 100%;
   width: 100%;
 }
 
-/* .boxInDayView {
-  border-bottom: 0.01px solid red;
-} */
-
-.dayView_onTopRow {
-  display: flex;
+.hourLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--main-grey);
 }
-
-.dayView_onTopRow_Border {
-  width: 100%;
-  border-left: 1px solid #adb5bd;
-  border-right: 1px solid #adb5bd;
-}
-
 .eventDetails {
+  position: relative;
   background-color: var(--main-blue);
+  border-radius: 5px;
+  z-index: 1;
 }
