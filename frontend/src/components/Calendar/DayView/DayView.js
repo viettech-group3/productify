@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { DateTime } from 'luxon';
 import styles from './DayView.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchTodayEvents } from '../../../slices/TodayEventsSlice';
@@ -11,50 +12,39 @@ const DayView = () => {
     dispatch(fetchTodayEvents(new Date()));
   }, [dispatch]);
 
-  const calculateTop = (start, index) => {
-    const startTime = new Date(start);
-    const startHours = startTime.getHours();
-    console.log('startTime:', startTime);
-    console.log('startHours:', startHours);
+  const calculateTop = start => {
+    const startTime = DateTime.fromISO(start);
+    const startHours = startTime.hour;
 
-    const topPosition = startHours * 50 + 'px'; // Because each hour has a height of 50px = 1200 / 24
-    console.log('topPosition:', topPosition);
-
+    const topPosition = startHours * 50 + 'px';
+    console.log('startTime', startTime);
     return topPosition;
   };
 
   const calculateHeight = (start, end) => {
-    const startTime = new Date(start);
-    const endTime = new Date(end);
+    const startTime = DateTime.fromISO(start);
+    const endTime = DateTime.fromISO(end);
+    const durationHours = endTime.diff(startTime, 'hours').hours;
 
-    // Calculate the duration in milliseconds
-    const durationMs = endTime - startTime;
-
-    // Calculate the duration in hours
-    const durationHours = durationMs / (1000 * 60 * 60);
-
-    // Calculate the start hour of the event
-    const startHour = startTime.getHours();
-
-    // Calculate the height based on the duration and start hour
-    const height = durationHours * 50 + startHour * 50 + 'px';
-    console.log('height:', height);
-
+    const height = durationHours * 50 + 'px';
+    console.log('durationHours', durationHours);
+    console.log('startTime', startTime);
+    console.log('endTime', endTime);
+    console.log('start', start);
     return height;
   };
 
   const boxes = [];
+  const hourLines = [];
+
   for (let i = 0; i < 24; i++) {
+    const hourLinePosition = i * 50 + 'px';
     boxes.push(
       <div className={styles.boxInDayView} key={i}>
         {i + 1} {i < 12 ? 'AM' : 'PM'}
       </div>,
     );
-  }
 
-  const hourLines = [];
-  for (let i = 0; i < 24; i++) {
-    const hourLinePosition = i * 50 + 'px';
     hourLines.push(
       <div
         className={styles.hourLine}
@@ -85,14 +75,12 @@ const DayView = () => {
                 key={index}
                 className={styles.boxInDayView}
                 style={{
-                  top: calculateTop(event.start, index),
+                  top: calculateTop(event.start),
                   height: calculateHeight(event.start, event.end),
                 }}
               >
                 <div className={styles.eventDetails}>
                   <div className={styles.eventTitle}>{event.name}</div>
-                  <div>start: {event.start} hours</div>
-                  <div>end: {event.end} hours</div>
                 </div>
               </div>
             ))}
