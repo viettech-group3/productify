@@ -51,9 +51,17 @@
   height: 1px;
   background-color: var(--main-grey);
 }
+
 .eventDetails {
   position: relative;
   background-color: var(--main-blue);
   border-radius: 5px;
   z-index: 1;
+  color: white;
+}
+
+.eventDetails:hover {
+  background-color: var(--main-grey);
+  color: black;
+  cursor: pointer;
 }
