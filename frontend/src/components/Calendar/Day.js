@@ -20,7 +20,8 @@ function Day({ day, row }) {
   const todayEvents = filterTodayEvents(MonthEvents, currentDate); //filter all today events from MonthEvents state
 
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4Nzc1Mzc4OSwiZXhwIjoxNjkwMzQ1Nzg5fQ.8VuAzq1WcnUO8eH5M4EfXgaSoyU7D3xt5roOT1-lGzA';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWE0YTA3MDBkNWM1MDUzMjM3ZTZiMiIsImlhdCI6MTY4ODExNDI0MSwiZXhwIjoxNjkwNzA2MjQxfQ.5KPUaiZJAXMgoEtDXDPM8srQb6-y_GhE-5ZJGffgDy0';
+  // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4Nzc1Mzc4OSwiZXhwIjoxNjkwMzQ1Nzg5fQ.8VuAzq1WcnUO8eH5M4EfXgaSoyU7D3xt5roOT1-lGzA';
   const handleEventClick = (e, event) => {
     e.stopPropagation(); //So we don't trigger any parent element of this <div> by onClick
     if (event.status !== 'completed') {

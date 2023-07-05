@@ -5,19 +5,27 @@ import SideBar from '../components/Calendar/SideBar';
 import { React, useState, useEffect } from 'react';
 import Navbar from '../components/Header/Navbar';
 import Footer from '../components/Footer/Footer';
-import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
+import { useSelector, useDispatch } from 'react-redux';
 import EventModal from '../components/Calendar/EventModal/EventModal';
 import DayView from '../components/Calendar/DayView/DayView';
-import UserStateSlice from '../slices/UserStateSlice';
+import { fetchTodayEvents } from '../slices/TodayEventsSlice';
 
 function Calendar() {
-  const ShowModal = useSelector(state => state.ShowModal.value); //ShowModal is a boolean state that know as True - showing and False - not showing
+  const ShowModal = useSelector(state => state.ShowModal.value);
   const MonthIndex = useSelector(state => state.MonthIndex.value);
   const [currentMonth, setCurrentMonth] = useState(getMonth(MonthIndex));
+  const dispatch = useDispatch();
+  const currentDate = new Date().getDate(); // Get the current date
+  console.log('currentDate: ', currentDate);
+
   useEffect(() => {
-    //When MonthIndex is changed by redux dispatch => Then change currentMonth
     setCurrentMonth(getMonth(MonthIndex));
   }, [MonthIndex]);
+
+  useEffect(() => {
+    dispatch(fetchTodayEvents(currentDate)); // Fetch today's events
+  }, [dispatch, currentDate]);
+
   return (
     <div
       className="container-fluid App"
@@ -41,8 +49,8 @@ function Calendar() {
           </div>
           <div className="col-9" style={{ padding: '0' }}>
             {ShowModal ? <EventModal /> : <></>}
-            <Month month={currentMonth} />
-            {/*<DayView />*/}
+            {/* <Month month={currentMonth} /> */}
+            <DayView currentDate={currentDate} />{' '}
           </div>
         </div>
       </div>
