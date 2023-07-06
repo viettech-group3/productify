@@ -8,10 +8,12 @@
   font-weight: 600;
   margin-bottom: 20px;
 }
+
 .dayView_grid {
   height: 1200px;
   background-color: white;
 }
+
 .dayView_gridWrapper {
   display: flex;
   height: 100%;
@@ -54,22 +56,36 @@
 }
 
 .eventDetails {
-  position: absolute;
   background-color: var(--main-blue);
-  border-radius: 5px;
+  border-radius: 10px;
   z-index: 1;
   color: white;
   height: 100%;
-  width: 500px;
-  border: 2px solid var(--main-grey);
+  border: 2px solid white;
+  width: 700px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  right: 0;
+  font-size: 13px;
 }
 
 .eventDetails:hover {
-  background-color: var(--main-grey);
-  color: black;
+  background-color: #6485ad;
   cursor: pointer;
 }
 
 .boxInDayView {
   position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  right: 0;
+}
+
+.eventTitle {
+  font-size: 18px;
 }

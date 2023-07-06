@@ -12,6 +12,14 @@ const DayView = () => {
     dispatch(fetchTodayEvents(new Date()));
   }, [dispatch]);
 
+  const calculateTime = (start, end) => {
+    const startDateTime = DateTime.fromISO(start);
+    const endDateTime = DateTime.fromISO(end);
+    const startTime = startDateTime.toLocaleString(DateTime.TIME_SIMPLE);
+    const endTime = endDateTime.toLocaleString(DateTime.TIME_SIMPLE);
+    return `${startTime}-${endTime}`;
+  };
+
   const calculateTop = start => {
     const startTime = DateTime.fromISO(start);
     const startHours = startTime.hour;
@@ -23,15 +31,74 @@ const DayView = () => {
     const startTime = DateTime.fromISO(start);
     const endTime = DateTime.fromISO(end);
     const durationHours = endTime.diff(startTime, 'hours').hours;
-
     const height = durationHours * 50 + 'px';
-    console.log('durationHours', durationHours);
-    console.log('startTime', startTime);
-    console.log('endTime', endTime);
-    console.log('start', start);
-    console.log('height', height);
     return height;
   };
+
+  const calculateLeft = (event, sortedEvents) => {
+    const index = sortedEvents.findIndex(e => e === event);
+
+    if (index === 0) {
+      return '0';
+    }
+
+    const previousEvent = sortedEvents[index - 1];
+    const previousEventEnd = DateTime.fromISO(previousEvent.end);
+    const currentEventStart = DateTime.fromISO(event.start);
+
+    if (previousEventEnd > currentEventStart) {
+      const previousEventLeft = calculateLeft(previousEvent, sortedEvents);
+      const leftOffset = parseInt(previousEventLeft, 10) + 50;
+      return leftOffset + 'px';
+    }
+
+    return '0';
+  };
+
+  const calculateZIndex = (event, sortedEvents) => {
+    const index = sortedEvents.findIndex(e => e === event);
+    const earlierStartEvents = sortedEvents
+      .slice(0, index)
+      .filter(
+        prevEvent =>
+          DateTime.fromISO(prevEvent.start) < DateTime.fromISO(event.start),
+      );
+    const shorterDurationEvents = sortedEvents
+      .slice(0, index)
+      .filter(
+        prevEvent =>
+          DateTime.fromISO(prevEvent.start) === DateTime.fromISO(event.start) &&
+          DateTime.fromISO(prevEvent.end).diff(
+            DateTime.fromISO(prevEvent.start),
+            'hours',
+          ).hours <
+            DateTime.fromISO(event.end).diff(
+              DateTime.fromISO(event.start),
+              'hours',
+            ).hours,
+      );
+    const zIndex = earlierStartEvents.length + shorterDurationEvents.length + 1; // Higher z-index for events with earlier start time and shorter duration
+    return zIndex;
+  };
+
+  const sortEventsByStartAndDuration = events => {
+    return events.slice().sort((a, b) => {
+      const aStart = DateTime.fromISO(a.start);
+      const bStart = DateTime.fromISO(b.start);
+      const aEnd = DateTime.fromISO(a.end);
+      const bEnd = DateTime.fromISO(b.end);
+      const aDuration = aEnd.diff(aStart, 'hours').hours;
+      const bDuration = bEnd.diff(bStart, 'hours').hours;
+
+      if (aStart === bStart) {
+        return aDuration - bDuration;
+      } else {
+        return aStart - bStart;
+      }
+    });
+  };
+
+  const sortedEvents = sortEventsByStartAndDuration(events);
 
   const boxes = [];
   const hourLines = [];
@@ -69,20 +136,27 @@ const DayView = () => {
 
           <div className={styles.dayView_gridMain}>
             {hourLines}
-            {events.map((event, index) => (
-              <div
-                key={index}
-                className={styles.boxInDayView}
-                style={{
-                  top: calculateTop(event.start),
-                  height: calculateHeight(event.start, event.end),
-                }}
-              >
-                <div className={styles.eventDetails}>
-                  <div className={styles.eventTitle}>{event.name}</div>
+
+            {events.map((event, index) => {
+              const zIndex = calculateZIndex(event, sortedEvents);
+              return (
+                <div
+                  key={index}
+                  className={styles.boxInDayView}
+                  style={{
+                    top: calculateTop(event.start),
+                    height: calculateHeight(event.start, event.end),
+                    left: calculateLeft(event, sortedEvents),
+                    zIndex: zIndex,
+                  }}
+                >
+                  <div className={styles.eventDetails}>
+                    <div className={styles.eventTitle}>{event.name}</div>
+                    <div>{calculateTime(event.start, event.end)}</div>{' '}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
