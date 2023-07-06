@@ -7,8 +7,8 @@ import { toggleTodayTasks } from '../../../slices/ShowTodayTasksSlice';
 const TodayModal = () => {
   //This file is used to fetch today task and show it on the screen
   const dispatch = useDispatch();
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NjE1NzQxOSwiZXhwIjoxNjg4NzQ5NDE5fQ.u2Xv7d9vm62wFiNQEJgq4Mak6LBBjpe9I69Dl4BH8eA';
+  const exampleTokenForPhuoc = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
+  // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NjE1NzQxOSwiZXhwIjoxNjg4NzQ5NDE5fQ.u2Xv7d9vm62wFiNQEJgq4Mak6LBBjpe9I69Dl4BH8eA';
   //Example token to pass protect in backend route (We'll delete it later)
   const [eventsData, setEventsData] = useState([]); //EventData is a state
 
