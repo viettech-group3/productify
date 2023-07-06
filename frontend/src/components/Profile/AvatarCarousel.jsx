@@ -2,43 +2,100 @@ import React, { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
+import { thumbs } from '@dicebear/collection';
+import { adventurer } from '@dicebear/collection';
 import styles from './AvatarCarousel.module.css';
 
-const AvatarCarousel = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const AvatarCarousel = ({ level, allAvatars }) => {
+  const currentLevelObj = allAvatars[level - 1].avatars;
+  console.log('currentLevelObj: ', currentLevelObj);
 
+  const [activeIndex, setActiveIndex] = useState(0);
   const handleSelect = selectedIndex => {
     setActiveIndex(selectedIndex);
   };
 
   return (
-    <Carousel activeIndex={activeIndex} onSelect={handleSelect} interval={null}>
-      {[...Array(16)].map((_, index) => {
-        const seed = `Avatar${index + 1}`;
-        const avatar = createAvatar(bigSmile, {
-          seed,
-        });
-        const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-          avatar.toString(),
-        )}`;
-
-        return (
-          <Carousel.Item
-            key={index}
-            className={`${styles.carouselItem} ${
-              index === activeIndex ? styles.active : ''
-            }`}
-          >
-            <img
-              src={avatarDataUrl}
-              alt={`Avatar ${index + 1}`}
-              className={styles.avatarImage}
+    <div>
+      <Carousel
+        activeIndex={activeIndex}
+        onSelect={handleSelect}
+        interval={null}
+      >
+        {currentLevelObj.map((avatarObj, avatarIndex) => {
+          return (
+            <CarouselItem
+              key={avatarIndex}
+              url={getAvatarUrl(avatarObj)}
+              index={avatarIndex}
+              activeIndex={activeIndex}
+              unlocked={avatarObj.unlocked}
             />
-          </Carousel.Item>
-        );
-      })}
-    </Carousel>
+          );
+        })}
+      </Carousel>
+    </div>
   );
+};
+
+const CarouselItem = ({ url, index, activeIndex, unlocked }) => {
+  //console.log(url);
+  return (
+    <Carousel.Item
+      className={`${styles.carouselItem} ${
+        index === activeIndex ? styles.active : ''
+      }`}
+    >
+      <div className={styles.avatarWrapper}>
+        {!unlocked && (
+          <div className={styles.productifyLockIcon}>
+            <i className="fa-solid fa-lock"></i>
+          </div>
+        )}
+        <img
+          src={url}
+          alt={`Avatar ${index + 1}`}
+          className={styles.avatarImage}
+        />
+      </div>
+    </Carousel.Item>
+  );
+};
+
+const getAvatarUrl = ({ type, identifier, unlocked }) => {
+  if (type === 'bigSmile') {
+    const dicebearAvatar = createAvatar(bigSmile, {
+      seed: identifier,
+    });
+
+    const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+      dicebearAvatar.toString(),
+    )}`;
+    return avatarDataUrl;
+  } else if (type === 'adventure') {
+    const dicebearAvatar = createAvatar(adventurer, {
+      seed: identifier,
+    });
+    const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+      dicebearAvatar.toString(),
+    )}`;
+
+    return avatarDataUrl;
+  } else if (type === 'thumbs') {
+    const dicebearAvatar = createAvatar(thumbs, {
+      seed: identifier,
+    });
+    const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+      dicebearAvatar.toString(),
+    )}`;
+    return avatarDataUrl;
+    // } else if (type === 'animal') {
+    //   const svg = avatar(identifier, { size: 130 });
+    //   return svg;
+  } else {
+    console.log('error in getAvatarUrl', identifier);
+    return identifier;
+  }
 };
 
 export default AvatarCarousel;

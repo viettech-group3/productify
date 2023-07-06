@@ -1,21 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styles from './Profile.module.css';
 import { Card, Button } from 'react-bootstrap';
-import { adventurer } from '@dicebear/collection';
 import AvatarCarousel from './AvatarCarousel';
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
-import axios from 'axios';
+import axios, { all } from 'axios';
 
 const Profile = () => {
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4Nzk5MzI2NiwiZXhwIjoxNjkwNTg1MjY2fQ.lLlluqxq3At3vH1KfIm6ZOwDMnXFt2Tk8hBwkcgujBY';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTRiMmY1NGE2NTE2OWY5N2I2ZDAzZSIsImlhdCI6MTY4ODUxNTMyOCwiZXhwIjoxNjkxMTA3MzI4fQ.uGY4JcNkOi3Yfygr5ggkgpqsjlLx3tD72fltsMThweU';
   const [avatar, setAvatar] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [points, setPoints] = useState(0);
+  const [purchasedAvatars, setPurchasedAvatars] = useState([[]]);
+  const [totalpoints, setTotalPoints] = useState(0);
+  const [allAvatars, setAllAvatars] = useState([]);
+  const [level, setLevel] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:5000/api/users/getUser',
+        {
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
+        },
+      );
+      //console.log('User information:', response.data);
+      setName(response.data.username);
+      setEmail(response.data.email);
+      setPoints(response.data.points);
+      setPurchasedAvatars(response.data.purchasedAvatars);
+      setTotalPoints(response.data.totalpoints);
+
+      // if avatar is default, chaneg it so that it appear as initials of user
+      // else set current avatar of user
+      if (
+        response.data.purchasedAvatars[0][0] ===
+        'https://api.dicebear.com/6.x/initials/svg?seed=default'
+      ) {
+        setAvatar(
+          'https://api.dicebear.com/6.x/initials/svg?seed=' +
+            response.data.username,
+        );
+      } else {
+        setAvatar(response.data.purchasedAvatars[0][0]);
+      }
+    } catch (error) {
+      console.log('There is something wrong with fetching user info');
+    }
+  };
+
+  /**
+   * Handle All Avatars List
+   */
+  const fetchAvatars = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:5000/api/users/getAvatars',
+        {
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
+        },
+      );
+      await setAllAvatars(response.data);
+      console.log(
+        'All avatars: ',
+        response.data,
+        typeof response.data,
+        typeof allAvatars,
+        'this is the  very first origin',
+      );
+      await console.log('All avatars:', allAvatars, 'this is the origin');
+      await console.log('type of 0', typeof allAvatars);
+
+      await console.log('ditmecuocdoi', allAvatars[0].avatars);
+      //console.log(allAvatars);
+    } catch (error) {
+      console.log('There is something wrong with fetching avatars');
+    }
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
+      await sleep(1000);
       try {
         const response = await axios.get(
           'http://localhost:5000/api/users/getUser',
@@ -25,12 +99,17 @@ const Profile = () => {
             },
           },
         );
-        console.log('User information:', response.data);
+        //console.log('User information:', response.data);
         setName(response.data.username);
         setEmail(response.data.email);
         setPoints(response.data.points);
+        setPurchasedAvatars(response.data.purchasedAvatars);
+        setTotalPoints(response.data.totalpoints);
+
+        // if avatar is default, chaneg it so that it appear as initials of user
+        // else set current avatar of user
         if (
-          response.data.profilepicture ===
+          response.data.purchasedAvatars[0][0] ===
           'https://api.dicebear.com/6.x/initials/svg?seed=default'
         ) {
           setAvatar(
@@ -38,23 +117,47 @@ const Profile = () => {
               response.data.username,
           );
         } else {
-          setAvatar(response.data.profilepicture);
+          setAvatar(response.data.profilepicture[0][0]);
         }
       } catch (error) {
-        console.log('There is something wrong with fetching avatar');
+        console.log('There is something wrong with fetching user info');
       }
     };
-    fetchUser();
-  });
+    const fetchAvatars = async () => {
+      await sleep(1000);
+      try {
+        const response = await axios.get(
+          'http://localhost:5000/api/users/getAvatars',
+          {
+            headers: {
+              Authorization: `Bearer ${exampleTokenForPhuoc}`,
+            },
+          },
+        );
+        await setAllAvatars(response.data);
+        console.log(
+          'All avatars: ',
+          response.data,
+          typeof response.data,
+          typeof allAvatars,
+          'this is the  very first origin',
+        );
 
-  const handleTradePoints = pointsToTrade => {
-    // TODO Logic for trading points and updating totalPoints state
-  };
+        //console.log(allAvatars);
+      } catch (error) {
+        console.log('There is something wrong with fetching avatars');
+      }
+    };
+    fetchAvatars();
+    fetchUser();
+
+    setIsLoading(false);
+  }, []);
 
   const handleTradeRandomAvatar = async () => {
     try {
       //check if user have enough points
-      if (points < 100) {
+      if (points < 50) {
         alert('Not enough point');
         return;
       }
@@ -78,7 +181,7 @@ const Profile = () => {
       //update user infor on database
       const response = await axios.put(
         `http://localhost:5000/api/users/update`,
-        { profilepicture: randomAvatar, points: points - 100 },
+        { profilepicture: randomAvatar, points: points - 50 },
         {
           headers: {
             Authorization: `Bearer ${exampleTokenForPhuoc}`,
@@ -87,7 +190,7 @@ const Profile = () => {
       );
 
       setAvatar(response.data.profilepicture);
-      setPoints(points - 100);
+      setPoints(points - 50);
     } catch (error) {
       console.log('There is something wrong with update avatar');
     }
@@ -118,7 +221,7 @@ const Profile = () => {
       //update user infor on database
       const response = await axios.put(
         `http://localhost:5000/api/users/update`,
-        { profilepicture: currentAvatarDataUrl, points: points - 500 },
+        { profilepicture: currentAvatarDataUrl, points: points - 100 },
         {
           headers: {
             Authorization: `Bearer ${exampleTokenForPhuoc}`,
@@ -127,42 +230,68 @@ const Profile = () => {
       );
 
       setAvatar(response.data.profilepicture);
-      setPoints(points - 500);
+      setPoints(points - 100);
     } catch (error) {
       console.log('There is something wrong with update avatar');
     }
   };
+
+  const handleChange = async e => {
+    try {
+      let { levelStage, value } = e.target;
+      setLevel(value);
+    } catch (error) {
+      console.log('There is something wrong in level handling');
+    }
+  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.viewport}>
       <div className={styles.sidebar}>
         <img
           src={`${avatar}`}
-          alt="Calendar Demo Image"
+          alt="User Profile"
           className={`${styles.image}`}
         />
         <p className={`${styles.paragraph} text-center`}> {name} </p>
         <p className={`${styles.paragraph} text-center`}> {email} </p>
         <p className={`${styles.paragraph} text-center`}> {points} pts </p>
+        <p className={`${styles.paragraph} text-center`}>
+          {' '}
+          Total {totalpoints} pts{' '}
+        </p>
       </div>
 
       <div className={styles.avatarSection}>
         <Card className={styles.cardContainer}>
           <Card.Body className={styles.cardBody}>
             <div className={styles.pointTitle}>Customize your avatar!</div>
-            <AvatarCarousel />
+            <div classname={styles.levelContainer}>
+              <select classname={styles.levelOption} onChange={handleChange}>
+                <option value="1">Level 1</option>
+                <option value="2">Level 2</option>
+                <option value="3">Level 3</option>
+              </select>
+            </div>
+            {/* ? : means if else. for ex : 1+1 ==2 ? print('right') : print('wrong') => result will be 'right' */}
+            {allAvatars.length > 0 ? (
+              <AvatarCarousel level={level} allAvatars={allAvatars} />
+            ) : null}
             <div className={styles.buttonContainer}>
               <Button
                 className={styles.tradeButton}
                 onClick={handleTradeRandomAvatar}
               >
-                Use Random Avatar for 100 points
+                Use Random Avatar for 50 points
               </Button>
               <Button
                 className={styles.tradeButton}
                 onClick={handleTradeCustomAvatar}
               >
-                Use Custom Avatar for 500 points
+                Use Custom Avatar for 100 points
               </Button>
             </div>
           </Card.Body>

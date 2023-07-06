@@ -109,8 +109,8 @@ input {
   display: flex;
   justify-content: center;
   flex-direction: row;
-
-  overflow: hidden;
+  flex-wrap: wrap;
+  overflow: auto;
   margin: 0 auto;
 }
 .roomCard {

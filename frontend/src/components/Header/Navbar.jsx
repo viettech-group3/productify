@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const Navbar = () => {
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NzkzNjg5OCwiZXhwIjoxNjkwNTI4ODk4fQ.q4zxr2yP4GrH-51AgX6aYUYWLjN78yw_JGTfA_StvXc';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTRiMmY1NGE2NTE2OWY5N2I2ZDAzZSIsImlhdCI6MTY4ODUxNTMyOCwiZXhwIjoxNjkxMTA3MzI4fQ.uGY4JcNkOi3Yfygr5ggkgpqsjlLx3tD72fltsMThweU';
   const [avatar, setAvatar] = useState('');
   useEffect(() => {
     const fetchUser = async () => {
@@ -19,7 +19,20 @@ const Navbar = () => {
           },
         );
         console.log('User information:', response.data);
-        setAvatar(response.data.profilepicture);
+
+        // if avatar is default, chaneg it so that it appear as initials of user
+        // else set current avatar of user
+        if (
+          response.data.purchasedAvatars[0][0] ===
+          'https://api.dicebear.com/6.x/initials/svg?seed=default'
+        ) {
+          setAvatar(
+            'https://api.dicebear.com/6.x/initials/svg?seed=' +
+              response.data.username,
+          );
+        } else {
+          setAvatar(response.data.purchasedAvatars[0][0]);
+        }
       } catch (error) {
         console.log('There is something wrong with fetching avatar');
       }
@@ -51,6 +64,14 @@ const Navbar = () => {
           <a className={styles.navbarLink} href="/studywithme">
             Study Room
           </a>
+        </li>
+        <li className={styles.navbarItem}>
+          <img
+            src={`${avatar}`}
+            alt="User Profile"
+            className={`${styles.image}`}
+            href="/profile"
+          />
         </li>
       </ul>
     </nav>
