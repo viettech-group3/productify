@@ -15,9 +15,7 @@ const DayView = () => {
   const calculateTop = start => {
     const startTime = DateTime.fromISO(start);
     const startHours = startTime.hour;
-
     const topPosition = startHours * 50 + 'px';
-    console.log('startTime', startTime);
     return topPosition;
   };
 
@@ -31,6 +29,7 @@ const DayView = () => {
     console.log('startTime', startTime);
     console.log('endTime', endTime);
     console.log('start', start);
+    console.log('height', height);
     return height;
   };
 

@@ -25,6 +25,7 @@ export const fetchTodayEvents = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error(error);
+      console.log('error fetching todays events');
       throw error;
     }
   },

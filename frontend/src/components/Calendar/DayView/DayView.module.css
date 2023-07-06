@@ -41,6 +41,7 @@
   border: 1px solid var(--main-grey);
   height: 100%;
   width: 100%;
+  align-items: stretch;
 }
 
 .hourLine {
@@ -53,11 +54,14 @@
 }
 
 .eventDetails {
-  position: relative;
+  position: absolute;
   background-color: var(--main-blue);
   border-radius: 5px;
   z-index: 1;
   color: white;
+  height: 100%;
+  width: 500px;
+  border: 2px solid var(--main-grey);
 }
 
 .eventDetails:hover {
