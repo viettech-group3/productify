@@ -30,6 +30,7 @@ const AvatarCarousel = ({ level, allAvatars }) => {
               index={avatarIndex}
               activeIndex={activeIndex}
               unlocked={avatarObj.unlocked}
+              name={avatarObj.name}
             />
           );
         })}
@@ -38,8 +39,9 @@ const AvatarCarousel = ({ level, allAvatars }) => {
   );
 };
 
-const CarouselItem = ({ url, index, activeIndex, unlocked }) => {
+const CarouselItem = ({ url, index, activeIndex, unlocked, name }) => {
   //console.log(url);
+  console.log(name);
   return (
     <Carousel.Item
       className={`${styles.carouselItem} ${
@@ -58,11 +60,12 @@ const CarouselItem = ({ url, index, activeIndex, unlocked }) => {
           className={styles.avatarImage}
         />
       </div>
+      <p className={`${styles.paragraph} text-center`}> {name} </p>
     </Carousel.Item>
   );
 };
 
-const getAvatarUrl = ({ type, identifier, unlocked }) => {
+const getAvatarUrl = ({ type, identifier, name, unlocked }) => {
   if (type === 'bigSmile') {
     const dicebearAvatar = createAvatar(bigSmile, {
       seed: identifier,
@@ -92,6 +95,8 @@ const getAvatarUrl = ({ type, identifier, unlocked }) => {
     // } else if (type === 'animal') {
     //   const svg = avatar(identifier, { size: 130 });
     //   return svg;
+  } else if (type === 'url') {
+    return identifier;
   } else {
     console.log('error in getAvatarUrl', identifier);
     return identifier;

@@ -66,12 +66,13 @@ const Navbar = () => {
           </a>
         </li>
         <li className={styles.navbarItem}>
-          <img
-            src={`${avatar}`}
-            alt="User Profile"
-            className={`${styles.image}`}
-            href="/profile"
-          />
+          <a href="/profile">
+            <img
+              src={`${avatar}`}
+              alt="User Profile"
+              className={`${styles.image}`}
+            />
+          </a>
         </li>
       </ul>
     </nav>

@@ -17,12 +17,14 @@ const getAllAvatars = (totalpoints, purchasedAvatars) => {
             return {
               type: currentAvatar.type,
               identifier: currentAvatar.identifier,
+              name: currentAvatar.name,
               unlocked: true,
             };
           } else {
             return {
               type: currentAvatar.type,
               identifier: currentAvatar.identifier,
+              name: currentAvatar.name,
               unlocked: false,
             };
           }
@@ -36,6 +38,7 @@ const getAllAvatars = (totalpoints, purchasedAvatars) => {
           return {
             type: currentAvatar.type,
             identifier: currentAvatar.identifier,
+            name: currentAvatar.name,
             unlocked: false,
           };
         }),
