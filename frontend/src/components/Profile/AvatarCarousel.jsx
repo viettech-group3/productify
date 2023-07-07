@@ -87,6 +87,7 @@ const getAvatarUrl = ({ type, identifier, name, unlocked }) => {
   } else if (type === 'thumbs') {
     const dicebearAvatar = createAvatar(thumbs, {
       seed: identifier,
+      scale: 80,
     });
     const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
       dicebearAvatar.toString(),
