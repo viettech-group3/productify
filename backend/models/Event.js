@@ -23,6 +23,16 @@ const eventSchema = new mongoose.Schema({
     enum: ["ongoing", "completed", "overdue"],
     default: "ongoing",
   },
+  label: {
+    name: {
+      type: String,
+      default: "event",
+    },
+    color: {
+      type: String,
+      default: '#0000FF',
+    }
+  }
 });
 
 const Event = mongoose.model("Event", eventSchema);

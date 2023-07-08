@@ -6,6 +6,8 @@ import TodayEventsReducer from '../slices/TodayEventsSlice';
 import MonthEventsReducer from '../slices/MonthEventsSlice';
 import ShowInvitationReducer from '../slices/ShowInvitationModal';
 import UserState from '../slices/UserStateSlice';
+import LabelReducer from '../slices/LabelSlice';
+import ShowLabelFormReducer from '../slices/ShowLabelForm';
 
 export default configureStore({
   reducer: {
@@ -16,5 +18,7 @@ export default configureStore({
     MonthEvents: MonthEventsReducer,
     ShowInvitationModal: ShowInvitationReducer,
     SetUser: UserState,
+    Label: LabelReducer,
+    ShowLabelForm: ShowLabelFormReducer,
   },
 });
