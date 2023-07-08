@@ -14,10 +14,11 @@ import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
 
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
+  const labelList = useSelector((state) => state.Label.value)
+  console.log("labellist in eventform.js", labelList)
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4NzQwMTkxNywiZXhwIjoxNjg5OTkzOTE3fQ.JsBEi0kmi7NygvHCZiwmQecP-6T0njtEb6DcVT14WpQ';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
   //Example token to pass protect in backend route (We'll delete it later)
-  const [eventsData, setEventsData] = useState([]); //EventData is a state
   const [formData, setFormData] = useState({
     name: '',
     describe: '',
@@ -25,6 +26,10 @@ const EventForm = () => {
     end: null,
     invitedInput: null,
     invited: [],
+    label: {
+      name: '',
+      color: ''
+    },
   });
 
   const [invitedGuest, setInvitedGuest] = useState([]); //state to store all of emails in an array
@@ -74,6 +79,25 @@ const EventForm = () => {
       invitedInput: '',
     }));
   };
+
+  const handleLabelChange = (e) => {
+    const selectedLabelName = e.target.value;
+    console.log("Current SelectedLabelname is", selectedLabelName)
+    const selectedLabel = labelList.find((label) => label.name === selectedLabelName);
+    console.log("Current label object is", selectedLabel)
+    if (selectedLabel) {
+      setFormData((prevData) => ({
+        ...prevData,
+        label: {
+          name: selectedLabel.name,
+          color: selectedLabel.color,
+        },
+      }));
+    }
+    console.log("curent formData is", formData)
+  };
+
+
   return (
     <div>
       <form onSubmit={handleSubmit} className={styles.form} id="my-form">
@@ -149,6 +173,37 @@ const EventForm = () => {
               onChange={handleChange}
               className={styles.input}
             />
+
+            <input
+              type="text"
+              id="labelInput"
+              name="label"
+              placeholder="Select Label"
+              list="labelList"
+              onChange={handleLabelChange}
+              className={styles.input}
+            />
+            <datalist id="labelList">
+              {labelList.map((label) => (
+                <option key={label.name} value={label.name}>
+                  {label.name}
+                  <span
+                    style={{
+                      backgroundColor: label.color,
+                      width: '10px',
+                      height: '10px',
+                      display: 'inline-block',
+                      marginLeft: '5px',
+                    }}
+                  ></span>
+                </option>
+
+              ))}
+
+            </datalist>
+
+
+
           </div>
         </div>
         <button
@@ -164,7 +219,7 @@ const EventForm = () => {
             <div className={styles.invitedEmail}>{email}</div>
           ))}
         </div>
-      </form>
+      </form >
 
       <div className={styles.submitContainer}>
         <button type="submit" className={styles.submitButton} form="my-form">
@@ -173,7 +228,7 @@ const EventForm = () => {
           Submit
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 
