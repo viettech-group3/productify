@@ -5,10 +5,11 @@ import AvatarCarousel from './AvatarCarousel';
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
 import axios, { all } from 'axios';
+import Wheel from './WheelComponent';
 
 const Profile = () => {
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTRiMmY1NGE2NTE2OWY5N2I2ZDAzZSIsImlhdCI6MTY4ODUxNTMyOCwiZXhwIjoxNjkxMTA3MzI4fQ.uGY4JcNkOi3Yfygr5ggkgpqsjlLx3tD72fltsMThweU';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWE0YTA3MDBkNWM1MDUzMjM3ZTZiMiIsImlhdCI6MTY4ODExNDI0MSwiZXhwIjoxNjkwNzA2MjQxfQ.5KPUaiZJAXMgoEtDXDPM8srQb6-y_GhE-5ZJGffgDy0';
   const [avatar, setAvatar] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -250,21 +251,6 @@ const Profile = () => {
 
   return (
     <div className={styles.viewport}>
-      <div className={styles.sidebar}>
-        <img
-          src={`${avatar}`}
-          alt="User Profile"
-          className={`${styles.image}`}
-        />
-        <p className={`${styles.paragraph} text-center`}> {name} </p>
-        <p className={`${styles.paragraph} text-center`}> {email} </p>
-        <p className={`${styles.paragraph} text-center`}> {points} pts </p>
-        <p className={`${styles.paragraph} text-center`}>
-          {' '}
-          Total {totalpoints} pts{' '}
-        </p>
-      </div>
-
       <div className={styles.avatarSection}>
         <Card className={styles.cardContainer}>
           <Card.Body className={styles.cardBody}>
@@ -296,6 +282,27 @@ const Profile = () => {
             </div>
           </Card.Body>
         </Card>
+      </div>
+
+      <div className={styles.customization}>
+        <div className={styles.sidebar}>
+          <img
+            src={`${avatar}`}
+            alt="User Profile"
+            className={`${styles.image}`}
+          />
+          <p className={`${styles.paragraph} text-center`}> {name} </p>
+          <p className={`${styles.paragraph} text-center`}> {email} </p>
+          <p className={`${styles.paragraph} text-center`}> {points} pts </p>
+          <p className={`${styles.paragraph} text-center`}>
+            {' '}
+            Total {totalpoints} pts{' '}
+          </p>
+        </div>
+
+        <div className={styles.wheel}>
+          <Wheel />
+        </div>
       </div>
     </div>
   );
