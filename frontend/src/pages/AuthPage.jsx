@@ -10,12 +10,15 @@ import {
   Tabs,
   Flex,
   Center,
+  Button,
   Image,
 } from '@chakra-ui/react';
 import Login from '../components/Authentication/Login';
 import Signup from '../components/Authentication/Signup';
 import logo from '../assets/images/logoWhite.png';
 import toast, { Toaster } from 'react-hot-toast';
+import styles from './AuthPage.module.css';
+import catMeme from '../assets/images/CatMeme.jpg';
 
 const AuthPage = () => {
   if (localStorage.getItem('user')) {
@@ -23,6 +26,8 @@ const AuthPage = () => {
     window.location.href = '/calendar';
   }
   const [activeTab, setActiveTab] = useState(0); //acTive Tab to control the <TabPanel> that is displayed in <TabPanels>
+  const [showModal, setShowModal] = useState(false); // State for showing/hiding the modal
+
   const handleLoginClick0 = () => {
     //If we click the Login => Change to Login Tab
     setActiveTab(0);
@@ -36,6 +41,16 @@ const AuthPage = () => {
   const handleTabChange = index => {
     //if we click to other tab, that's change the index to move to the corresponding tab
     setActiveTab(index);
+  };
+
+  const openModal = () => {
+    // Function to open the modal
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    // Function to close the modal
+    setShowModal(false);
   };
 
   return (
@@ -113,16 +128,25 @@ const AuthPage = () => {
             <TabPanels>
               <TabPanel>
                 <Login />
-                <div className="mt-3 text-center">
-                  <b>
-                    Don't Have Account?{' '}
-                    <span
-                      style={{ color: '#0077b6' }}
-                      onClick={handleLoginClick1}
-                    >
-                      Sign Up
-                    </span>
-                  </b>{' '}
+                <div className="mt-3 d-flex justify-content-between">
+                  <div>
+                    <b>
+                      Don't Have Account?{' '}
+                      <span
+                        style={{ color: '#0077b6' }}
+                        onClick={handleLoginClick1}
+                      >
+                        Sign Up
+                      </span>
+                    </b>
+                  </div>
+                  <div>
+                    <b>
+                      <span className={styles.forgetpass} onClick={openModal}>
+                        Forget your password ?
+                      </span>{' '}
+                    </b>
+                  </div>
                   {/* If we click Sign Up, it will move to Sign Up Components */}
                 </div>
               </TabPanel>
@@ -147,6 +171,60 @@ const AuthPage = () => {
           </Tabs>
         </Box>
       </Flex>
+      {showModal && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 50,
+          }}
+        >
+          <Box
+            bg="white"
+            p={4}
+            borderRadius="md"
+            maxWidth="500px"
+            position="relative"
+          >
+            <Box borderBottom="1px solid #000">
+              <Text fontSize="lg" fontWeight="bold">
+                Forget your password?
+              </Text>
+            </Box>
+            <Box py={4}>
+              <Text>Relax and try to remember your password, my friend.</Text>
+              <Text>(I know you can do it!!!)</Text>
+            </Box>
+            <Flex justifyContent="center" alignItems="center" height="200px">
+              <Image
+                src={catMeme}
+                alt="Meme"
+                boxSize="200px"
+                objectFit="cover"
+              />
+            </Flex>
+
+            <Box pt={1}>
+              <Flex justifyContent="flex-end">
+                <Button
+                  colorScheme="blue"
+                  variant="outline"
+                  onClick={closeModal}
+                >
+                  Thanks
+                </Button>
+              </Flex>
+            </Box>
+          </Box>
+        </div>
+      )}
       <Toaster />
     </div>
   );
