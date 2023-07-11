@@ -111,12 +111,14 @@ const AuthPage = () => {
                     'linear-gradient(315deg, #fde7f9 0%, #aacaef 74%)',
                 }}
                 width="50%"
+                className={styles.tab}
               >
                 Login
               </Tab>
               <Tab
                 width="50%"
                 bg="white"
+                className={styles.tab}
                 _selected={{
                   backgroundImage:
                     'linear-gradient(315deg, #fde7f9 0%, #aacaef 74%)',
