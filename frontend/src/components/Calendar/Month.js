@@ -9,6 +9,7 @@ export default function Month({ month }) {
   const exampleTokenForPhuoc =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
+  const [loadingState, setLoadingState] = useState(true)
   const startDate = month[0][0];
   const endDate = month[4][6];
   console.log(123);
@@ -40,6 +41,8 @@ export default function Month({ month }) {
         } else {
           console.log('Error:', error.message);
         }
+      } finally {
+        setLoadingState(false)
       }
     };
 
@@ -48,6 +51,7 @@ export default function Month({ month }) {
     return () => {
       //This is cleanup function of useEffect() to cancel old request before making the new request
       if (cancelRequest) {
+        setLoadingState(true)
         cancelRequest('Request canceled');
       }
     };
@@ -72,7 +76,7 @@ export default function Month({ month }) {
             {month.map((week, i) => (
               <tr key={i}>
                 {week.map((day, j) => (
-                  <Day day={day} key={j} row={i} /> /*Headers */
+                  <Day day={day} key={j} row={i} loadingState={loadingState} /> /*Headers */
                 ))}
               </tr>
             ))}

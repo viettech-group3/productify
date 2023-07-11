@@ -6,9 +6,8 @@ import { useSelector, useDispatch } from 'react-redux'; //To manage Global State
 import { toggle } from '../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
 import { updateStatus } from '../../slices/MonthEventsSlice';
 import { filterTodayEvents } from '../../service/util';
-import { current } from '@reduxjs/toolkit';
 
-function Day({ day, row }) {
+function Day({ day, row, loadingState }) {
   const currentDate = new Date(day);
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const isToday = day.isSame(dayjs(), 'day'); // Check if the day is today
@@ -81,7 +80,10 @@ function Day({ day, row }) {
           </div>
         </div>
       )}
-
+      {loadingState &&
+        (<div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>)}
       <div>
         {todayEventsWithLabels.map((event, idx) => (
           <div
