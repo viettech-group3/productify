@@ -113,30 +113,36 @@ function StudyWithMe() {
       <div className={styles.activeRoomsContainer}>
         <div className={styles.title}>Join Active Rooms</div>
 
-        {activeRooms.length ? (
-          <div className={styles.container}>
-            {activeRooms.map((room, index) => (
-              <div className={styles.roomCard} key={room.name}>
-                <div className={styles.roomDetails}>
-                  <img src={studyBacground[index % 7]} alt="Room Cover"></img>
-                  <span className={styles.roomName}>{room.name}</span>
-
-                  <span className={styles.attendees}>
-                    {room.attendees}
-                    <AiOutlineUser />
-                  </span>
-                </div>
-                <button
-                  className={styles.joinButton}
-                  onClick={() => handleCreateRoom(username, room.name)}
-                >
-                  Join Room
-                </button>
-              </div>
-            ))}
-          </div>
-        ) : (
+        {activeRooms.length &&
+        activeRooms.every(room => room.numParticipants === 0) ? (
           <p>No active rooms</p>
+        ) : (
+          <div className={styles.container}>
+            {activeRooms.map((room, index) => {
+              if (room.numParticipants < 1) {
+                return null;
+              } else {
+                return (
+                  <div className={styles.roomCard} key={room.name}>
+                    <div className={styles.roomDetails}>
+                      <img src={studyBacground[index % 7]} alt="Room Cover" />
+                      <span className={styles.roomName}>{room.name}</span>
+                      <span className={styles.attendees}>
+                        {room.numParticipants}
+                        <AiOutlineUser />
+                      </span>
+                    </div>
+                    <button
+                      className={styles.joinButton}
+                      onClick={() => handleCreateRoom(username, room.name)}
+                    >
+                      Join Room
+                    </button>
+                  </div>
+                );
+              }
+            })}
+          </div>
         )}
       </div>
     </div>

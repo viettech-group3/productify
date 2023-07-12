@@ -2,6 +2,7 @@ import {
   formatChatMessageLinks,
   LiveKitRoom,
   VideoConference,
+  RoomServiceClient,
 } from '@livekit/components-react';
 import './globalRoom.css';
 
@@ -21,6 +22,7 @@ export default function StudyRoom() {
   const { token } = useParams();
   const wsURL = 'wss://test-9yy8lq1j.livekit.cloud';
   const onLeave = async () => {
+    console.log('leaving room');
     const config = {
       headers: {
         'Content-type': 'application/json',
@@ -61,8 +63,9 @@ export default function StudyRoom() {
         video={true}
         options={roomOptions}
         // options={roomOptions}
-        onDisconnected={() => {
-          onLeave();
+
+        onDisconnected={async () => {
+          await onLeave();
         }}
       >
         <VideoConference chatMessageFormatter={formatChatMessageLinks} />
