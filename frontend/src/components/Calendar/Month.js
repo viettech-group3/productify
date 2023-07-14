@@ -12,7 +12,6 @@ export default function Month({ month }) {
   const [loadingState, setLoadingState] = useState(true)
   const startDate = month[0][0];
   const endDate = month[4][6];
-  console.log(123);
   useEffect(() => {
     let cancelRequest = null; //This is set up to cacel request if we try to send to many requests at the same time (such as moving forward/backward month too fast and send GET requests continuously)
 

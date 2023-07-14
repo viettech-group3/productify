@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux'; //To manage Global State
 import { toggle } from '../../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
 import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
 
+
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const labelList = useSelector((state) => state.Label.value)
@@ -35,14 +36,16 @@ const EventForm = () => {
   const [invitedGuest, setInvitedGuest] = useState([]); //state to store all of emails in an array
 
   const handleChange = e => {
-    console.log('input infor', e);
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    // Convert local date-time to UTC
     setFormData(prevData => ({
       ...prevData,
       [name]: value,
     }));
+    console.log('new formdata is', formData)
   };
+
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -69,7 +72,6 @@ const EventForm = () => {
   };
 
   const handleAddGuest = () => {
-    console.log(123);
     let newGuest = formData.invitedInput;
     setInvitedGuest(oldArray => [...oldArray, formData.invitedInput]);
     setFormData(prevData => ({

@@ -11,11 +11,11 @@ const eventSchema = new mongoose.Schema({
     required: false,
   },
   start: {
-    type: Date,
+    type: String,  //We should save it as Date instead of String, because mongoDB save data as UTC (stupid idea => very hard to manipulate Date)
     required: true,
   },
   end: {
-    type: Date,
+    type: String, //We should save it as Date instead of String, because mongoDB save data as UTC (stupid idea => very hard to manipulate Date)
     required: true,
   },
   status: {
