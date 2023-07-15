@@ -2,11 +2,20 @@ import React, { useEffect, useState } from 'react';
 import styles from './Navbar.module.css';
 import logo from '../../assets/images/logoBlue.png';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setPoints,
+  setTotalPoints,
+  setAvatar,
+  setPurchasedAvatar,
+  setLevel,
+} from '../../slices/UserStateSlice';
 
 const Navbar = () => {
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTRiMmY1NGE2NTE2OWY5N2I2ZDAzZSIsImlhdCI6MTY4ODUxNTMyOCwiZXhwIjoxNjkxMTA3MzI4fQ.uGY4JcNkOi3Yfygr5ggkgpqsjlLx3tD72fltsMThweU';
-  const [avatar, setAvatar] = useState('');
+  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
+  const dispatch = useDispatch();
+  const avatar = useSelector(state => state.UserState.avatar);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -26,12 +35,14 @@ const Navbar = () => {
           response.data.purchasedAvatars[0][0] ===
           'https://api.dicebear.com/6.x/initials/svg?seed=default'
         ) {
-          setAvatar(
-            'https://api.dicebear.com/6.x/initials/svg?seed=' +
-              response.data.username,
+          dispatch(
+            setAvatar(
+              'https://api.dicebear.com/6.x/initials/svg?seed=' +
+                response.data.username,
+            ),
           );
         } else {
-          setAvatar(response.data.purchasedAvatars[0][0]);
+          dispatch(setAvatar(response.data.purchasedAvatars[0][0]));
         }
       } catch (error) {
         console.log('There is something wrong with fetching avatar');

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
 import { ChakraProvider } from '@chakra-ui/react';
 import Home from './pages/Home';
-import AboutUs from './pages/AboutUs';
 import Calendar from './pages/Calendar';
 import LeaderboardPage from './pages/LeaderboardPage';
 import UserProfile from './pages/UserProfile';
@@ -25,7 +24,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<AuthPage />} />
-          <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route exact path="/studywithme" element={<StudyWithMePage />} />

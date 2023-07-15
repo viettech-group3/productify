@@ -3,12 +3,22 @@ import { Carousel } from 'react-bootstrap';
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
 import { thumbs } from '@dicebear/collection';
-import { adventurer } from '@dicebear/collection';
 import styles from './AvatarCarousel.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setPoints,
+  setTotalPoints,
+  setAvatar,
+  setPurchasedAvatar,
+  setLevel,
+  setAllAvatars,
+} from '../../slices/UserStateSlice';
 
-const AvatarCarousel = ({ level, allAvatars }) => {
+const AvatarCarousel = () => {
+  const level = useSelector(state => state.UserState.level);
+  const allAvatars = useSelector(state => state.UserState.allAvatars);
+
   const currentLevelObj = allAvatars[level - 1].avatars;
-  console.log('currentLevelObj: ', currentLevelObj);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const handleSelect = selectedIndex => {
@@ -40,8 +50,6 @@ const AvatarCarousel = ({ level, allAvatars }) => {
 };
 
 const CarouselItem = ({ url, index, activeIndex, unlocked, name }) => {
-  //console.log(url);
-  console.log(name);
   return (
     <Carousel.Item
       className={`${styles.carouselItem} ${
@@ -75,15 +83,6 @@ const getAvatarUrl = ({ type, identifier, name, unlocked }) => {
       dicebearAvatar.toString(),
     )}`;
     return avatarDataUrl;
-  } else if (type === 'adventure') {
-    const dicebearAvatar = createAvatar(adventurer, {
-      seed: identifier,
-    });
-    const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-      dicebearAvatar.toString(),
-    )}`;
-
-    return avatarDataUrl;
   } else if (type === 'thumbs') {
     const dicebearAvatar = createAvatar(thumbs, {
       seed: identifier,
@@ -93,9 +92,6 @@ const getAvatarUrl = ({ type, identifier, name, unlocked }) => {
       dicebearAvatar.toString(),
     )}`;
     return avatarDataUrl;
-    // } else if (type === 'animal') {
-    //   const svg = avatar(identifier, { size: 130 });
-    //   return svg;
   } else if (type === 'url') {
     return identifier;
   } else {

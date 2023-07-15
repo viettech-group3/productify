@@ -4,93 +4,38 @@ import { Card, Button } from 'react-bootstrap';
 import AvatarCarousel from './AvatarCarousel';
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
+import { thumbs } from '@dicebear/collection';
 import axios, { all } from 'axios';
 import Wheel from './WheelComponent';
+import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setPoints,
+  setTotalPoints,
+  setAvatar,
+  setPurchasedAvatar,
+  setLevel,
+  setAllAvatars,
+} from '../../slices/UserStateSlice';
 
 const Profile = () => {
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWE0YTA3MDBkNWM1MDUzMjM3ZTZiMiIsImlhdCI6MTY4ODExNDI0MSwiZXhwIjoxNjkwNzA2MjQxfQ.5KPUaiZJAXMgoEtDXDPM8srQb6-y_GhE-5ZJGffgDy0';
-  const [avatar, setAvatar] = useState('');
+  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [points, setPoints] = useState(0);
-  const [purchasedAvatars, setPurchasedAvatars] = useState([[]]);
-  const [totalpoints, setTotalPoints] = useState(0);
-  const [allAvatars, setAllAvatars] = useState([]);
-  const [level, setLevel] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get(
-        'http://localhost:5000/api/users/getUser',
-        {
-          headers: {
-            Authorization: `Bearer ${exampleTokenForPhuoc}`,
-          },
-        },
-      );
-      //console.log('User information:', response.data);
-      setName(response.data.username);
-      setEmail(response.data.email);
-      setPoints(response.data.points);
-      setPurchasedAvatars(response.data.purchasedAvatars);
-      setTotalPoints(response.data.totalpoints);
 
-      // if avatar is default, chaneg it so that it appear as initials of user
-      // else set current avatar of user
-      if (
-        response.data.purchasedAvatars[0][0] ===
-        'https://api.dicebear.com/6.x/initials/svg?seed=default'
-      ) {
-        setAvatar(
-          'https://api.dicebear.com/6.x/initials/svg?seed=' +
-            response.data.username,
-        );
-      } else {
-        setAvatar(response.data.purchasedAvatars[0][0]);
-      }
-    } catch (error) {
-      console.log('There is something wrong with fetching user info');
-    }
-  };
-
-  /**
-   * Handle All Avatars List
-   */
-  const fetchAvatars = async () => {
-    try {
-      const response = await axios.get(
-        'http://localhost:5000/api/users/getAvatars',
-        {
-          headers: {
-            Authorization: `Bearer ${exampleTokenForPhuoc}`,
-          },
-        },
-      );
-      await setAllAvatars(response.data);
-      console.log(
-        'All avatars: ',
-        response.data,
-        typeof response.data,
-        typeof allAvatars,
-        'this is the  very first origin',
-      );
-      await console.log('All avatars:', allAvatars, 'this is the origin');
-      await console.log('type of 0', typeof allAvatars);
-
-      await console.log('ditmecuocdoi', allAvatars[0].avatars);
-      //console.log(allAvatars);
-    } catch (error) {
-      console.log('There is something wrong with fetching avatars');
-    }
-  };
+  //redux toolkit
+  const dispatch = useDispatch();
+  const winner = useSelector(state => state.setWinner.value);
+  const purchasedAvatar = useSelector(state => state.UserState.purchasedAvatar);
+  const points = useSelector(state => state.UserState.points);
+  const totalpoints = useSelector(state => state.UserState.totalpoints);
+  const level = useSelector(state => state.UserState.level);
+  const avatar = useSelector(state => state.UserState.avatar);
+  const allAvatars = useSelector(state => state.UserState.allAvatars);
 
   useEffect(() => {
     const fetchUser = async () => {
-      await sleep(1000);
       try {
         const response = await axios.get(
           'http://localhost:5000/api/users/getUser',
@@ -103,9 +48,12 @@ const Profile = () => {
         //console.log('User information:', response.data);
         setName(response.data.username);
         setEmail(response.data.email);
-        setPoints(response.data.points);
-        setPurchasedAvatars(response.data.purchasedAvatars);
-        setTotalPoints(response.data.totalpoints);
+
+        // use redux toolkit
+        await dispatch(setPoints(response.data.points));
+        await dispatch(setTotalPoints(response.data.totalpoints));
+        await dispatch(setPurchasedAvatar(response.data.purchasedAvatars));
+        console.log(purchasedAvatar);
 
         // if avatar is default, chaneg it so that it appear as initials of user
         // else set current avatar of user
@@ -113,19 +61,21 @@ const Profile = () => {
           response.data.purchasedAvatars[0][0] ===
           'https://api.dicebear.com/6.x/initials/svg?seed=default'
         ) {
-          setAvatar(
-            'https://api.dicebear.com/6.x/initials/svg?seed=' +
-              response.data.username,
+          await dispatch(
+            setAvatar(
+              'https://api.dicebear.com/6.x/initials/svg?seed=' +
+                response.data.username,
+            ),
           );
         } else {
-          setAvatar(response.data.profilepicture[0][0]);
+          console.log(purchasedAvatar);
+          await dispatch(setAvatar(response.data.purchasedAvatars[0][0]));
         }
       } catch (error) {
         console.log('There is something wrong with fetching user info');
       }
     };
     const fetchAvatars = async () => {
-      await sleep(1000);
       try {
         const response = await axios.get(
           'http://localhost:5000/api/users/getAvatars',
@@ -135,16 +85,12 @@ const Profile = () => {
             },
           },
         );
-        await setAllAvatars(response.data);
-        console.log(
-          'All avatars: ',
-          response.data,
-          typeof response.data,
-          typeof allAvatars,
-          'this is the  very first origin',
-        );
+        await dispatch(setAllAvatars(response.data));
 
-        //console.log(allAvatars);
+        // const currentLevelObj = allAvatars[level - 1].avatars;
+        // console.log('currentLevelObj: ', currentLevelObj);
+
+        // console.log(allAvatars);
       } catch (error) {
         console.log('There is something wrong with fetching avatars');
       }
@@ -155,74 +101,48 @@ const Profile = () => {
     setIsLoading(false);
   }, []);
 
-  const handleTradeRandomAvatar = async () => {
-    try {
-      //check if user have enough points
-      if (points < 50) {
-        alert('Not enough point');
-        return;
-      }
-      //create array of available avatar urls
-      const arrAvatar = [...Array(10)].map((_, index) => {
-        const seed = `Avatar${index + 1}`;
-        const currentAvatar = createAvatar(bigSmile, {
-          seed,
-        });
-        const currentAvatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-          currentAvatar.toString(),
-        )}`;
-
-        return currentAvatarDataUrl;
-      });
-
-      //get a random avatar url
-      const randomIndex = Math.floor(Math.random() * 9);
-      const randomAvatar = arrAvatar[randomIndex];
-
-      //update user infor on database
-      const response = await axios.put(
-        `http://localhost:5000/api/users/update`,
-        { profilepicture: randomAvatar, points: points - 50 },
-        {
-          headers: {
-            Authorization: `Bearer ${exampleTokenForPhuoc}`,
-          },
-        },
-      );
-
-      setAvatar(response.data.profilepicture);
-      setPoints(points - 50);
-    } catch (error) {
-      console.log('There is something wrong with update avatar');
-    }
-  };
-
   const handleTradeCustomAvatar = async () => {
     // TODO Logic for trading 500 points to change to a custom avatar
     try {
       //check if user have enough points
-      if (points < 500) {
-        alert('Not enough point');
+      if (points < 100) {
+        toast.error('You do not have enough points');
+        return;
+      }
+      console.log('level', level);
+      let type = 'none';
+      if (level === 1) {
+        type = thumbs;
+      } else if (level === 2) {
+        type = bigSmile;
+      } else {
+        toast.error("Can't use this function for this level");
         return;
       }
 
       let seed = prompt('Please enter the name you want to make avatar with: ');
       if (seed === null || seed === '') {
-        alert("You can't leave it blank");
+        toast.error('You have to fill in the box');
         return;
       }
 
-      const currentAvatar = createAvatar(bigSmile, {
-        seed,
+      const currentAvatar = createAvatar(type, {
+        seed: seed,
       });
-      const currentAvatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+      console.log(seed);
+      const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
         currentAvatar.toString(),
       )}`;
+
+      let tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+      let temp = JSON.parse(JSON.stringify(purchasedAvatar));
+      temp[0][0] = tempAvatar.payload;
+      console.log(temp);
 
       //update user infor on database
       const response = await axios.put(
         `http://localhost:5000/api/users/update`,
-        { profilepicture: currentAvatarDataUrl, points: points - 100 },
+        { purchasedAvatars: temp, points: points - 100 },
         {
           headers: {
             Authorization: `Bearer ${exampleTokenForPhuoc}`,
@@ -230,27 +150,31 @@ const Profile = () => {
         },
       );
 
-      setAvatar(response.data.profilepicture);
-      setPoints(points - 100);
+      dispatch(setAvatar(response.data.purchasedAvatars[0][0]));
+      dispatch(setPoints(response.data.points));
     } catch (error) {
       console.log('There is something wrong with update avatar');
     }
   };
 
+  const something = () => {};
+
   const handleChange = async e => {
     try {
       let { levelStage, value } = e.target;
-      setLevel(value);
+      dispatch(setLevel(value));
     } catch (error) {
       console.log('There is something wrong in level handling');
     }
   };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className={styles.viewport}>
+      <Toaster />
       <div className={styles.avatarSection}>
         <Card className={styles.cardContainer}>
           <Card.Body className={styles.cardBody}>
@@ -264,13 +188,11 @@ const Profile = () => {
             </div>
             {/* ? : means if else. for ex : 1+1 ==2 ? print('right') : print('wrong') => result will be 'right' */}
             {allAvatars.length > 0 ? (
-              <AvatarCarousel level={level} allAvatars={allAvatars} />
-            ) : null}
+              <AvatarCarousel />
+            ) : // <AvatarCarousel level={level} allAvatars={allAvatars} />
+            null}
             <div className={styles.buttonContainer}>
-              <Button
-                className={styles.tradeButton}
-                onClick={handleTradeRandomAvatar}
-              >
+              <Button className={styles.tradeButton} onClick={something}>
                 Use Random Avatar for 50 points
               </Button>
               <Button
@@ -286,11 +208,15 @@ const Profile = () => {
 
       <div className={styles.customization}>
         <div className={styles.sidebar}>
-          <img
-            src={`${avatar}`}
-            alt="User Profile"
-            className={`${styles.image}`}
-          />
+          {purchasedAvatar[0].length > 0 ? (
+            <img
+              src={`${avatar}`}
+              alt="User Profile"
+              className={`${styles.image}`}
+            />
+          ) : (
+            <p>No</p>
+          )}
           <p className={`${styles.paragraph} text-center`}> {name} </p>
           <p className={`${styles.paragraph} text-center`}> {email} </p>
           <p className={`${styles.paragraph} text-center`}> {points} pts </p>
@@ -301,7 +227,9 @@ const Profile = () => {
         </div>
 
         <div className={styles.wheel}>
-          <Wheel />
+          {allAvatars.length > 0 && purchasedAvatar[0].length > 0 ? (
+            <Wheel />
+          ) : null}
         </div>
       </div>
     </div>
