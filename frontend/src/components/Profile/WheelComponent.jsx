@@ -26,16 +26,24 @@ const WheelComponent = () => {
     useSelector(state => state.UserState.avatar),
   );
 
-  const [segments, setSegments] = useState(['']);
-  useEffect(() => {
-    const currentLevelObj = allAvatars[level - 1].avatars;
-    const levelSegment = currentLevelObj.map((avatarObj, avatarIndex) => {
+  // const [segments, setSegments] = useState(['']);
+  // useEffect(() => {
+  //   const currentLevelObj = allAvatars[level - 1].avatars;
+  //   const levelSegment = currentLevelObj.map((avatarObj, avatarIndex) => {
+  //     return avatarObj.name;
+  //   });
+  //   setSegments(levelSegment);
+  // }, [level, allAvatars]);
+  // console.log(segments);
+  // console.log('level in wheel ', level);
+  let segments = [];
+  const currentLevelObj = allAvatars[level - 1].avatars;
+  console.log(currentLevelObj);
+  segments.push(
+    currentLevelObj.map((avatarObj, avatarIndex) => {
       return avatarObj.name;
-    });
-    setSegments(levelSegment);
-  }, [level, allAvatars]);
-  console.log(segments);
-  console.log('level in wheel ', level);
+    }),
+  );
 
   if (points < 50) {
     return <p> You don't have enough points </p>;
@@ -112,10 +120,11 @@ const WheelComponent = () => {
     return response.data;
   };
   console.log(segments);
+  const wheelKey = segments.flat().join(',');
   return (
-    <div>
+    <div key={wheelKey}>
       <Wheel
-        segments={segments}
+        segments={segments.flat()}
         segColors={segColors}
         onFinished={onFinished}
         primaryColor="#a9caee"

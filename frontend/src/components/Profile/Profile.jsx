@@ -159,9 +159,18 @@ const Profile = () => {
 
   const something = () => {};
 
+  // const handleChange = async e => {
+  //   try {
+  //     let { levelStage, value } = e.target;
+  //     dispatch(setLevel(Number(value)));
+  //   } catch (error) {
+  //     console.log('There is something wrong in level handling');
+  //   }
+  // };
+
   const handleChange = async e => {
     try {
-      let { levelStage, value } = e.target;
+      let value = e.target.value;
       dispatch(setLevel(value));
     } catch (error) {
       console.log('There is something wrong in level handling');
