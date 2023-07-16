@@ -240,7 +240,7 @@ const AuthPage = () => {
                 objectFit="cover"
               />
             </Flex>
-            <Flex justifyContent="space-between" alignItems="center" py={4}>
+            <Flex flexDirection="column" alignItems="center" py={4}>
               <p style={{ fontSize: 'x-small', margin: '0' }}>
                 In case you gave up, type your email and change password here:
               </p>
@@ -267,6 +267,7 @@ const AuthPage = () => {
                     fontSize: 'x-small',
                     cursor: 'pointer',
                     height: '26px',
+                    marginLeft: '8px',
                   }}
                 >
                   Submit
