@@ -14,6 +14,7 @@ import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons';
 import StudyWithMePage from './pages/StudyWithMePage';
 import StudyRoom from './components/StudyWithMe/StudyRoom';
 import 'react-aspect-ratio/aspect-ratio.css';
+import ResetPasswordPage from './pages/ResetPawword';
 
 library.add(fab, faCheckSquare, faCoffee);
 
@@ -24,6 +25,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/forgotpassword" element={<ResetPasswordPage />} />
+
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
