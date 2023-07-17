@@ -14,8 +14,8 @@ import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
 
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
-  const labelList = useSelector((state) => state.Label.value)
-  console.log("labellist in eventform.js", labelList)
+  const labelList = useSelector(state => state.Label.value);
+  console.log('labellist in eventform.js', labelList);
   const exampleTokenForPhuoc =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
   //Example token to pass protect in backend route (We'll delete it later)
@@ -28,7 +28,7 @@ const EventForm = () => {
     invited: [],
     label: {
       name: '',
-      color: ''
+      color: '',
     },
   });
 
@@ -80,13 +80,15 @@ const EventForm = () => {
     }));
   };
 
-  const handleLabelChange = (e) => {
+  const handleLabelChange = e => {
     const selectedLabelName = e.target.value;
-    console.log("Current SelectedLabelname is", selectedLabelName)
-    const selectedLabel = labelList.find((label) => label.name === selectedLabelName);
-    console.log("Current label object is", selectedLabel)
+    console.log('Current SelectedLabelname is', selectedLabelName);
+    const selectedLabel = labelList.find(
+      label => label.name === selectedLabelName,
+    );
+    console.log('Current label object is', selectedLabel);
     if (selectedLabel) {
-      setFormData((prevData) => ({
+      setFormData(prevData => ({
         ...prevData,
         label: {
           name: selectedLabel.name,
@@ -94,9 +96,8 @@ const EventForm = () => {
         },
       }));
     }
-    console.log("curent formData is", formData)
+    console.log('curent formData is', formData);
   };
-
 
   return (
     <div>
@@ -184,7 +185,7 @@ const EventForm = () => {
               className={styles.input}
             />
             <datalist id="labelList">
-              {labelList.map((label) => (
+              {labelList.map(label => (
                 <option key={label.name} value={label.name}>
                   {label.name}
                   <span
@@ -197,13 +198,8 @@ const EventForm = () => {
                     }}
                   ></span>
                 </option>
-
               ))}
-
             </datalist>
-
-
-
           </div>
         </div>
         <button
@@ -219,7 +215,7 @@ const EventForm = () => {
             <div className={styles.invitedEmail}>{email}</div>
           ))}
         </div>
-      </form >
+      </form>
 
       <div className={styles.submitContainer}>
         <button type="submit" className={styles.submitButton} form="my-form">
@@ -228,7 +224,7 @@ const EventForm = () => {
           Submit
         </button>
       </div>
-    </div >
+    </div>
   );
 };
 

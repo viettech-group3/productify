@@ -16,11 +16,18 @@ function Day({ day, row }) {
   const [finish, setFinish] = useState(false);
   const [eventFinish, setEventFinish] = useState(null);
 
-  const labelList = useSelector(state => state.Label.value)
-  console.log("labellist in Day.js is", labelList)
+  const labelList = useSelector(state => state.Label.value);
+  console.log('labellist in Day.js is', labelList);
   const MonthEvents = useSelector(state => state.MonthEvents.value);
   const todayEvents = filterTodayEvents(MonthEvents, currentDate); //filter all today events from MonthEvents state
-  const todayEventsWithLabels = todayEvents.filter((obj) => labelList.some((label) => label.name === obj.label.name && label.color === obj.label.color && label.deleted === undefined))
+  const todayEventsWithLabels = todayEvents.filter(obj =>
+    labelList.some(
+      label =>
+        label.name === obj.label.name &&
+        label.color === obj.label.color &&
+        label.deleted === undefined,
+    ),
+  );
   const exampleTokenForPhuoc =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
   const handleEventClick = (e, event) => {
@@ -85,8 +92,14 @@ function Day({ day, row }) {
       <div>
         {todayEventsWithLabels.map((event, idx) => (
           <div
-            className={`${styles.todayEvents} ${event.status === 'completed' ? styles.completedEvents : ''
-              }`} style={{ backgroundColor: `${event.status !== 'completed' ? event.label.color : ''}` }}
+            className={`${styles.todayEvents} ${
+              event.status === 'completed' ? styles.completedEvents : ''
+            }`}
+            style={{
+              backgroundColor: `${
+                event.status !== 'completed' ? event.label.color : ''
+              }`,
+            }}
             key={idx}
             onClick={e => {
               handleEventClick(e, event);
