@@ -25,6 +25,8 @@ const WheelComponent = () => {
   const [avatarUrl, setAvatarUrl] = useState(
     useSelector(state => state.UserState.avatar),
   );
+  let tempPoints = points;
+  console.log('points outside: ', points);
 
   // const [segments, setSegments] = useState(['']);
   // useEffect(() => {
@@ -38,7 +40,7 @@ const WheelComponent = () => {
   // console.log('level in wheel ', level);
   let segments = [];
   const currentLevelObj = allAvatars[level - 1].avatars;
-  console.log(currentLevelObj);
+  //console.log(currentLevelObj);
   segments.push(
     currentLevelObj.map((avatarObj, avatarIndex) => {
       return avatarObj.name;
@@ -77,7 +79,6 @@ const WheelComponent = () => {
         dicebearAvatar.toString(),
       )}`;
       tempAvatar = await dispatch(setAvatar(avatarDataUrl));
-      await dispatch(setPoints(points - 50));
     } else if (level === 1) {
       const dicebearAvatar = createAvatar(thumbs, {
         seed: winner,
@@ -87,13 +88,13 @@ const WheelComponent = () => {
         dicebearAvatar.toString(),
       )}`;
       tempAvatar = await dispatch(setAvatar(avatarDataUrl));
-      await dispatch(setPoints(points - 50));
     } else if (level === 3) {
       // no testing yet
-      // const targetIndex = currentLevelObj.findIndex(obj => obj.name === winner);
-      // const url = currentLevelObj[targetIndex].identifier;
-      // await dispatch(setAvatar(url));
-      // await dispatch(setPoints(points-50));
+      const targetIndex = currentLevelObj.findIndex(obj => obj.name === winner);
+      console.log('targetIndex', targetIndex);
+      const avatarDataUrl = currentLevelObj[targetIndex].identifier;
+      console.log('url is ', avatarDataUrl);
+      tempAvatar = await dispatch(setAvatar(avatarDataUrl));
     } else {
       console.log('error in getAvatarUrl', winner);
       await dispatch(setAvatar(winner));
@@ -101,9 +102,13 @@ const WheelComponent = () => {
     let temp = JSON.parse(JSON.stringify(purchasedAvatar));
     temp[0][0] = tempAvatar.payload;
     temp[level].push(winner);
-    const response = await changeProfilePic(temp, points - 50);
-    // dispatch(setPurchasedAvatar(response.purchasedAvatars));
-    // dispatch(setPoints(response.points));
+    console.log('point before dispatch: ', tempPoints);
+    const response = await changeProfilePic(temp, tempPoints - 50);
+    dispatch(setPurchasedAvatar(temp));
+    dispatch(setPoints(tempPoints - 50));
+    setTimeout(() => {
+      console.log('point after dispatch: ', tempPoints);
+    }, 500);
   };
 
   const changeProfilePic = async (purchasedAvatar, points) => {
@@ -119,7 +124,7 @@ const WheelComponent = () => {
     );
     return response.data;
   };
-  console.log(segments);
+  //console.log(segments);
   const wheelKey = segments.flat().join(',');
   return (
     <div key={wheelKey}>

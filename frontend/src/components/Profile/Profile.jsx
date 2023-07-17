@@ -75,6 +75,12 @@ const Profile = () => {
         console.log('There is something wrong with fetching user info');
       }
     };
+
+    fetchUser();
+
+    setIsLoading(false);
+  }, [points, dispatch]);
+  useEffect(() => {
     const fetchAvatars = async () => {
       try {
         const response = await axios.get(
@@ -90,16 +96,14 @@ const Profile = () => {
         // const currentLevelObj = allAvatars[level - 1].avatars;
         // console.log('currentLevelObj: ', currentLevelObj);
 
-        // console.log(allAvatars);
+        //console.log('here', allAvatars);
+        //console.log('after', purchasedAvatar);
       } catch (error) {
         console.log('There is something wrong with fetching avatars');
       }
     };
     fetchAvatars();
-    fetchUser();
-
-    setIsLoading(false);
-  }, []);
+  }, [purchasedAvatar, dispatch]);
 
   const handleTradeCustomAvatar = async () => {
     // TODO Logic for trading 500 points to change to a custom avatar
@@ -171,7 +175,7 @@ const Profile = () => {
   const handleChange = async e => {
     try {
       let value = e.target.value;
-      dispatch(setLevel(value));
+      dispatch(setLevel(Number(value)));
     } catch (error) {
       console.log('There is something wrong in level handling');
     }
@@ -217,6 +221,7 @@ const Profile = () => {
 
       <div className={styles.customization}>
         <div className={styles.sidebar}>
+          <p>avatar</p>
           {purchasedAvatar[0].length > 0 ? (
             <img
               src={`${avatar}`}
