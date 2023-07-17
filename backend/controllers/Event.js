@@ -11,7 +11,7 @@ const {
 // Create a new event function
 const createEvent = async (req, res) => {
   try {
-    const { name, describe, start, end, invited } = req.body;
+    const { name, describe, start, end, invited, label } = req.body;
     let creatorId = req.user._id;
 
     // Create a new event and save
@@ -20,6 +20,8 @@ const createEvent = async (req, res) => {
       describe: describe,
       start: start,
       end: end,
+      status: 'ongoing',
+      label: label
     });
     await event.save();
 
@@ -155,7 +157,7 @@ const getAllEventsMonths = async (req, res) => {
 
     res.status(200).json(monthEvents);
   } catch (error) {
-    console.log('Failed to fetch all Month events from database');
+    console.log('Failed to fetch all Month events from database', '\n', error);
     res.status(500).json({ error: error });
   }
 };

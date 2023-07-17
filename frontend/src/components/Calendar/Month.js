@@ -7,11 +7,10 @@ import { set, add, remove, update } from '../../slices/MonthEventsSlice';
 
 export default function Month({ month }) {
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4NzQwMTkxNywiZXhwIjoxNjg5OTkzOTE3fQ.JsBEi0kmi7NygvHCZiwmQecP-6T0njtEb6DcVT14WpQ';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const startDate = month[0][0];
   const endDate = month[4][6];
-  console.log(123);
   useEffect(() => {
     let cancelRequest = null; //This is set up to cacel request if we try to send to many requests at the same time (such as moving forward/backward month too fast and send GET requests continuously)
 
