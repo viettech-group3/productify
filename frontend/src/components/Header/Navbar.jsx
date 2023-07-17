@@ -10,15 +10,18 @@ import {
   setPurchasedAvatar,
   setLevel,
 } from '../../slices/UserStateSlice';
+import DefaultProfile from '../../assets/images/Defaultprofile.png';
 
 const Navbar = () => {
-  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   const dispatch = useDispatch();
   const avatar = useSelector(state => state.UserState.avatar);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const exampleTokenForPhuoc = JSON.parse(
+          localStorage.getItem('user'),
+        ).token;
         const response = await axios.get(
           'http://localhost:5000/api/users/getUser',
           {
@@ -46,6 +49,7 @@ const Navbar = () => {
         }
       } catch (error) {
         console.log('There is something wrong with fetching avatar');
+        dispatch(setAvatar(DefaultProfile));
       }
     };
     fetchUser();

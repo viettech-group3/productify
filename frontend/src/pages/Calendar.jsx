@@ -10,8 +10,17 @@ import EventModal from '../components/Calendar/EventModal/EventModal';
 import DayView from '../components/Calendar/DayView/DayView';
 import { fetchTodayEvents } from '../slices/TodayEventsSlice';
 import { switchViewMode } from '../slices/ViewModeSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Calendar() {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    console.log('user', user);
+    if (user == null) {
+      navigate('/auth');
+    }
+  }, []);
   const ShowModal = useSelector(state => state.ShowModal.value);
   const MonthIndex = useSelector(state => state.MonthIndex.value);
   const [currentMonth, setCurrentMonth] = useState(getMonth(MonthIndex));
@@ -26,7 +35,9 @@ function Calendar() {
     dispatch(fetchTodayEvents(currentDate)); // Fetch today's events
   }, [dispatch, currentDate]);
 
-  return (
+  return user == null ? (
+    <div>Loading....</div>
+  ) : (
     <div
       className="container-fluid App"
       style={{
