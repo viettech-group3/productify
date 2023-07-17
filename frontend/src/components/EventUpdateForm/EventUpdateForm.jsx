@@ -23,8 +23,7 @@ const EventUpdateForm = ({ eventInformation }) => {
   console.log('SHow eventUpdateForm');
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const labelList = useSelector(state => state.Label.value);
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
+  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   //Example token to pass protect in backend route (We'll delete it later)
   const [formData, setFormData] = useState({
     name: eventInformation.name || '',

@@ -16,8 +16,7 @@ import AddLabelForm from './AddLabelForm';
 const Label = () => {
   const labelList = useSelector(state => state.Label.value);
   const ShowLabelForm = useSelector(state => state.ShowLabelForm.value);
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
+  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchLabelList = async () => {

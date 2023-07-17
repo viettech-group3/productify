@@ -8,8 +8,7 @@ import styles from './AddLabelForm.module.css';
 const AddLabelForm = () => {
   const [formData, setFormData] = useState({ name: '', color: '' });
   const dispatch = useDispatch();
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
+  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   const modalRef = useRef(null);
 
   const handleOutsideClick = event => {

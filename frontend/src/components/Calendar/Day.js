@@ -32,8 +32,7 @@ function Day({ day, row, loadingState }) {
         label.deleted === undefined,
     ),
   );
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4ODQ0Mjk0NywiZXhwIjoxNjkxMDM0OTQ3fQ.oYzF6E8DUsOFaKPUbd_g_DM9KuEQSBkj0_U9QruUGQU';
+  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   const handleEventClick = (e, event) => {
     e.stopPropagation();
     if (selectedEvent !== event) {

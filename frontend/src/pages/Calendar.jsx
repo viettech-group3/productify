@@ -49,8 +49,8 @@ function Calendar() {
           </div>
           <div className="col-9" style={{ padding: '0' }}>
             {ShowModal ? <EventModal /> : <></>}
-            {/* <Month month={currentMonth} /> */}
-            <DayView currentDate={currentDate} />
+            <Month month={currentMonth} />
+            {/* <DayView currentDate={currentDate} /> */}
           </div>
         </div>
       </div>

@@ -15,8 +15,7 @@ import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const labelList = useSelector(state => state.Label.value);
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4ODQ0Mjk0NywiZXhwIjoxNjkxMDM0OTQ3fQ.oYzF6E8DUsOFaKPUbd_g_DM9KuEQSBkj0_U9QruUGQU';
+  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   //Example token to pass protect in backend route (We'll delete it later)
   const [formData, setFormData] = useState({
     name: '',

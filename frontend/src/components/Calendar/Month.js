@@ -6,8 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'; //To manage Global State
 import { set, add, remove, update } from '../../slices/MonthEventsSlice';
 
 export default function Month({ month }) {
-  const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4ODQ0Mjk0NywiZXhwIjoxNjkxMDM0OTQ3fQ.oYzF6E8DUsOFaKPUbd_g_DM9KuEQSBkj0_U9QruUGQU';
+  const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const [loadingState, setLoadingState] = useState(true);
   const startDate = month[0][0];
