@@ -11,6 +11,7 @@ import LabelReducer from '../slices/LabelSlice';
 import ShowLabelFormReducer from '../slices/ShowLabelForm';
 import ShowEventUpdateFormReducer from '../slices/ShowEventUpdateFormSlice';
 import SelectedEventReducer from '../slices/SelectedEventSlice';
+import ViewModeReducer from '../slices/ViewModeSlice';
 
 export default configureStore({
   reducer: {
@@ -26,5 +27,6 @@ export default configureStore({
     ShowLabelForm: ShowLabelFormReducer,
     ShowEventUpdateForm: ShowEventUpdateFormReducer,
     SelectedEvent: SelectedEventReducer,
+    ViewMode: ViewModeReducer,
   },
 });

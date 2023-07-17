@@ -93,3 +93,35 @@
   padding: 12px;
   background-color: var(--main-blue);
 }
+
+.switchView {
+  margin-left: 20%;
+  padding: 0px;
+}
+
+.MonthViewButton {
+  border: 1px solid;
+  padding: 12px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: var(--main-blue);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.DayViewButton {
+  border: 1px solid;
+  padding: 12px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: var(--main-blue);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.choosing {
+  box-shadow: 0 0 5px 3px rgba(202, 240, 248, 0.8);
+  border: #a2d2ff solid 2px;
+}
