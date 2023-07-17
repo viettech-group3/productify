@@ -1,6 +1,7 @@
 const User = require('../models/User');
-const { generateToken } = require('../utils/auth');
+const { generateToken, sendPasswordResetEmail } = require('../utils/auth');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 // Get leaderboard function
 const leaderboard = async (req, res) => {
@@ -63,7 +64,8 @@ const login = async (req, res) => {
   // check for existing user
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser && existingUser.matchPassword(password)) {
+    const correctPassword = await existingUser.matchPassword(password);
+    if (existingUser && correctPassword) {
       res.status(200).json({
         _id: existingUser._id,
         username: existingUser.username,
@@ -106,6 +108,49 @@ const updateUser = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
+const forgotPassword = async (req, res) => {
+  let email = req.body.email;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ error: 'Email not found' });
+  }
+
+  const token = crypto.randomBytes(20).toString('hex');
+  user.resetToken = token;
+  user.resetTokenExpiresAt = Date.now() + 3600000;
+  await user.save();
+  sendPasswordResetEmail(email, token);
+
+  res.status(200).json({ token });
+};
+const resetPassword = async (req, res) => {
+  try {
+    const { email, token, newPassword } = req.body;
+
+    // Check if the email exists and the token is valid and not expired
+    const user = await User.findOne({
+      email,
+      resetToken: token,
+    });
+
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid or expired token' });
+    }
+
+    // Update the user's password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    user.resetToken = undefined;
+    user.resetTokenExpiresAt = undefined;
+    await user.save();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
 
 //getLabellist and setLabellist
 //Asignee: Phuoc
@@ -116,47 +161,71 @@ const getLabelList = async (req, res) => {
     const userId = req.user._id;
     let currentUser = await User.findById(userId);
     let currentLabelList = currentUser.labellist;
-    res.status(200).json(currentLabelList)
+    res.status(200).json(currentLabelList);
   } catch (error) {
-    console.log("Failed to fetch labellist from current User", { error })
-    res.status(500).json({ error: error })
+    console.log('Failed to fetch labellist from current User', { error });
+    res.status(500).json({ error: error });
   }
-}
+};
 
-const addLabelList = async (req, res) => { /* Res.body is an label object - return a new labellist (array of label objects) */
-  const newLabel = req.body; /* Axios.post with body is object with name and color, {name: "event", color: "#00054F"} */
+const addLabelList = async (req, res) => {
+  /* Res.body is an label object - return a new labellist (array of label objects) */
+  const newLabel =
+    req.body; /* Axios.post with body is object with name and color, {name: "event", color: "#00054F"} */
   try {
     const userId = req.user._id;
     let currentUser = await User.findById(userId);
     let currentLabelList = currentUser.labellist;
-    let newLabelList = [...currentLabelList, newLabel]
-    const updateUser = await User.findByIdAndUpdate(userId, {
-      labellist: newLabelList,
-    }, { new: true })
-    res.status(200).json(updateUser.labellist)
+    let newLabelList = [...currentLabelList, newLabel];
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        labellist: newLabelList,
+      },
+      { new: true },
+    );
+    res.status(200).json(updateUser.labellist);
   } catch (error) {
-    console.log("Failed to update labellist from current User", { error })
-    res.status(500).json({ error: error })
+    console.log('Failed to update labellist from current User', { error });
+    res.status(500).json({ error: error });
   }
-}
+};
 
 const deleteLabelList = async (req, res) => {
   const deleteLabel = req.body;
-  console.log('deleteLabel is', deleteLabel)
+  console.log('deleteLabel is', deleteLabel);
   try {
     const userId = req.user._id;
-    const currentUser = await User.findById(userId)
-    const currentLabelList = currentUser.labellist
-    const newLabelList = currentLabelList.filter((labels) => {
-      return labels.name !== deleteLabel.name || labels.color !== deleteLabel.color
-    })
-    const updateUser = await User.findByIdAndUpdate(userId, { labellist: newLabelList }, { new: true })
-    res.status(200).json(updateUser.labellist)
+    const currentUser = await User.findById(userId);
+    const currentLabelList = currentUser.labellist;
+    const newLabelList = currentLabelList.filter(labels => {
+      return (
+        labels.name !== deleteLabel.name || labels.color !== deleteLabel.color
+      );
+    });
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      { labellist: newLabelList },
+      { new: true },
+    );
+    res.status(200).json(updateUser.labellist);
   } catch (error) {
-    console.log("failed to delete labels from labellist in current user", { error })
-    res.status(500).json({ error: error })
+    console.log('failed to delete labels from labellist in current user', {
+      error,
+    });
+    res.status(500).json({ error: error });
   }
-}
+};
 
-
-module.exports = { signUp, login, leaderboard, getUser, updateUser, getLabelList, addLabelList, deleteLabelList };
+module.exports = {
+  signUp,
+  login,
+  leaderboard,
+  getUser,
+  updateUser,
+  getLabelList,
+  addLabelList,
+  deleteLabelList,
+  resetPassword,
+  forgotPassword,
+};

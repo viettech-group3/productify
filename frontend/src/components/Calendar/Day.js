@@ -15,10 +15,12 @@ function Day({ day, row, loadingState }) {
   const dispatch = useDispatch();
   const isToday = day.isSame(dayjs(), 'day');
   const circleColor = isToday ? '#aacaef' : '';
-  const ShowEventUpdateForm = useSelector(state => state.ShowEventUpdateForm.value);
+  const ShowEventUpdateForm = useSelector(
+    state => state.ShowEventUpdateForm.value,
+  );
   const [finish, setFinish] = useState(false);
 
-  const selectedEvent = useSelector(state => state.SelectedEvent.value)
+  const selectedEvent = useSelector(state => state.SelectedEvent.value);
   const labelList = useSelector(state => state.Label.value);
   const MonthEvents = useSelector(state => state.MonthEvents.value);
   const todayEvents = filterTodayEvents(MonthEvents, currentDate);
@@ -27,12 +29,11 @@ function Day({ day, row, loadingState }) {
       label =>
         label.name === obj.label.name &&
         label.color === obj.label.color &&
-        label.deleted === undefined
-    )
+        label.deleted === undefined,
+    ),
   );
   const exampleTokenForPhuoc =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
-
   const handleEventClick = (e, event) => {
     e.stopPropagation();
     if (selectedEvent !== event) {
@@ -49,11 +50,15 @@ function Day({ day, row, loadingState }) {
     dispatch(updateStatus({ _id: eventFinish._id, status: 'completed' }));
 
     axios
-      .post(`http://localhost:5000/api/events/finish/${eventFinish._id}`, null, {
-        headers: {
-          Authorization: `Bearer ${exampleTokenForPhuoc}`,
+      .post(
+        `http://localhost:5000/api/events/finish/${eventFinish._id}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
         },
-      })
+      )
       .then(response => {
         console.log('Finish event successfully');
         console.log(response.data);
@@ -85,9 +90,13 @@ function Day({ day, row, loadingState }) {
         {todayEventsWithLabels.map((event, idx) => (
           <div key={idx}>
             <div
-              className={`${styles.todayEvents} ${event.status === 'completed' ? styles.completedEvents : ''
-                }`}
-              style={{ backgroundColor: event.status !== 'completed' ? event.label.color : '' }}
+              className={`${styles.todayEvents} ${
+                event.status === 'completed' ? styles.completedEvents : ''
+              }`}
+              style={{
+                backgroundColor:
+                  event.status !== 'completed' ? event.label.color : '',
+              }}
               onClick={e => {
                 handleEventClick(e, event);
               }}
