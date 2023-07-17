@@ -18,7 +18,6 @@ const Navbar = () => {
             },
           },
         );
-        console.log('User information:', response.data);
         setAvatar(response.data.profilepicture);
       } catch (error) {
         console.log('There is something wrong with fetching avatar');

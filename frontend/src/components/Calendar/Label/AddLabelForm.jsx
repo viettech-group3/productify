@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { set, add, remove, update } from '../../../slices/LabelSlice';
@@ -10,6 +10,16 @@ const AddLabelForm = () => {
   const dispatch = useDispatch();
   const exampleTokenForPhuoc =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
+  const modalRef = useRef(null);
+
+  const handleOutsideClick = event => {
+    /* When we click outside the modal form, it will toggle off the modal */
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      console.log('Click outside');
+      dispatch(toggleLabelForm());
+    }
+  };
+
   const handleSubmit = async event => {
     event.preventDefault();
     dispatch(add(formData));
@@ -45,8 +55,8 @@ const AddLabelForm = () => {
   };
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.labelForm}>
+    <div className={styles.overlay} onClick={handleOutsideClick}>
+      <div className={styles.labelForm} ref={modalRef}>
         <button
           className="btn btn-primary"
           onClick={() => {

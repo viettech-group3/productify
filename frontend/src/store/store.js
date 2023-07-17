@@ -8,6 +8,8 @@ import ShowInvitationReducer from '../slices/ShowInvitationModal';
 import UserState from '../slices/UserStateSlice';
 import LabelReducer from '../slices/LabelSlice';
 import ShowLabelFormReducer from '../slices/ShowLabelForm';
+import ShowEventUpdateFormReducer from '../slices/ShowEventUpdateFormSlice';
+import SelectedEventReducer from '../slices/SelectedEventSlice';
 
 export default configureStore({
   reducer: {
@@ -20,5 +22,7 @@ export default configureStore({
     SetUser: UserState,
     Label: LabelReducer,
     ShowLabelForm: ShowLabelFormReducer,
+    ShowEventUpdateForm: ShowEventUpdateFormReducer,
+    SelectedEvent: SelectedEventReducer,
   },
 });

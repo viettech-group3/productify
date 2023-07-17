@@ -15,7 +15,6 @@ import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const labelList = useSelector(state => state.Label.value);
-  console.log('labellist in eventform.js', labelList);
   const exampleTokenForPhuoc =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
   //Example token to pass protect in backend route (We'll delete it later)
@@ -35,13 +34,14 @@ const EventForm = () => {
   const [invitedGuest, setInvitedGuest] = useState([]); //state to store all of emails in an array
 
   const handleChange = e => {
-    console.log('input infor', e);
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    // Convert local date-time to UTC
     setFormData(prevData => ({
       ...prevData,
       [name]: value,
     }));
+    console.log('new formdata is', formData);
   };
 
   const handleSubmit = async event => {
@@ -69,7 +69,6 @@ const EventForm = () => {
   };
 
   const handleAddGuest = () => {
-    console.log(123);
     let newGuest = formData.invitedInput;
     setInvitedGuest(oldArray => [...oldArray, formData.invitedInput]);
     setFormData(prevData => ({

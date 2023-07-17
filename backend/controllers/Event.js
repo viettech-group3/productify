@@ -13,6 +13,7 @@ const createEvent = async (req, res) => {
   try {
     const { name, describe, start, end, invited, label } = req.body;
     let creatorId = req.user._id;
+    console.log("start and end in backend is", typeof start, 'and', typeof end)
 
     // Create a new event and save
     const event = new Event({
@@ -24,7 +25,7 @@ const createEvent = async (req, res) => {
       label: label
     });
     await event.save();
-
+    console.log("start and end in backend after I save it to EVENT MODEL is", event.start, 'and', event.end)
     // Create a new event participation for the creator
     const creatorParticipation = new EventParticipation({
       eventId: event._id,
@@ -172,7 +173,7 @@ const getAllEventsMonths = async (req, res) => {
 const modifyEvent = async (req, res) => {
   try {
     const eventId = req.params.id;
-    const { updatedData } = req.body;
+    const updatedData = req.body;
 
     // check if user is the creator? -> might change schema for event
     // anyone can change for now
@@ -183,7 +184,7 @@ const modifyEvent = async (req, res) => {
       { new: true },
     );
 
-    res.status(200).json({ event: event });
+    res.status(200).json(event);
   } catch (error) {
     console.log(`Failed to modify event: ${error}`);
     res.status(500).json({ error: error });

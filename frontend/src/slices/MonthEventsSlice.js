@@ -22,10 +22,10 @@ export const MonthEventsSlice = createSlice({
     },
     update: (state, action) => {
       const index = state.value.findIndex(
-        event => event._id === action.payload.id,
+        event => event._id === action.payload._id,
       );
       if (index !== -1) {
-        state.value[index].status = action.payload;
+        state.value[index] = action.payload;
       }
     },
     updateStatus: (state, action) => {
