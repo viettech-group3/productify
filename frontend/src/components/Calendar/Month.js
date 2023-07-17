@@ -7,8 +7,7 @@ import { set, add, remove, update } from '../../slices/MonthEventsSlice';
 
 export default function Month({ month }) {
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWE0YTA3MDBkNWM1MDUzMjM3ZTZiMiIsImlhdCI6MTY4ODExNDI0MSwiZXhwIjoxNjkwNzA2MjQxfQ.5KPUaiZJAXMgoEtDXDPM8srQb6-y_GhE-5ZJGffgDy0';
-
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
   const startDate = month[0][0];
   const endDate = month[4][6];

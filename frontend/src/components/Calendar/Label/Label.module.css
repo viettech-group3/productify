@@ -1,0 +1,27 @@
+span.bigcheck_target {
+  font-family: FontAwesome; /* use an icon font for the checkbox */
+}
+input[type='checkbox'].bigcheck {
+  position: relative;
+  left: -999em; /* hide the real checkbox */
+}
+
+input[type='checkbox'].bigcheck + span.bigcheck_target:after {
+  content: '\f096'; /* In fontawesome, is an open square (fa-square-o) */
+  color: var(--checkbox-color, #d35400);
+}
+input[type='checkbox'].bigcheck:checked + span.bigcheck_target:after {
+  content: '\f046'; /* fontawesome checked box (fa-check-square-o) */
+}
+
+span.bigcheck {
+  display: block;
+  padding: 0.5em;
+}
+
+.deletedLabelButton {
+  padding: 2px;
+}
+.deletedLabelButton:hover {
+  background-color: #6c757d;
+}

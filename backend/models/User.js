@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'https://api.dicebear.com/6.x/initials/svg?seed=default',
   },
+  labellist: {
+    type: Array,
+    default: [{ name: 'event', color: '#0000FF' }], // Default value as an array with a single label object
+  }
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {

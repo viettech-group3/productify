@@ -1,0 +1,21 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  display: flex;
+}
+
+.labelFormTitle {
+  border-bottom: 2px solid;
+}
+.labelForm {
+  background-color: whitesmoke;
+  height: 40%;
+  width: 40%;
+}
