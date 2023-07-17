@@ -1,7 +1,10 @@
 .viewport {
   background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
   font-family: 'Montserrat';
-  height: 100vh;
+  height: 100%;
+}
+
+.customization {
   display: flex;
   align-items: center;
   height: 100%;
@@ -104,4 +107,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.levelOption {
+  border-radius: 10px;
 }

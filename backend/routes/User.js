@@ -7,6 +7,7 @@ const {
   leaderboard,
   getUser,
   updateUser,
+  getAvatars,
   forgotPassword,
   resetPassword,
   getLabelList,
@@ -24,6 +25,7 @@ UserRouter.post('/login', login);
 UserRouter.get('/leaderboard', leaderboard);
 UserRouter.get('/getUser', protect, getUser);
 UserRouter.put('/update', protect, updateUser);
+UserRouter.get('/getAvatars', protect, getAvatars);
 UserRouter.get('/getLabelList', protect, getLabelList);
 UserRouter.post('/addLabelList', protect, addLabelList);
 UserRouter.delete('/deleteLabelList', protect, deleteLabelList);

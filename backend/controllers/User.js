@@ -1,5 +1,6 @@
 const User = require('../models/User');
-const { generateToken, sendPasswordResetEmail } = require('../utils/auth');
+const { generateToken } = require('../utils/auth');
+const { getAllAvatars } = require('../utils/getAllAvatars');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
@@ -46,7 +47,7 @@ const signUp = async (req, res) => {
       username: newUserSaved.username,
       email: newUserSaved.email,
       token: generateToken(newUserSaved._id),
-      profilepicture: newUserSaved.profilepicture,
+      purchasedAvatars: newUserSaved.purchasedAvatars,
     });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -71,7 +72,9 @@ const login = async (req, res) => {
         username: existingUser.username,
         email: existingUser.email,
         token: generateToken(existingUser._id),
-        profilepicture: existingUser.profilepicture, //We will save it into localStorage and show on Navbar
+        points: existingUser.points,
+        totalpoints: existingUser.totalpoints,
+        purchasedAvatars: existingUser.purchasedAvatars, //We will save it into localStorage and show on Navbar
       });
     } else {
       return res.status(401).json({ msg: 'Invalid credentials' });
@@ -102,12 +105,28 @@ const updateUser = async (req, res) => {
       { $set: updateInformation },
       { new: true }, //return to (updateUser variable) the new data
     );
-    res.status(200).json({ user: updateUser });
+    res.status(200).json({ updateUser });
   } catch (error) {
     console.log(`Failed to modify user information: ${error}`);
     res.status(500).json({ error: error });
   }
 };
+
+const getAvatars = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    let currentUser = await User.findById(userId);
+    const allAvatars = await getAllAvatars(
+      currentUser.totalpoints,
+      currentUser.purchasedAvatars,
+    );
+
+    return res.status(200).json(allAvatars);
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
 const forgotPassword = async (req, res) => {
   let email = req.body.email;
   const user = await User.findOne({ email });
@@ -223,6 +242,7 @@ module.exports = {
   leaderboard,
   getUser,
   updateUser,
+  getAvatars,
   getLabelList,
   addLabelList,
   deleteLabelList,

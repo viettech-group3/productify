@@ -33,7 +33,7 @@ function Day({ day, row, loadingState }) {
     ),
   );
   const exampleTokenForPhuoc =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4ODc3NDUzNSwiZXhwIjoxNjkxMzY2NTM1fQ.HB-064k-AHO7jvM4rexrZ3DfMNQX5_zM0v6tRaVM7Z8';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0N2MxMDRmYzlkMzVkYTI2ZmMyODc0MSIsImlhdCI6MTY4ODQ0Mjk0NywiZXhwIjoxNjkxMDM0OTQ3fQ.oYzF6E8DUsOFaKPUbd_g_DM9KuEQSBkj0_U9QruUGQU';
   const handleEventClick = (e, event) => {
     e.stopPropagation();
     if (selectedEvent !== event) {

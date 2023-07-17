@@ -5,7 +5,8 @@ import ShowTodayTasksReducer from '../slices/ShowTodayTasksSlice';
 import TodayEventsReducer from '../slices/TodayEventsSlice';
 import MonthEventsReducer from '../slices/MonthEventsSlice';
 import ShowInvitationReducer from '../slices/ShowInvitationModal';
-import UserState from '../slices/UserStateSlice';
+import UserReducer from '../slices/UserStateSlice';
+import WinnerReducer from '../slices/WinnerSlice';
 import LabelReducer from '../slices/LabelSlice';
 import ShowLabelFormReducer from '../slices/ShowLabelForm';
 import ShowEventUpdateFormReducer from '../slices/ShowEventUpdateFormSlice';
@@ -19,7 +20,8 @@ export default configureStore({
     TodayEvents: TodayEventsReducer,
     MonthEvents: MonthEventsReducer,
     ShowInvitationModal: ShowInvitationReducer,
-    SetUser: UserState,
+    UserState: UserReducer,
+    setWinner: WinnerReducer,
     Label: LabelReducer,
     ShowLabelForm: ShowLabelFormReducer,
     ShowEventUpdateForm: ShowEventUpdateFormReducer,

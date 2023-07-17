@@ -34,3 +34,9 @@
   width: 150px; /* Adjust the width to your desired size */
   height: auto; /* Maintain aspect ratio */
 }
+
+.image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

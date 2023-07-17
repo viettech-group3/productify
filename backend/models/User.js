@@ -21,9 +21,18 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  profilepicture: {
-    type: String,
-    default: 'https://api.dicebear.com/6.x/initials/svg?seed=default',
+  totalpoints: {
+    type: Number,
+    default: 0,
+  },
+  purchasedAvatars: {
+    type: [[String]],
+    default: [
+      ['https://api.dicebear.com/6.x/initials/svg?seed=default'],
+      [],
+      [],
+      [],
+    ],
   },
   labellist: {
     type: Array,
