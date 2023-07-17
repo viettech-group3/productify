@@ -1,4 +1,4 @@
-const { AccessToken } = require('livekit-server-sdk');
+const { AccessToken, RoomServiceClient } = require('livekit-server-sdk');
 const Room = require('../models/Room');
 const { parseJwt } = require('../utils/auth');
 
@@ -8,21 +8,10 @@ const generateRoomToken = async (req, res) => {
   // find if room name exist in database
   // if not, create room
   // else, join room
-  const existedRoom = await Room.find({ name: roomName });
-  if (existedRoom.length == 0) {
-    const newRoom = new Room({
-      name: roomName,
-      attendees: 1,
-    });
-    await newRoom.save();
-  } else {
-    existedRoom[0].attendees += 1;
-    await Room.findByIdAndUpdate(existedRoom[0]._id, existedRoom[0]);
-  }
 
   const token = new AccessToken(
-    process.env.LIVEKIT_KEY_SID,
-    process.env.LIVEKIT_KEY_SECRET,
+    process.env.LIVEKIT_API_KEY,
+    process.env.LIVEKIT_API_SECRET,
     {
       identity: userName,
     },
@@ -36,10 +25,13 @@ const generateRoomToken = async (req, res) => {
 
 const getRooms = async (req, res) => {
   try {
-    console.log('Dei was here');
-    const rooms = await Room.find();
-    const activeRooms = rooms.filter(room => room.attendees > 0);
-    console.log(activeRooms);
+    let severRooms = new RoomServiceClient(
+      'https://test-9yy8lq1j.livekit.cloud',
+      process.env.LIVEKIT_API_KEY,
+      process.env.LIVEKIT_API_SECRET,
+    );
+    let activeRooms = await severRooms.listRooms();
+
     res.json({ activeRooms });
   } catch (err) {
     console.error(err);

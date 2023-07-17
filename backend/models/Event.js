@@ -11,11 +11,11 @@ const eventSchema = new mongoose.Schema({
     required: false,
   },
   start: {
-    type: Date,
+    type: String,  //We should save it as Date instead of String, because mongoDB save data as UTC (stupid idea => very hard to manipulate Date)
     required: true,
   },
   end: {
-    type: Date,
+    type: String, //We should save it as Date instead of String, because mongoDB save data as UTC (stupid idea => very hard to manipulate Date)
     required: true,
   },
   status: {
@@ -23,6 +23,16 @@ const eventSchema = new mongoose.Schema({
     enum: ["ongoing", "completed", "overdue"],
     default: "ongoing",
   },
+  label: {
+    name: {
+      type: String,
+      default: "event",
+    },
+    color: {
+      type: String,
+      default: '#0000FF',
+    }
+  }
 });
 
 const Event = mongoose.model("Event", eventSchema);

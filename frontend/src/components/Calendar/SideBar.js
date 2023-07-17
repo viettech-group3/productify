@@ -4,6 +4,7 @@ import MiniMonth from "./MiniMonth";
 import Points from "./Points";
 import UserSearch from "./UserSearch";
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
+import Label from "./Label/Label"
 
 const SideBar = () => {
   const MonthIndex = useSelector(state => state.MonthIndex.value);
@@ -19,11 +20,12 @@ const SideBar = () => {
         <MiniMonth month={currentMonth} />
       </div>
       <div>
-        <Points />
+        <Label />
       </div>
       <div>
         <UserSearch />
       </div>
+
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { toggle } from '../../../slices/ShowModalSlice';
 import EventForm from '../EventForm/EventForm';
 
 const EventModal = () => {
+  console.log('Show Event Modal');
   const ShowModal = useSelector(state => state.ShowModal.value);
   const dispatch = useDispatch();
   const modalRef = useRef(null);
