@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
+const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token || '123';
 
 export const fetchTodayEvents = createAsyncThunk(
   'TodayEvents/fetchTodayEvents',
