@@ -69,3 +69,13 @@
 .completedEvents {
   background-color: rgb(27, 23, 86);
 }
+
+.finishBadge {
+  position: absolute;
+  top: -15%;
+  left: 90%;
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  background-color: #80ed99;
+}
