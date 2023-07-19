@@ -1,0 +1,13 @@
+.userPoints {
+  position: fixed;
+  bottom: 40px;
+  left: 0px;
+  background: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 25px 10px 25px;
+  border: 1px solid;
+  border-top-right-radius: 15%;
+  border-bottom-right-radius: 15%;
+}

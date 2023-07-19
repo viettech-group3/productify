@@ -87,7 +87,7 @@ function Day({ day, row, loadingState }) {
 
       <div>
         {todayEventsWithLabels.map((event, idx) => (
-          <div key={idx}>
+          <div key={idx} className="position-relative">
             <div
               className={`${styles.todayEvents} ${event.status === 'completed' ? styles.completedEvents : ''
                 }`}
@@ -99,6 +99,10 @@ function Day({ day, row, loadingState }) {
               }}
             >
               {event.name}
+              {event.status === 'completed' && (
+                <span class={styles.finishBadge}>
+                </span>
+              )}
             </div>
 
             {ShowEventUpdateForm && selectedEvent === event && (
@@ -107,7 +111,7 @@ function Day({ day, row, loadingState }) {
           </div>
         ))}
       </div>
-    </td>
+    </td >
   );
 }
 

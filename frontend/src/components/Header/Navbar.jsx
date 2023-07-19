@@ -15,13 +15,12 @@ import DefaultProfile from '../../assets/images/Defaultprofile.png';
 const Navbar = () => {
   const dispatch = useDispatch();
   const avatar = useSelector(state => state.UserState.avatar);
+  const [exampleTokenForPhuoc, setExampleTokenForPhuoc] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const exampleTokenForPhuoc = JSON.parse(
-          localStorage.getItem('user'),
-        ).token;
+        setExampleTokenForPhuoc(JSON.parse(localStorage.getItem('user')).token);
         const response = await axios.get(
           'http://localhost:5000/api/users/getUser',
           {
@@ -80,15 +79,31 @@ const Navbar = () => {
             Study Room
           </a>
         </li>
-        <li className={styles.navbarItem}>
-          <a href="/profile">
-            <img
-              src={`${avatar}`}
-              alt="User Profile"
-              className={`${styles.image}`}
-            />
-          </a>
-        </li>
+        {exampleTokenForPhuoc !== null && (
+          <>
+            <li className={styles.navbarItem}>
+              <a href="/profile">
+                <img
+                  src={`${avatar}`}
+                  alt="User Profile"
+                  className={`${styles.image}`}
+                />
+              </a>
+            </li>
+
+            <li className={styles.navbarItem}>
+              <button
+                className={styles.signOutButton}
+                onClick={() => {
+                  localStorage.removeItem('user');
+                  window.location.href = '/';
+                }}
+              >
+                Sign Out
+              </button>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );
