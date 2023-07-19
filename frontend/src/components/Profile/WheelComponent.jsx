@@ -14,6 +14,7 @@ import {
   setPoints,
 } from '../../slices/UserStateSlice';
 import { useSlider } from '@chakra-ui/react';
+import styles from './WheelComponent.module.css';
 
 const WheelComponent = () => {
   const dispatch = useDispatch();
@@ -175,7 +176,7 @@ const WheelComponent = () => {
         contrastColor="whitesmoke"
         buttonText="Spin"
         isOnlyOnce={false}
-        size={250}
+        size={200}
         upDuration={500}
         downDuration={600}
         fontFamily="Montserrat"

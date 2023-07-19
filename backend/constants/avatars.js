@@ -137,70 +137,70 @@ const allAvatars = [
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated1_csdptc.gif',
-        name: 'Cutie',
+        name: 'cutiepieshort',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688711668/crying-dei-dei_qyjcxg.gif',
-        name: 'Crying Dei Dei',
+        name: 'cutiepieshort1',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707067/animated3_lnf5ap.gif',
-        name: 'Awwww',
+        name: 'cutiepieshort2',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated4_itiaov.gif',
-        name: '1 nam 1 can nha',
+        name: 'cutiepieshort3',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707067/animated5_otzkzi.gif',
-        name: 'debug or đi bar',
+        name: 'cutiepieshort4',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688711668/no-more-school_w8uw41.gif',
-        name: 'NO MORE SCHOOL',
+        name: 'cutiepieshort5',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated7_hgmmpb.gif',
-        name: 'Phuoc & his mukbang session',
+        name: 'cutiepieshort6',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated8_ipyzc7.gif',
-        name: 'every coder dream',
+        name: 'cutiepieshort7',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated9_pjvjzt.gif',
-        name: 'code den chek',
+        name: 'cutiepieshort8',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688711668/pay-mau_lmo4ji.gif',
-        name: 'Pay Mau',
+        name: 'cutiepieshort9',
         unlocked: false,
       },
     ],

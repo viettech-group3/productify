@@ -205,40 +205,10 @@ const Profile = () => {
   return (
     <div className={styles.viewport}>
       <Toaster />
-      <div className={styles.avatarSection}>
-        <Card className={styles.cardContainer}>
-          <Card.Body className={styles.cardBody}>
-            <div className={styles.pointTitle}>Customize your avatar!</div>
-            <div classname={styles.levelContainer}>
-              <select classname={styles.levelOption} onChange={handleChange}>
-                <option value="1">Level 1</option>
-                <option value="2">Level 2</option>
-                <option value="3">Level 3</option>
-              </select>
-            </div>
-            {/* ? : means if else. for ex : 1+1 ==2 ? print('right') : print('wrong') => result will be 'right' */}
-            {allAvatars.length > 0 ? (
-              <AvatarCarousel />
-            ) : // <AvatarCarousel level={level} allAvatars={allAvatars} />
-            null}
-            <div className={styles.buttonContainer}>
-              <Button className={styles.tradeButton} onClick={something}>
-                Use Random Avatar for 50 points
-              </Button>
-              <Button
-                className={styles.tradeButton}
-                onClick={handleTradeCustomAvatar}
-              >
-                Use Custom Avatar for 100 points
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
-      </div>
+      <div className={styles.pageTitle}>Customize your avatar!</div>
 
       <div className={styles.customization}>
         <div className={styles.sidebar}>
-          <p>avatar</p>
           {purchasedAvatar[0].length > 0 ? (
             <img
               src={`${avatar}`}
@@ -248,27 +218,97 @@ const Profile = () => {
           ) : (
             <p>No</p>
           )}
-          <p className={`${styles.paragraph} text-center`}> {name} </p>
-          <p className={`${styles.paragraph} text-center`}> {email} </p>
-          <p className={`${styles.paragraph} text-center`}> {points} pts </p>
-          <p className={`${styles.paragraph} text-center`}>
-            {' '}
-            Total {totalpoints} pts{' '}
-          </p>
-          {bio != null ? (
-            <div>
-              <p className={`${styles.paragraph} text-center`}> Bio: {bio}</p>
-              <Button onClick={handleUpdateBio}>Update Bio</Button>
+
+          <div className={styles.tablecontainer}>
+            <div className={styles.row}>
+              <div className={styles.title}>Username</div>
+              <div className={styles.value}>{name}</div>
             </div>
-          ) : (
-            <p>No</p>
-          )}
+            <div className={styles.row}>
+              <div className={styles.title}>Email</div>
+              <div className={styles.value}>{email}</div>
+            </div>
+            <div className={styles.row}>
+              <div className={styles.title}>Current Points</div>
+              <div className={styles.value}>{points}</div>
+            </div>
+            <div className={styles.row}>
+              <div className={styles.title}>Total Points</div>
+              <div className={styles.value}>{totalpoints}</div>
+            </div>
+
+            {bio != null ? (
+              <div>
+                <div className={styles.row}>
+                  <div className={styles.title}>Bio</div>
+                </div>
+                <div className={styles.myBio}>{bio}</div>
+                <Button
+                  className={styles.tradeButton}
+                  onClick={handleUpdateBio}
+                >
+                  Update Bio
+                </Button>
+              </div>
+            ) : (
+              <Button className={styles.tradeButton} onClick={handleUpdateBio}>
+                Add Bio
+              </Button>
+            )}
+          </div>
         </div>
 
-        <div className={styles.wheel}>
-          {allAvatars.length > 0 && purchasedAvatar[0].length > 0 ? (
-            <Wheel />
-          ) : null}
+        <div className={styles.right}>
+          <div className={styles.upperRight}>
+            <div className={styles.avatarSection}>
+              <Card className={styles.cardContainer}>
+                <Card.Body className={styles.cardBody}>
+                  <div className={styles.pointTitle}>
+                    Generate your unique avatar!
+                  </div>
+                  <div classname={styles.levelContainer}>
+                    <select
+                      classname={styles.levelOption}
+                      onChange={handleChange}
+                    >
+                      <option value="1">Level 1</option>
+                      <option value="2">Level 2</option>
+                      <option value="3">Level 3</option>
+                    </select>
+                  </div>
+                  {/* ? : means if else. for ex : 1+1 ==2 ? print('right') : print('wrong') => result will be 'right' */}
+                  {allAvatars.length > 0 ? (
+                    <AvatarCarousel />
+                  ) : // <AvatarCarousel level={level} allAvatars={allAvatars} />
+                  null}
+                  <div className={styles.buttonContainer}>
+                    <Button
+                      className={styles.tradeButton}
+                      onClick={handleTradeCustomAvatar}
+                    >
+                      Use Custom Avatar for 100 points
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </div>
+          </div>
+
+          <div className={styles.lowerRight}>
+            <div className={styles.avatarSection}>
+              <Card className={styles.cardContainer}>
+                <div className={styles.pointTitle}>
+                  Choose among random avatars!
+                </div>
+                {/* <div className  */}
+                <div className={styles.wheel}>
+                  {allAvatars.length > 0 && purchasedAvatar[0].length > 0 ? (
+                    <Wheel />
+                  ) : null}
+                </div>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>

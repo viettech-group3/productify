@@ -2,14 +2,15 @@
   display: inline-block !important;
   width: auto !important;
   padding: 0 !important;
-  margin: 0 !important;
+  margin: 5px !important;
   align-items: center;
   text-align: center;
+  /* gap: 10px; */
 }
 
 .avatarImage {
-  width: 80px;
-  height: 80px;
+  width: 110px;
+  height: 120px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -18,10 +19,6 @@
   border-radius: 50px;
   background-color: var(--main-blue);
 }
-
-/* .carousel-control-next .carousel-control-prev {
-  display: none;
-} */
 
 .carousel-control-next {
   background-color: red;
