@@ -12,6 +12,7 @@ import ShowLabelFormReducer from '../slices/ShowLabelForm';
 import ShowEventUpdateFormReducer from '../slices/ShowEventUpdateFormSlice';
 import SelectedEventReducer from '../slices/SelectedEventSlice';
 import ViewModeReducer from '../slices/ViewModeSlice';
+import CurrentDateReducer from '../slices/CurrentDateSlice';
 
 export default configureStore({
   reducer: {
@@ -28,5 +29,6 @@ export default configureStore({
     ShowEventUpdateForm: ShowEventUpdateFormReducer,
     SelectedEvent: SelectedEventReducer,
     ViewMode: ViewModeReducer,
+    CurrentDate: CurrentDateReducer,
   },
 });

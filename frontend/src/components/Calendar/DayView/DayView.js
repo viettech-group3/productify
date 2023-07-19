@@ -3,14 +3,16 @@ import { DateTime } from 'luxon';
 import styles from './DayView.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchTodayEvents } from '../../../slices/TodayEventsSlice';
+import dayjs from 'dayjs';
 
 const DayView = () => {
   const dispatch = useDispatch();
   const events = useSelector(state => state.TodayEvents.value);
+  const CurrentDate = useSelector(state => state.CurrentDate.value)
 
   useEffect(() => {
-    dispatch(fetchTodayEvents(new Date()));
-  }, [dispatch]);
+    dispatch(fetchTodayEvents(CurrentDate));
+  }, [dispatch, CurrentDate]);
 
   const calculateTime = (start, end) => {
     const startDateTime = DateTime.fromISO(start);
@@ -72,10 +74,10 @@ const DayView = () => {
             DateTime.fromISO(prevEvent.start),
             'hours',
           ).hours <
-            DateTime.fromISO(event.end).diff(
-              DateTime.fromISO(event.start),
-              'hours',
-            ).hours,
+          DateTime.fromISO(event.end).diff(
+            DateTime.fromISO(event.start),
+            'hours',
+          ).hours,
       );
     const zIndex = earlierStartEvents.length + shorterDurationEvents.length + 1; // Higher z-index for events with earlier start time and shorter duration
     return zIndex;
@@ -122,7 +124,7 @@ const DayView = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.dayViewHeader}>Wed 5</div>
+      <div className={styles.dayViewHeader}>{CurrentDate}</div>
       <div className={styles.dayView_onTopRow}>
         <div style={{ width: '50px', fontSize: '13px', textAlign: 'center' }}>
           UTC-7
@@ -150,7 +152,10 @@ const DayView = () => {
                     zIndex: zIndex,
                   }}
                 >
-                  <div className={styles.eventDetails}>
+                  <div className={styles.eventDetails} style={{
+                    backgroundColor:
+                      event.status !== 'completed' ? event.label.color : '',
+                  }}>
                     <div className={styles.eventTitle}>{event.name}</div>
                     <div>{calculateTime(event.start, event.end)}</div>{' '}
                   </div>

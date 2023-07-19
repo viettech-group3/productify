@@ -41,7 +41,11 @@ const initialState = {
 const TodayEventsSlice = createSlice({
   name: 'TodayEvents',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    addTodayEvent: (state, action) => {
+      state.value.push(action.payload);
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchTodayEvents.pending, state => {
@@ -58,4 +62,5 @@ const TodayEventsSlice = createSlice({
   },
 });
 
+export const { addTodayEvent } = TodayEventsSlice.actions
 export default TodayEventsSlice.reducer;

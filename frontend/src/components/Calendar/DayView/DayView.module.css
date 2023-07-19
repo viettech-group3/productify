@@ -2,6 +2,7 @@
   background-color: white;
   padding: 20px 20px;
   border-radius: 10px;
+  overflow-y: auto; /* Add this line to enable vertical scrolling */
 }
 
 .dayViewHeader {
@@ -10,7 +11,7 @@
 }
 
 .dayView_grid {
-  height: 1200px;
+  height: 600px;
   background-color: white;
 }
 

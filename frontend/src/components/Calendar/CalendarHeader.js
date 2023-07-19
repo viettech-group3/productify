@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import InvitationModal from './InvitationModal/InvitationModal';
 import { LeftArrow, RightArrow } from '../../assets/smallComponents/icon';
 import { ViewMode, switchViewMode } from '../../slices/ViewModeSlice';
+import { decreaseDate, increaseDate, resetDate } from '../../slices/CurrentDateSlice';
 
 const CalendarHeader = () => {
   const MonthIndex = useSelector(state => state.MonthIndex.value);
@@ -43,7 +44,9 @@ const CalendarHeader = () => {
         <button
           className={styles.button}
           onClick={() => {
-            dispatch(reset());
+            if (ViewMode === "month") { dispatch(reset()); }
+            else if (ViewMode === "day") { dispatch(resetDate()); }
+
           }}
         >
           Today
@@ -59,7 +62,8 @@ const CalendarHeader = () => {
       </div>
       <button
         onClick={() => {
-          dispatch(decrease());
+          if (ViewMode === "month") { dispatch(decrease()); }
+          else if (ViewMode === "day") { dispatch(decreaseDate()) }
         }}
         className={styles.buttonArrow}
       >
@@ -68,7 +72,8 @@ const CalendarHeader = () => {
 
       <button
         onClick={() => {
-          dispatch(increase());
+          if (ViewMode === "month") { dispatch(increase()); }
+          else if (ViewMode === "day") { dispatch(increaseDate()) }
         }}
         className={styles.buttonArrow}
       >
