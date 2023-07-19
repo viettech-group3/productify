@@ -30,7 +30,7 @@ function App() {
           <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route exact path="/studywithme" element={<StudyWithMePage />} />
           <Route path="/studywithme/:token" element={<StudyRoom />} />
-          <Route path="/profile" element={<UserProfile />} />
+          {/* <Route path="/profile" element={<UserProfile />} /> */}
         </Routes>
       </Router>
     </ChakraProvider>

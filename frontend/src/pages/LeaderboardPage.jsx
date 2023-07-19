@@ -5,14 +5,14 @@ import Leaderboard from '../components/Leaderboard/Leaderboard';
 import { useNavigate } from 'react-router-dom';
 
 const LeaderboardPage = () => {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  useEffect(() => {
-    console.log('user', user);
-    if (user == null) {
-      navigate('/auth');
-    }
-  }, []);
+  // const navigate = useNavigate();
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // useEffect(() => {
+  //   console.log('user', user);
+  //   if (user == null) {
+  //     navigate('/auth');
+  //   }
+  // }, []);
   return (
     <div>
       <Navbar />
