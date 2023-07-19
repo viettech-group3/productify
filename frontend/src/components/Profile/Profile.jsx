@@ -16,6 +16,7 @@ import {
   setPurchasedAvatar,
   setLevel,
   setAllAvatars,
+  setBio,
 } from '../../slices/UserStateSlice';
 
 const Profile = () => {
@@ -33,6 +34,7 @@ const Profile = () => {
   const level = useSelector(state => state.UserState.level);
   const avatar = useSelector(state => state.UserState.avatar);
   const allAvatars = useSelector(state => state.UserState.allAvatars);
+  const bio = useSelector(state => state.UserState.bio);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -53,7 +55,8 @@ const Profile = () => {
         await dispatch(setPoints(response.data.points));
         await dispatch(setTotalPoints(response.data.totalpoints));
         await dispatch(setPurchasedAvatar(response.data.purchasedAvatars));
-        console.log(purchasedAvatar);
+        await dispatch(setBio(response.data.bio));
+        console.log(bio);
 
         // if avatar is default, chaneg it so that it appear as initials of user
         // else set current avatar of user
@@ -104,6 +107,29 @@ const Profile = () => {
     };
     fetchAvatars();
   }, [purchasedAvatar, dispatch]);
+
+  const handleUpdateBio = async () => {
+    try {
+      let newBio = prompt('Please enter your new bio: ');
+      if (newBio === null || newBio === '') {
+        toast.error('You have to fill in the box');
+        return;
+      }
+      const response = await axios.put(
+        `http://localhost:5000/api/users/update`,
+        { bio: newBio },
+        {
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
+        },
+      );
+      dispatch(setBio(newBio));
+      console.log('bio in handle', newBio);
+    } catch (error) {
+      console.log('There is something wrong with update bio');
+    }
+  };
 
   const handleTradeCustomAvatar = async () => {
     // TODO Logic for trading 500 points to change to a custom avatar
@@ -162,15 +188,6 @@ const Profile = () => {
   };
 
   const something = () => {};
-
-  // const handleChange = async e => {
-  //   try {
-  //     let { levelStage, value } = e.target;
-  //     dispatch(setLevel(Number(value)));
-  //   } catch (error) {
-  //     console.log('There is something wrong in level handling');
-  //   }
-  // };
 
   const handleChange = async e => {
     try {
@@ -238,7 +255,14 @@ const Profile = () => {
             {' '}
             Total {totalpoints} pts{' '}
           </p>
-          <p> Bio: </p>
+          {bio != null ? (
+            <div>
+              <p className={`${styles.paragraph} text-center`}> Bio: {bio}</p>
+              <Button onClick={handleUpdateBio}>Update Bio</Button>
+            </div>
+          ) : (
+            <p>No</p>
+          )}
         </div>
 
         <div className={styles.wheel}>

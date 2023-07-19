@@ -9,6 +9,7 @@ export const UserState = createSlice({
     purchasedAvatar: [[]],
     level: 1,
     allAvatars: [],
+    bio: '',
   },
   reducers: {
     setUser(state, action) {
@@ -23,8 +24,6 @@ export const UserState = createSlice({
     setAvatar(state, action) {
       state.avatar = action.payload;
       return state;
-
-      // return { ...state, avatar: action.payload };
     },
     setPurchasedAvatar(state, action) {
       state.purchasedAvatar = action.payload;
@@ -34,6 +33,9 @@ export const UserState = createSlice({
     },
     setAllAvatars(state, action) {
       state.allAvatars = action.payload;
+    },
+    setBio(state, action) {
+      state.bio = action.payload;
     },
   },
 });
@@ -47,5 +49,6 @@ export const {
   setPurchasedAvatar,
   setLevel,
   setAllAvatars,
+  setBio,
 } = UserState.actions;
 export default UserState.reducer;

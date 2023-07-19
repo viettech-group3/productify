@@ -48,6 +48,7 @@ const signUp = async (req, res) => {
       email: newUserSaved.email,
       token: generateToken(newUserSaved._id),
       purchasedAvatars: newUserSaved.purchasedAvatars,
+      bio: newUserSaved.bio,
     });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -75,6 +76,7 @@ const login = async (req, res) => {
         points: existingUser.points,
         totalpoints: existingUser.totalpoints,
         purchasedAvatars: existingUser.purchasedAvatars, //We will save it into localStorage and show on Navbar
+        bio: existingUser.bio,
       });
     } else {
       return res.status(401).json({ msg: 'Invalid credentials' });

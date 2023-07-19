@@ -47,10 +47,6 @@ const WheelComponent = () => {
     }),
   );
 
-  if (points < 50) {
-    return <p> You don't have enough points </p>;
-  }
-
   const segColors = [
     '#eac7c8', //pink
     '#CCB3AE', //pink
@@ -120,6 +116,26 @@ const WheelComponent = () => {
     await changeProfilePic(temp);
     dispatch(setPurchasedAvatar(temp));
   };
+
+  // if (points < 50) {
+  //   return (
+  //     <div>
+  //       <Wheel
+  //         segments={segments.flat()}
+  //         segColors={segColors}
+  //         onFinished={onFinished}
+  //         primaryColor="#a9caee"
+  //         contrastColor="whitesmoke"
+  //         buttonText="X"
+  //         isOnlyOnce={true}
+  //         size={250}
+  //         upDuration={500}
+  //         downDuration={600}
+  //         fontFamily="Montserrat"
+  //       />
+  //     </div>
+  //   );
+  // }
 
   const changeProfilePic = async purchasedAvatar => {
     const token = JSON.parse(localStorage.getItem('user')).token;
