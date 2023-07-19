@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
   labellist: {
     type: Array,
     default: [{ name: 'event', color: '#0000FF' }], // Default value as an array with a single label object
-  }
+  },
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
