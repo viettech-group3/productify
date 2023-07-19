@@ -96,7 +96,6 @@ const getUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  //We haven't used and tested it on Postman or frontend
   try {
     const userId = req.user._id;
     let updateInformation = req.body; //THis is an object with full property for user, if we want to update which property, we have to pass new property. If not, just keep it as past
@@ -236,6 +235,23 @@ const deleteLabelList = async (req, res) => {
   }
 };
 
+const deductPoints = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    let { pointsToDeduct } = req.body;
+    let currentUser = await User.findById(userId);
+    const updateUser = await User.findByIdAndUpdate(
+      { _id: userId },
+      { points: currentUser.points - pointsToDeduct },
+      { new: true }, //return to (updateUser variable) the new data
+    );
+    res.status(200).json({ updateUser });
+  } catch (error) {
+    console.log(`Failed to modify user points: ${error}`);
+    res.status(500).json({ error: error });
+  }
+};
+
 module.exports = {
   signUp,
   login,
@@ -248,4 +264,5 @@ module.exports = {
   deleteLabelList,
   resetPassword,
   forgotPassword,
+  deductPoints,
 };
