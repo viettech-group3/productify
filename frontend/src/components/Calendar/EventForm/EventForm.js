@@ -59,7 +59,7 @@ const EventForm = () => {
         .then(response => {
           console.log('Response:', response);
           dispatch(add(response.data));
-          dispatch(addTodayEvent(response.data))
+          dispatch(addTodayEvent(response.data));
         });
     } catch (error) {
       console.log(

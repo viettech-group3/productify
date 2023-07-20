@@ -119,6 +119,31 @@ const EventUpdateForm = ({ eventInformation }) => {
     }
   };
 
+  const handleFinishEventClick = (e, eventFinish) => {
+    e.stopPropagation();
+    setFinish(value => !value);
+    dispatch(updateStatus({ _id: eventFinish._id, status: 'completed' }));
+
+    axios
+      .post(
+        `http://localhost:5000/api/events/finish/${eventFinish._id}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log('Finish event successfully');
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log('There are some bugs when we try to finish events');
+        console.log(error);
+      });
+  };
+
   return (
     <div className={styles.overlay} onClick={e => handleOutsideClick(e)}>
       <div className={styles.ModalCard} ref={modalRef}>
@@ -277,12 +302,24 @@ const EventUpdateForm = ({ eventInformation }) => {
           </div>
         </form>
 
-        <div className={styles.submitContainer}>
-          <button type="submit" className={styles.submitButton} form="my-form">
-            {' '}
-            {/* Form attribute to connect with form, because this button is outside of form */}
-            Update Changes
-          </button>
+        <div className={styles.buttonContainer}>
+          <div className={styles.submitContainer}>
+            <button className={styles.submitButton} form="my-form">
+              {' '}
+              {/* Form attribute to connect with form, because this button is outside of form */}
+              Update Changes
+            </button>
+          </div>
+
+          <div className={styles.submitContainer}>
+            <button
+              className={styles.submitButton}
+              onClick={handleFinishEventClick}
+            >
+              {' '}
+              Finish Event
+            </button>
+          </div>
         </div>
       </div>
     </div>

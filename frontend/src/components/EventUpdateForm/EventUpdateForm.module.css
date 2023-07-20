@@ -137,7 +137,7 @@
 
 .ModalCard {
   width: 30rem;
-  max-height: 40rem;
+  max-height: 50rem;
   border: 2px solid whitesmoke;
   border-radius: 10px;
   background-color: white;
@@ -170,4 +170,15 @@
 
 .closeButton:hover {
   background-color: #ced4da;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.submitContainer {
+  width: 48%;
 }
