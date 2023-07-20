@@ -26,26 +26,17 @@
 }
 
 .sidebar {
-  /* flex-basis: 20%; */
   flex: 1;
   padding: 50px;
-  /* margin-top: 50px;
-  margin-bottom: 50px; */
+
   margin-left: 50px;
-  background-color: whitesmoke;
+  background-image: url(../../assets/images/baby.jpeg);
   border-radius: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
-/* .avatarSection {
-  flex-basis: 80%;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-} */
 
 .pointTitle {
   padding-bottom: 30px;
@@ -76,7 +67,7 @@
 .image {
   text-align: center;
   border-radius: 200px;
-  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+  background-color: #aacaef;
   transition: transform 0.2s ease-in-out;
   margin-bottom: 40px;
   max-height: 300px;
@@ -154,15 +145,9 @@
 }
 
 .wheel canvas {
-  /* align-items: center !important; */
-  /* padding: none !important; */
-  /* height: 1000px; */
   width: 1000px;
-  /* margin: none !important; */
-  margin-bottom: -230px !important;
-  /* padding-bottom: -250px !important;
-   */
-  margin-top: -90px !important;
+  margin-bottom: -180px !important;
+  margin-top: -50px !important;
 }
 
 .wheel {
@@ -173,20 +158,3 @@
   margin-left: 400px;
   padding: 0;
 }
-
-/* .wheel {
-  margin: 0 auto;
-  max-width: 100%;
-  height: auto;
-} */
-
-/* .wheel wheel {
-  align-items: center !important;
-  padding: none !important;
-  margin: none !important;
-} */
-
-/* #canvas {
-  padding: 0;
-  height: 100px;
-} */

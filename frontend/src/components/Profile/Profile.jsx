@@ -264,7 +264,7 @@ const Profile = () => {
               <Card className={styles.cardContainer}>
                 <Card.Body className={styles.cardBody}>
                   <div className={styles.pointTitle}>
-                    Generate your unique avatar!
+                    Choose a unique avatar for 100 points!
                   </div>
                   <div classname={styles.levelContainer}>
                     <select
@@ -286,7 +286,13 @@ const Profile = () => {
                       className={styles.tradeButton}
                       onClick={handleTradeCustomAvatar}
                     >
-                      Use Custom Avatar for 100 points
+                      Choose this avatar
+                    </Button>
+                    <Button
+                      className={styles.tradeButton}
+                      onClick={handleTradeCustomAvatar}
+                    >
+                      Generate new avatar
                     </Button>
                   </div>
                 </Card.Body>
@@ -298,7 +304,7 @@ const Profile = () => {
             <div className={styles.avatarSection}>
               <Card className={styles.cardContainer}>
                 <div className={styles.pointTitle}>
-                  Choose among random avatars!
+                  Choose a random avatar for 50 points!
                 </div>
                 {/* <div className  */}
                 <div className={styles.wheel}>
