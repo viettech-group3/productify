@@ -34,6 +34,7 @@ const EventUpdateForm = ({ eventInformation }) => {
     invited: eventInformation.invited || [],
     label: eventInformation.label || '',
   });
+  const [finish, setFinish] = useState(false);
 
   const [invitedGuest, setInvitedGuest] = useState(
     eventInformation.invited || [],
@@ -305,15 +306,11 @@ const EventUpdateForm = ({ eventInformation }) => {
         <div className={styles.buttonContainer}>
           <div className={styles.submitContainer}>
             <button className={styles.submitButton} form="my-form">
-              {' '}
-              {/* Form attribute to connect with form, because this button is outside of form */}
               Update Changes
             </button>
-          </div>
 
-          <div className={styles.submitContainer}>
             <button
-              className={styles.submitButton}
+              className={styles.finishEvent}
               onClick={handleFinishEventClick}
             >
               {' '}

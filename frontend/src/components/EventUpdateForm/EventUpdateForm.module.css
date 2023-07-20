@@ -66,6 +66,7 @@
 
 .submitButton {
   margin-top: 5px;
+  margin-left: 20px;
   background-color: var(--main-blue);
   color: white;
   border: none;
@@ -73,6 +74,23 @@
   padding: 10px 10px;
   justify-content: end;
   display: flex;
+}
+
+.finishEvent {
+  font-weight: bold;
+  margin-top: 5px;
+  margin-left: 20px;
+  background-color: var(--main-blue);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 10px;
+  justify-content: end;
+  display: flex;
+}
+
+.finishEvent:hover {
+  background-color: #8cb9eb;
 }
 
 .submitButton:hover {
@@ -180,5 +198,5 @@
 }
 
 .submitContainer {
-  width: 48%;
+  width: 100%;
 }
