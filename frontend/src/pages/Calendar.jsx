@@ -11,7 +11,7 @@ import DayView from '../components/Calendar/DayView/DayView';
 import { fetchTodayEvents } from '../slices/TodayEventsSlice';
 import { switchViewMode } from '../slices/ViewModeSlice';
 import { useNavigate } from 'react-router-dom';
-
+import ShowPoints from '../components/Calendar/ShowPoints/ShowPoints';
 function Calendar() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
@@ -50,6 +50,7 @@ function Calendar() {
       }}
     >
       <Navbar />
+      <ShowPoints />
       <div style={{ backgroundColor: 'whitesmoke' }}>
         <div className="row">
           <CalendarHeader />

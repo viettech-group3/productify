@@ -238,6 +238,7 @@ const Profile = () => {
             {' '}
             Total {totalpoints} pts{' '}
           </p>
+          <p> Bio: </p>
         </div>
 
         <div className={styles.wheel}>

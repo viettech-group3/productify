@@ -40,3 +40,17 @@
   height: 50px;
   border-radius: 50%;
 }
+
+.signOutButton {
+  border: solid 1px #a2d2ff;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: whitesmoke;
+  padding: 10px;
+  background-color: var(--main-blue);
+}
+
+.signOutButton:hover {
+  background-color: #0e2640;
+}

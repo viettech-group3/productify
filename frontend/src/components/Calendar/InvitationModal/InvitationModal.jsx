@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './InvitationModal.module.css';
 import { useDispatch } from 'react-redux';
 import { toggleInvitationModal } from '../../../slices/ShowInvitationModal';
@@ -9,6 +9,7 @@ const InvitationModal = () => {
   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODBiNTY1ZDhhMzVhNTViMDE2MTFmYiIsImlhdCI6MTY4NjE1NzQxOSwiZXhwIjoxNjg4NzQ5NDE5fQ.u2Xv7d9vm62wFiNQEJgq4Mak6LBBjpe9I69Dl4BH8eA';
   const [invitations, setInvitations] = useState([]);
   const dispatch = useDispatch();
+  const modalRef = useRef(null);
   useEffect(() => {
     //Fetch Events of currentUser by getAllEvents() when we open <TodayModal/>
     axios
@@ -78,9 +79,15 @@ const InvitationModal = () => {
         console.error(error);
       });
   };
+
+  const handleOutsideClick = event => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      dispatch(toggleInvitationModal());
+    }
+  };
   return (
-    <div className={styles.overlay}>
-      <div className={styles.invitationModal}>
+    <div className={styles.overlay} onClick={handleOutsideClick}>
+      <div className={styles.invitationModal} ref={modalRef}>
         <div
           className={styles.modalHeader}
           onClick={() => {

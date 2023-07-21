@@ -19,7 +19,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const exampleTokenForPhuoc = JSON.parse(
+        let exampleTokenForPhuoc = await JSON.parse(
           localStorage.getItem('user'),
         ).token;
         const response = await axios.get(
@@ -30,7 +30,6 @@ const Navbar = () => {
             },
           },
         );
-        console.log('User information:', response.data);
 
         // if avatar is default, chaneg it so that it appear as initials of user
         // else set current avatar of user
@@ -53,7 +52,7 @@ const Navbar = () => {
       }
     };
     fetchUser();
-  });
+  }, [dispatch]);
   return (
     <nav className={styles.navbar}>
       <a href="/">
@@ -80,6 +79,7 @@ const Navbar = () => {
             Study Room
           </a>
         </li>
+
         <li className={styles.navbarItem}>
           <a href="/profile">
             <img
@@ -89,6 +89,22 @@ const Navbar = () => {
             />
           </a>
         </li>
+        {JSON.parse(localStorage.getItem('user')) !== null && (
+          <>
+            <li className={styles.navbarItem}>
+              <button
+                className={styles.signOutButton}
+                onClick={() => {
+                  localStorage.removeItem('user');
+                  localStorage.removeItem('ggToken');
+                  window.location.href = '/';
+                }}
+              >
+                Sign Out
+              </button>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );
