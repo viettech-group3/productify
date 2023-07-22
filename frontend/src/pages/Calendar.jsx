@@ -12,7 +12,18 @@ import { fetchTodayEvents } from '../slices/TodayEventsSlice';
 import { switchViewMode } from '../slices/ViewModeSlice';
 import { useNavigate } from 'react-router-dom';
 import ShowPoints from '../components/Calendar/ShowPoints/ShowPoints';
+import { motion } from 'framer-motion'; //transition effect
 function Calendar() {
+  const slideInVariants = {
+    //transition effect
+    initial: { x: -100, opacity: 0 },
+    animate: { x: 0, opacity: 1 },
+    exit: { x: -100, opacity: 0 },
+  };
+  const transition = {
+    duration: 1.8, // Adjust the duration to control how long the animation takes
+    ease: 'easeInOut', // Use different easing functions for different effects
+  };
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
   useEffect(() => {
@@ -38,7 +49,7 @@ function Calendar() {
   return user == null ? (
     <div>Loading....</div>
   ) : (
-    <div
+    <motion.div
       className="container-fluid App"
       style={{
         height: '100vh',
@@ -48,6 +59,11 @@ function Calendar() {
         fontFamily: 'Montserrat',
         padding: '0px',
       }}
+      variants={slideInVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={transition}
     >
       <Navbar />
       <ShowPoints />
@@ -70,7 +86,7 @@ function Calendar() {
         </div>
       </div>
       <Footer />
-    </div>
+    </motion.div>
   );
 }
 
