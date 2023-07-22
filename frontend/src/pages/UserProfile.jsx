@@ -8,12 +8,23 @@ import { motion } from 'framer-motion'; //transition effect
 const UserProfile = () => {
   const slideInVariants = {
     //transition effect
-    initial: { x: -100, opacity: 0 },
+    initial: { x: -500, opacity: 0.4 },
     animate: { x: 0, opacity: 1 },
     exit: { x: -100, opacity: 0 },
   };
   const transition = {
-    duration: 1.8, // Adjust the duration to control how long the animation takes
+    duration: 1.4, // Adjust the duration to control how long the animation takes
+    ease: 'easeInOut', // Use different easing functions for different effects
+  };
+
+  const smallComponentSlideInVariants = {
+    initial: { y: 500, opacity: 0.2 },
+    animate: { y: 0, opacity: 1 },
+    exit: { x: -100, opacity: 0 },
+  };
+
+  const smallComponentsTransition = {
+    duration: 1.2, // Adjust the duration to control how long the animation takes
     ease: 'easeInOut', // Use different easing functions for different effects
   };
   const navigate = useNavigate();
@@ -35,7 +46,15 @@ const UserProfile = () => {
       transition={transition}
     >
       <Navbar />
-      <Profile />
+      <motion.div
+        variants={smallComponentSlideInVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={smallComponentsTransition}
+      >
+        <Profile />
+      </motion.div>
       <Footer />
     </motion.div>
   );

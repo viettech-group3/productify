@@ -24,14 +24,15 @@ import { motion } from 'framer-motion'; //transition effect
 const AuthPage = () => {
   const slideInVariants = {
     //transition effect
-    initial: { x: -100, opacity: 0 },
+    initial: { x: -500, opacity: 0.4 },
     animate: { x: 0, opacity: 1 },
     exit: { x: -100, opacity: 0 },
   };
   const transition = {
-    duration: 1.8, // Adjust the duration to control how long the animation takes
+    duration: 1.4, // Adjust the duration to control how long the animation takes
     ease: 'easeInOut', // Use different easing functions for different effects
   };
+
   if (localStorage.getItem('user')) {
     //If we already login, it will redirect to Home Page
     window.location.href = '/calendar';
