@@ -19,9 +19,8 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        let exampleTokenForPhuoc = JSON.parse(
-          localStorage.getItem('user'),
-        ).token;
+        let user = JSON.parse(localStorage.getItem('user'));
+        let exampleTokenForPhuoc = user.token;
         const response = await axios.get(
           'http://localhost:5000/api/users/getUser',
           {
@@ -30,6 +29,8 @@ const Navbar = () => {
             },
           },
         );
+
+        console.log('user in navbar', response.data);
 
         // if avatar is default, chaneg it so that it appear as initials of user
         // else set current avatar of user
@@ -52,7 +53,7 @@ const Navbar = () => {
       }
     };
     fetchUser();
-  }, [dispatch]);
+  }, [avatar]);
   return (
     <nav className={styles.navbar}>
       <a href="/">

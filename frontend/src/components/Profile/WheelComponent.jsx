@@ -156,7 +156,6 @@ const WheelComponent = () => {
 
   if (points < 50) {
     flag = true;
-    description = 'You need at least 50 poinst to spin the wheel';
   }
   const handleSpinClick = () => {
     if (audioRef.current) {
@@ -197,7 +196,7 @@ const WheelComponent = () => {
   return (
     <div key={wheelKey}>
       <div onClick={playAudio}>
-        <p className={`${styles.paragraph} text-center`}>{description}</p>
+        {/* <p className={`${styles.paragraph} text-center`}>{description}</p> */}
         <Wheel
           segments={segments.flat()}
           segColors={segColors}
