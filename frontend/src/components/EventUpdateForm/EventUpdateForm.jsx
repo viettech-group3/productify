@@ -75,8 +75,8 @@ const EventUpdateForm = ({ eventInformation }) => {
     }));
   };
 
-  const handleLabelChange = e => {
-    const selectedLabelName = e.target.value;
+  const handleLabelChange = name => {
+    const selectedLabelName = name;
     console.log('Current SelectedLabelname is', selectedLabelName);
     const selectedLabel = labelList.find(
       label => label.name === selectedLabelName,
@@ -95,6 +95,7 @@ const EventUpdateForm = ({ eventInformation }) => {
 
   const handleUpdate = async event => {
     event.preventDefault();
+    console.log('We just run handleUpdate');
     console.log('formData to update is:', formData);
     try {
       const response = await axios
@@ -123,7 +124,6 @@ const EventUpdateForm = ({ eventInformation }) => {
 
   const handleFinishEventClick = (e, eventFinish) => {
     e.stopPropagation();
-    setFinish(value => !value);
     dispatch(updateStatus({ _id: eventFinish._id, status: 'completed' }));
 
     axios
@@ -240,15 +240,15 @@ const EventUpdateForm = ({ eventInformation }) => {
 
               <div className={styles.inputContainer}>
                 <div className={styles.customDropdown}>
-                  <div className={styles.dropdownLabel}>Select Label</div>
+                  <div className={styles.dropdownLabel}>
+                    {formData.label.name}
+                  </div>
                   <div className={styles.dropdownOptions}>
                     {labelList.map(label => (
                       <div
                         key={label.name}
                         className={styles.dropdownOption}
-                        onClick={() =>
-                          handleLabelChange({ target: { value: label.name } })
-                        }
+                        onClick={() => handleLabelChange(label.name)}
                       >
                         <span
                           className={styles.labelColor}
@@ -270,9 +270,8 @@ const EventUpdateForm = ({ eventInformation }) => {
 
               <button
                 className={styles.finishEvent}
-                onClick={handleFinishEventClick}
+                onClick={e => handleFinishEventClick(e, eventInformation)}
               >
-                {' '}
                 Finish Event
               </button>
             </div>

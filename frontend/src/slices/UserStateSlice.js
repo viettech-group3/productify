@@ -12,10 +12,19 @@ export const UserState = createSlice({
   },
   reducers: {
     setUser(state, action) {
-      state.value = action.payload;
+      const { points, totalpoints, avatar, purchasedAvatar, level, allAvatars } = action.payload;
+      state.points = points;
+      state.totalpoints = totalpoints;
+      state.avatar = avatar;
+      state.purchasedAvatar = purchasedAvatar;
+      state.level = level;
+      state.allAvatars = allAvatars;
     },
     setPoints(state, action) {
       state.points = action.payload;
+    },
+    addPoints(state, action) {
+      state.points += action.payload;
     },
     setTotalPoints(state, action) {
       state.totalpoints = action.payload;
