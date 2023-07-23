@@ -66,6 +66,7 @@
 
 .submitButton {
   margin-top: 5px;
+  margin-left: 20px;
   background-color: var(--main-blue);
   color: white;
   border: none;
@@ -73,6 +74,23 @@
   padding: 10px 10px;
   justify-content: end;
   display: flex;
+}
+
+.finishEvent {
+  font-weight: bold;
+  margin-top: 5px;
+  margin-left: 20px;
+  background-color: var(--main-blue);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 10px;
+  justify-content: end;
+  display: flex;
+}
+
+.finishEvent:hover {
+  background-color: #8cb9eb;
 }
 
 .submitButton:hover {
@@ -84,44 +102,9 @@
   justify-content: flex-end;
 }
 
-.formRow {
-  display: flex;
-  align-items: center;
-}
-
-.labelColumn {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.labelColumn .label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 51px;
-}
-
-.inputColumn {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-left: 20px;
-}
-
-.input {
-  margin-bottom: 10px;
-}
-
 .icon {
   margin-right: 10px;
   color: var(--main-blue);
-}
-
-.addGuestButton {
-  position: relative;
-  bottom: 10px;
 }
 
 .emailList {
@@ -137,7 +120,7 @@
 
 .ModalCard {
   width: 30rem;
-  max-height: 40rem;
+  max-height: 50rem;
   border: 2px solid whitesmoke;
   border-radius: 10px;
   background-color: white;
@@ -170,4 +153,147 @@
 
 .closeButton:hover {
   background-color: #ced4da;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.submitContainer {
+  width: 100%;
+}
+
+.columns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.columnLabel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.columnTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: bold;
+  color: var(--main-blue);
+}
+
+.columnInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* .label,
+.labelOption {
+  margin-bottom: 5px;
+} */
+
+.labelOptions {
+  display: flex;
+  flex-wrap: wrap;
+  /* margin-top: 5px; */
+}
+
+.labelOption {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.labelOption span {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+/* Additional styles for handling labelOptions overflow */
+.labelOptions::after {
+  content: '';
+  flex-grow: 9999;
+}
+
+/* .labelColor {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: 5px;
+  margin-right: 10px;
+} */
+
+/* ... (previous CSS rules) */
+
+.customDropdown {
+  position: relative;
+  width: 100%;
+}
+
+.dropdownLabel {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
+  border: 2px solid whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdownLabel:hover {
+  border-color: var(--main-blue);
+}
+
+.dropdownOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: white;
+  border: 2px solid whitesmoke;
+  border-radius: 4px;
+  display: none;
+}
+
+.customDropdown:hover .dropdownOptions {
+  display: block;
+}
+
+.dropdownOption {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownOption:hover {
+  background-color: #f1f1f1;
+}
+
+/* Additional styles for handling dropdownOptions overflow */
+.dropdownOptions::after {
+  content: '';
+  flex-grow: 9999;
+}
+
+.labelColor {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
