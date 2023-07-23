@@ -5,13 +5,14 @@ import ShowTodayTasksReducer from '../slices/ShowTodayTasksSlice';
 import TodayEventsReducer from '../slices/TodayEventsSlice';
 import MonthEventsReducer from '../slices/MonthEventsSlice';
 import ShowInvitationReducer from '../slices/ShowInvitationModal';
-import UserReducer from '../slices/UserStateSlice';
+import UserStateReducer from '../slices/UserStateSlice';
 import WinnerReducer from '../slices/WinnerSlice';
 import LabelReducer from '../slices/LabelSlice';
 import ShowLabelFormReducer from '../slices/ShowLabelForm';
 import ShowEventUpdateFormReducer from '../slices/ShowEventUpdateFormSlice';
 import SelectedEventReducer from '../slices/SelectedEventSlice';
 import ViewModeReducer from '../slices/ViewModeSlice';
+import CurrentDateReducer from '../slices/CurrentDateSlice';
 
 export default configureStore({
   reducer: {
@@ -21,12 +22,13 @@ export default configureStore({
     TodayEvents: TodayEventsReducer,
     MonthEvents: MonthEventsReducer,
     ShowInvitationModal: ShowInvitationReducer,
-    UserState: UserReducer,
+    UserState: UserStateReducer,
     setWinner: WinnerReducer,
     Label: LabelReducer,
     ShowLabelForm: ShowLabelFormReducer,
     ShowEventUpdateForm: ShowEventUpdateFormReducer,
     SelectedEvent: SelectedEventReducer,
     ViewMode: ViewModeReducer,
+    CurrentDate: CurrentDateReducer,
   },
 });

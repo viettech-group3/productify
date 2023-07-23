@@ -18,6 +18,7 @@ const {
   getUserToken,
   createEventWithGoogle,
   loginorsignup,
+  deductPoints,
 } = require('../controllers/User');
 const { protect } = require('../utils/auth');
 const { OAuth2Client } = require('google-auth-library');
@@ -43,4 +44,5 @@ UserRouter.get('/getAvatars', protect, getAvatars);
 UserRouter.get('/getLabelList', protect, getLabelList);
 UserRouter.post('/addLabelList', protect, addLabelList);
 UserRouter.delete('/deleteLabelList', protect, deleteLabelList);
+UserRouter.put('/deduct', protect, deductPoints);
 module.exports = UserRouter;

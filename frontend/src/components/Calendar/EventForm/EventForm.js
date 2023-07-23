@@ -11,6 +11,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 import { toggle } from '../../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
 import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
+import { addTodayEvent } from '../../../slices/TodayEventsSlice';
 
 const EventForm = () => {
   const dispatch = useDispatch(); //dispatch is to use function to interact with State of Redux
@@ -58,6 +59,7 @@ const EventForm = () => {
         .then(response => {
           console.log('Response:', response);
           dispatch(add(response.data));
+          dispatch(addTodayEvent(response.data))
         });
       const ggToken = localStorage.getItem('ggToken');
       if (ggToken !== null) {

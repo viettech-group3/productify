@@ -20,7 +20,19 @@ import toast, { Toaster } from 'react-hot-toast';
 import styles from './AuthPage.module.css';
 import catMeme from '../assets/images/CatMeme.jpg';
 import axios from 'axios';
+import { motion } from 'framer-motion'; //transition effect
 const AuthPage = () => {
+  const slideInVariants = {
+    //transition effect
+    initial: { x: -500, opacity: 0.4 },
+    animate: { x: 0, opacity: 1 },
+    exit: { x: -100, opacity: 0 },
+  };
+  const transition = {
+    duration: 1.4, // Adjust the duration to control how long the animation takes
+    ease: 'easeInOut', // Use different easing functions for different effects
+  };
+
   if (localStorage.getItem('user')) {
     //If we already login, it will redirect to Home Page
     window.location.href = '/calendar';
@@ -82,7 +94,13 @@ const AuthPage = () => {
     setEmail(e.target.value);
   };
   return (
-    <div>
+    <motion.div
+      variants={slideInVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={transition}
+    >
       <Flex
         alignContent={'center'}
         justifyContent={'center'}
@@ -290,7 +308,7 @@ const AuthPage = () => {
         </div>
       )}
       <Toaster />
-    </div>
+    </motion.div>
   );
 };
 

@@ -66,6 +66,7 @@ const WheelComponent = () => {
 
   const onFinished = async winner => {
     console.log(winner);
+    console.log('point before dispatch: ', tempPoints);
     let tempAvatar = 'random';
     if (purchasedAvatar[level].includes(winner)) {
       toast.error('You already have this character');
@@ -79,6 +80,10 @@ const WheelComponent = () => {
         dicebearAvatar.toString(),
       )}`;
       tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+      //points
+      const response = await deductPoints();
+      dispatch(setPoints(response.points));
+      console.log('points after dispatch', points);
     } else if (level === 1) {
       const dicebearAvatar = createAvatar(thumbs, {
         seed: winner,
@@ -88,6 +93,10 @@ const WheelComponent = () => {
         dicebearAvatar.toString(),
       )}`;
       tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+      //points
+      const response = await deductPoints();
+      dispatch(setPoints(response.points));
+      console.log('points after dispatch', points);
     } else if (level === 3) {
       // no testing yet
       const targetIndex = currentLevelObj.findIndex(obj => obj.name === winner);
@@ -95,27 +104,41 @@ const WheelComponent = () => {
       const avatarDataUrl = currentLevelObj[targetIndex].identifier;
       console.log('url is ', avatarDataUrl);
       tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+      //points
+      const response = await deductPoints();
+      dispatch(setPoints(response.points));
+      console.log('points after dispatch', points);
     } else {
       console.log('error in getAvatarUrl', winner);
       await dispatch(setAvatar(winner));
     }
+
+    // avatars
     let temp = JSON.parse(JSON.stringify(purchasedAvatar));
     temp[0][0] = tempAvatar.payload;
     temp[level].push(winner);
-    console.log('point before dispatch: ', tempPoints);
-    const response = await changeProfilePic(temp, tempPoints - 50);
+    await changeProfilePic(temp);
     dispatch(setPurchasedAvatar(temp));
-    dispatch(setPoints(tempPoints - 50));
-    setTimeout(() => {
-      console.log('point after dispatch: ', tempPoints);
-    }, 500);
   };
 
-  const changeProfilePic = async (purchasedAvatar, points) => {
+  const changeProfilePic = async purchasedAvatar => {
     const token = JSON.parse(localStorage.getItem('user')).token;
     const response = await axios.put(
       `http://localhost:5000/api/users/update`,
-      { purchasedAvatars: purchasedAvatar, points: points },
+      { purchasedAvatars: purchasedAvatar },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  };
+  const deductPoints = async () => {
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    const response = await axios.put(
+      `http://localhost:5000/api/users/deduct`,
+      { pointsToDeduct: 50 },
       {
         headers: {
           Authorization: `Bearer ${token}`,

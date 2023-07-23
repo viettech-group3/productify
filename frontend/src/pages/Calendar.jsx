@@ -11,8 +11,31 @@ import DayView from '../components/Calendar/DayView/DayView';
 import { fetchTodayEvents } from '../slices/TodayEventsSlice';
 import { switchViewMode } from '../slices/ViewModeSlice';
 import { useNavigate } from 'react-router-dom';
-
+import ShowPoints from '../components/Calendar/ShowPoints/ShowPoints';
+import { motion } from 'framer-motion'; //transition effect
 function Calendar() {
+  const slideInVariants = {
+    //transition effect
+    initial: { x: -500, opacity: 0.4 },
+    animate: { x: 0, opacity: 1 },
+    exit: { x: -100, opacity: 0 },
+  };
+  const transition = {
+    duration: 1.4, // Adjust the duration to control how long the animation takes
+    ease: 'easeInOut', // Use different easing functions for different effects
+  };
+
+  const smallComponentSlideInVariants = {
+    initial: { y: 500, opacity: 0.2 },
+    animate: { y: 0, opacity: 1 },
+    exit: { x: -100, opacity: 0 },
+  };
+
+  const smallComponentsTransition = {
+    duration: 1.2, // Adjust the duration to control how long the animation takes
+    ease: 'easeInOut', // Use different easing functions for different effects
+  };
+
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
   useEffect(() => {
@@ -38,7 +61,7 @@ function Calendar() {
   return user == null ? (
     <div>Loading....</div>
   ) : (
-    <div
+    <motion.div
       className="container-fluid App"
       style={{
         height: '100vh',
@@ -48,9 +71,22 @@ function Calendar() {
         fontFamily: 'Montserrat',
         padding: '0px',
       }}
+      variants={slideInVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={transition}
     >
       <Navbar />
-      <div style={{ backgroundColor: 'whitesmoke' }}>
+      <ShowPoints />
+      <motion.div
+        style={{ backgroundColor: 'whitesmoke' }}
+        variants={smallComponentSlideInVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={smallComponentsTransition}
+      >
         <div className="row">
           <CalendarHeader />
         </div>
@@ -67,9 +103,9 @@ function Calendar() {
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
       <Footer />
-    </div>
+    </motion.div>
   );
 }
 

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const UserState = createSlice({
-  name: 'User',
+  name: 'UserState',
   initialState: {
     points: 0,
     totalpoints: 0,
@@ -11,6 +11,9 @@ export const UserState = createSlice({
     allAvatars: [],
   },
   reducers: {
+    setUser(state, action) {
+      state.value = action.payload;
+    },
     setPoints(state, action) {
       state.points = action.payload;
     },
@@ -37,6 +40,7 @@ export const UserState = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setUser,
   setPoints,
   setTotalPoints,
   setAvatar,
