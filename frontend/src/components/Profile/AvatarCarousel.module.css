@@ -1,16 +1,23 @@
 .carouselItem {
   display: inline-block !important;
   width: auto !important;
-  padding: 0 !important;
+  /* padding: 0 !important; */
   margin: 5px !important;
   align-items: center;
-  text-align: center;
-  /* gap: 10px; */
+  /* text-align: center; */
+}
+
+.carouselContainer {
+  display: inline-block !important;
+  width: 600px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .avatarImage {
-  width: 110px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -18,10 +25,6 @@
 .active {
   border-radius: 50px;
   background-color: var(--main-blue);
-}
-
-.carousel-control-next {
-  background-color: red;
 }
 
 .avatarWrapper {
@@ -40,4 +43,25 @@
   font-size: large;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.tradeButton {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  background-color: var(--main-blue) !important;
+  border: none !important;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.tradeButton:hover {
+  background-color: #fbe7f8 !important;
+  color: var(--main-blue) !important;
+  transform: translateY(-5px);
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
 }

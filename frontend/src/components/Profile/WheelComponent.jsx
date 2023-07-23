@@ -98,14 +98,17 @@ const WheelComponent = () => {
   };
 
   const onFinished = async winner => {
+    const targetIndex = currentLevelObj.findIndex(obj => obj.name === winner);
     let tempAvatar = 'random';
-    if (purchasedAvatar[level].includes(winner)) {
+    if (
+      purchasedAvatar[level].includes(currentLevelObj[targetIndex].identifier)
+    ) {
       toast.error('You already have this character');
       return;
     }
     if (level === 2) {
       const dicebearAvatar = createAvatar(bigSmile, {
-        seed: winner,
+        seed: currentLevelObj[targetIndex].identifier,
       });
       const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
         dicebearAvatar.toString(),
@@ -116,7 +119,7 @@ const WheelComponent = () => {
       dispatch(setPoints(response.points));
     } else if (level === 1) {
       const dicebearAvatar = createAvatar(thumbs, {
-        seed: winner,
+        seed: currentLevelObj[targetIndex].identifier,
         scale: 80,
       });
       const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
@@ -128,13 +131,11 @@ const WheelComponent = () => {
       dispatch(setPoints(response.points));
     } else if (level === 3) {
       // no testing yet
-      const targetIndex = currentLevelObj.findIndex(obj => obj.name === winner);
       const avatarDataUrl = currentLevelObj[targetIndex].identifier;
       tempAvatar = await dispatch(setAvatar(avatarDataUrl));
       //points
       const response = await deductPoints();
       dispatch(setPoints(response.points));
-      winner = avatarDataUrl;
     } else {
       await dispatch(setAvatar(winner));
     }
@@ -142,7 +143,7 @@ const WheelComponent = () => {
     // avatars
     let temp = JSON.parse(JSON.stringify(purchasedAvatar));
     temp[0][0] = tempAvatar.payload;
-    temp[level].push(winner);
+    temp[level].push(currentLevelObj[targetIndex].identifier);
     await changeProfilePic(temp);
     dispatch(setPurchasedAvatar(temp));
 
@@ -206,8 +207,8 @@ const WheelComponent = () => {
           buttonText="Spin"
           isOnlyOnce={flag}
           size={250}
-          upDuration={600}
-          downDuration={800}
+          upDuration={500}
+          downDuration={950}
           fontFamily="Montserrat"
         ></Wheel>
       </div>
