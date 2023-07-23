@@ -1,8 +1,16 @@
+const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 const { generateToken, sendPasswordResetEmail } = require('../utils/auth');
 const { getAllAvatars } = require('../utils/getAllAvatars');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const { google } = require('googleapis');
+
+const oauth2Client = new OAuth2Client(
+  '225763645761-hsk3k9suo4qdjenika5i9deutkg7h5u1.apps.googleusercontent.com',
+  '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',
+  'http://localhost:3000',
+);
 
 // Get leaderboard function
 const leaderboard = async (req, res) => {
@@ -94,7 +102,106 @@ const getUser = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+const loginorsignup = async (req, res) => {
+  try {
+    const { email, username, password } = req.body;
+    console.log(req.body, '2e2edj');
 
+    // Simple validation
+    if (!email || !password) {
+      return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+
+    // Check for existing user
+    let existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      // User exists, attempt to log in
+      const correctPassword = await existingUser.matchPassword(password);
+
+      if (correctPassword) {
+        // Log in successful
+        return res.status(200).json({
+          _id: existingUser._id,
+          username: existingUser.username,
+          email: existingUser.email,
+          token: generateToken(existingUser._id),
+          points: existingUser.points,
+          totalpoints: existingUser.totalpoints,
+          purchasedAvatars: existingUser.purchasedAvatars,
+        });
+      } else {
+        // Incorrect password
+        return res.status(401).json({ msg: 'Invalid credentials' });
+      }
+    } else {
+      // User does not exist, create a new account
+      const salt = await bcrypt.genSalt(10);
+      const passwordHashed = await bcrypt.hash(password, salt);
+
+      const newUser = new User({
+        email,
+        username,
+        password: passwordHashed,
+      });
+
+      const newUserSaved = await newUser.save();
+
+      return res.status(201).json({
+        _id: newUserSaved._id,
+        username: newUserSaved.username,
+        email: newUserSaved.email,
+        token: generateToken(newUserSaved._id),
+        purchasedAvatars: newUserSaved.purchasedAvatars,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+const getUserToken = async (req, res) => {
+  try {
+    console.log(req.body);
+    const { code } = req.body;
+    const { tokens } = await oauth2Client.getToken(code);
+    res.status(200).json(tokens);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+const createEventWithGoogle = async (req, res) => {
+  try {
+    const event = req.body.EventForm;
+    const token = req.body.token;
+    oauth2Client.setCredentials({ refresh_token: token });
+    const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+    const eventT = {
+      summary: event.summary,
+      description: event.description,
+      start: {
+        dateTime: new Date(event.start.dateTime).toISOString(),
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      },
+      end: {
+        dateTime: new Date(event.end.dateTime).toISOString(),
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      },
+    };
+    console.log(eventT);
+    const response = await calendar.events.insert({
+      auth: oauth2Client,
+      calendarId: 'primary',
+      resource: eventT,
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error.message });
+  }
+};
 const updateUser = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -264,5 +371,8 @@ module.exports = {
   deleteLabelList,
   resetPassword,
   forgotPassword,
+  loginorsignup,
+  getUserToken,
+  createEventWithGoogle,
   deductPoints,
 };

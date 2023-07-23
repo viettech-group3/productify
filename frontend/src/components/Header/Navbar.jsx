@@ -19,7 +19,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        let exampleTokenForPhuoc = await JSON.parse(
+        let exampleTokenForPhuoc = JSON.parse(
           localStorage.getItem('user'),
         ).token;
         const response = await axios.get(

@@ -61,6 +61,33 @@ const EventForm = () => {
           dispatch(add(response.data));
           dispatch(addTodayEvent(response.data))
         });
+      const ggToken = localStorage.getItem('ggToken');
+      if (ggToken !== null) {
+        let temp = await axios.post(
+          'http://localhost:5000/api/users/googleevent',
+          {
+            EventForm: {
+              summary: formData.name,
+              description: formData.describe,
+              start: {
+                dateTime: formData.start,
+                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+              },
+              end: {
+                dateTime: formData.end,
+                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+              },
+            },
+            token: ggToken,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        console.log('gg response', temp);
+      }
     } catch (error) {
       console.log(
         'There is an error when try to send POST REQUEST to http://localhost:5000/api/events/create',

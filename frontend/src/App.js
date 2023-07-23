@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'; //useLocaltion is for page animations
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom'; //useLocaltion is for page animations
 import AuthPage from './pages/AuthPage';
 import { ChakraProvider } from '@chakra-ui/react';
 import Home from './pages/Home';
@@ -19,7 +24,6 @@ import ResetPasswordPage from './pages/ResetPawword';
 library.add(fab, faCheckSquare, faCoffee);
 
 function App() {
-
   return (
     <ChakraProvider>
       <Router>
