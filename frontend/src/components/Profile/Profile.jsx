@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './Profile.module.css';
 import { Card, Button } from 'react-bootstrap';
-import AvatarCarousel from './AvatarCarousel';
+import { AvatarCarousel, handleChosenAvatar } from './AvatarCarousel';
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
 import { thumbs } from '@dicebear/collection';
@@ -16,6 +16,7 @@ import {
   setPurchasedAvatar,
   setLevel,
   setAllAvatars,
+  setBio,
 } from '../../slices/UserStateSlice';
 
 const Profile = () => {
@@ -33,6 +34,7 @@ const Profile = () => {
   const level = useSelector(state => state.UserState.level);
   const avatar = useSelector(state => state.UserState.avatar);
   const allAvatars = useSelector(state => state.UserState.allAvatars);
+  const bio = useSelector(state => state.UserState.bio);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -45,7 +47,6 @@ const Profile = () => {
             },
           },
         );
-        //console.log('User information:', response.data);
         setName(response.data.username);
         setEmail(response.data.email);
 
@@ -53,7 +54,8 @@ const Profile = () => {
         await dispatch(setPoints(response.data.points));
         await dispatch(setTotalPoints(response.data.totalpoints));
         await dispatch(setPurchasedAvatar(response.data.purchasedAvatars));
-        console.log(purchasedAvatar);
+        await dispatch(setBio(response.data.bio));
+        console.log(bio);
 
         // if avatar is default, chaneg it so that it appear as initials of user
         // else set current avatar of user
@@ -92,12 +94,6 @@ const Profile = () => {
           },
         );
         await dispatch(setAllAvatars(response.data));
-
-        // const currentLevelObj = allAvatars[level - 1].avatars;
-        // console.log('currentLevelObj: ', currentLevelObj);
-
-        //console.log('here', allAvatars);
-        //console.log('after', purchasedAvatar);
       } catch (error) {
         console.log('There is something wrong with fetching avatars');
       }
@@ -105,72 +101,87 @@ const Profile = () => {
     fetchAvatars();
   }, [purchasedAvatar, dispatch]);
 
-  const handleTradeCustomAvatar = async () => {
-    // TODO Logic for trading 500 points to change to a custom avatar
+  const handleUpdateBio = async () => {
     try {
-      //check if user have enough points
-      if (points < 100) {
-        toast.error('You do not have enough points');
-        return;
-      }
-      console.log('level', level);
-      let type = 'none';
-      if (level === 1) {
-        type = thumbs;
-      } else if (level === 2) {
-        type = bigSmile;
-      } else {
-        toast.error("Can't use this function for this level");
-        return;
-      }
-
-      let seed = prompt('Please enter the name you want to make avatar with: ');
-      if (seed === null || seed === '') {
+      let newBio = prompt('Please enter your new bio: ');
+      if (newBio === null || newBio === '') {
         toast.error('You have to fill in the box');
         return;
       }
-
-      const currentAvatar = createAvatar(type, {
-        seed: seed,
-      });
-      console.log(seed);
-      const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-        currentAvatar.toString(),
-      )}`;
-
-      let tempAvatar = await dispatch(setAvatar(avatarDataUrl));
-      let temp = JSON.parse(JSON.stringify(purchasedAvatar));
-      temp[0][0] = tempAvatar.payload;
-      console.log(temp);
-
-      //update user infor on database
       const response = await axios.put(
         `http://localhost:5000/api/users/update`,
-        { purchasedAvatars: temp, points: points - 100 },
+        { bio: newBio },
         {
           headers: {
             Authorization: `Bearer ${exampleTokenForPhuoc}`,
           },
         },
       );
-
-      dispatch(setAvatar(response.data.purchasedAvatars[0][0]));
-      dispatch(setPoints(response.data.points));
+      dispatch(setBio(newBio));
+      console.log('bio in handle', newBio);
     } catch (error) {
-      console.log('There is something wrong with update avatar');
+      console.log('There is something wrong with update bio');
     }
   };
 
-  const something = () => {};
-
-  // const handleChange = async e => {
+  // const handleTradeCustomAvatar = async () => {
+  //   // TODO Logic for trading 500 points to change to a custom avatar
   //   try {
-  //     let { levelStage, value } = e.target;
-  //     dispatch(setLevel(Number(value)));
+  //     //check if user have enough points
+  //     if (points < 100) {
+  //       toast.error('You do not have enough points');
+  //       return;
+  //     }
+  //     console.log('level', level);
+  //     let type = 'none';
+  //     if (level === 1) {
+  //       type = thumbs;
+  //     } else if (level === 2) {
+  //       type = bigSmile;
+  //     } else {
+  //       toast.error("Can't use this function for this level");
+  //       return;
+  //     }
+
+  //     let seed = prompt('Please enter the name you want to make avatar with: ');
+  //     if (seed === null || seed === '') {
+  //       toast.error('You have to fill in the box');
+  //       return;
+  //     }
+
+  //     const currentAvatar = createAvatar(type, {
+  //       seed: seed,
+  //     });
+  //     console.log(seed);
+  //     const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+  //       currentAvatar.toString(),
+  //     )}`;
+
+  //     let tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+  //     let temp = JSON.parse(JSON.stringify(purchasedAvatar));
+  //     temp[0][0] = tempAvatar.payload;
+  //     console.log(temp);
+
+  //     //update user infor on database
+  //     const response = await axios.put(
+  //       `http://localhost:5000/api/users/update`,
+  //       { purchasedAvatars: temp, points: points - 100 },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${exampleTokenForPhuoc}`,
+  //         },
+  //       },
+  //     );
+
+  //     dispatch(setAvatar(response.data.purchasedAvatars[0][0]));
+  //     dispatch(setPoints(response.data.points));
   //   } catch (error) {
-  //     console.log('There is something wrong in level handling');
+  //     console.error(error);
+  //     console.log('There is something wrong with update avatar');
   //   }
   // };
+
+  const something = () => {};
 
   const handleChange = async e => {
     try {
@@ -181,70 +192,125 @@ const Profile = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div className={styles.viewport}>
       <Toaster />
-      <div className={styles.avatarSection}>
-        <Card className={styles.cardContainer}>
-          <Card.Body className={styles.cardBody}>
-            <div className={styles.pointTitle}>Customize your avatar!</div>
-            <div classname={styles.levelContainer}>
-              <select classname={styles.levelOption} onChange={handleChange}>
-                <option value="1">Level 1</option>
-                <option value="2">Level 2</option>
-                <option value="3">Level 3</option>
-              </select>
-            </div>
-            {/* ? : means if else. for ex : 1+1 ==2 ? print('right') : print('wrong') => result will be 'right' */}
-            {allAvatars.length > 0 ? (
-              <AvatarCarousel />
-            ) : // <AvatarCarousel level={level} allAvatars={allAvatars} />
-            null}
-            <div className={styles.buttonContainer}>
-              <Button className={styles.tradeButton} onClick={something}>
-                Use Random Avatar for 50 points
-              </Button>
-              <Button
-                className={styles.tradeButton}
-                onClick={handleTradeCustomAvatar}
-              >
-                Use Custom Avatar for 100 points
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
-      </div>
+      <div className={styles.pageTitle}>Customize your avatar!</div>
 
       <div className={styles.customization}>
         <div className={styles.sidebar}>
-          <p>avatar</p>
           {purchasedAvatar[0].length > 0 ? (
             <img
               src={`${avatar}`}
               alt="User Profile"
+              onLoad={() => isLoading(false)}
               className={`${styles.image}`}
             />
           ) : (
-            <p>No</p>
+            <p>This is a long loading state to test if it actually showing</p>
           )}
-          <p className={`${styles.paragraph} text-center`}> {name} </p>
-          <p className={`${styles.paragraph} text-center`}> {email} </p>
-          <p className={`${styles.paragraph} text-center`}> {points} pts </p>
-          <p className={`${styles.paragraph} text-center`}>
-            {' '}
-            Total {totalpoints} pts{' '}
-          </p>
-          <p> Bio: </p>
+
+          <div className={styles.tablecontainer}>
+            <div className={styles.row}>
+              <div className={styles.title}>Username</div>
+              <div className={styles.value}>{name}</div>
+            </div>
+            <div className={styles.row}>
+              <div className={styles.title}>Email</div>
+              <div className={styles.value}>{email}</div>
+            </div>
+            <div className={styles.row}>
+              <div className={styles.title}>Current Points</div>
+              <div className={styles.value}>{points}</div>
+            </div>
+            <div className={styles.row}>
+              <div className={styles.title}>Total Points</div>
+              <div className={styles.value}>{totalpoints}</div>
+            </div>
+
+            {bio != null ? (
+              <div>
+                <div className={styles.row}>
+                  <div className={styles.title}>Bio</div>
+                </div>
+                <div className={styles.myBio}>{bio}</div>
+                <Button
+                  className={styles.tradeButton}
+                  onClick={handleUpdateBio}
+                >
+                  Update Bio
+                </Button>
+              </div>
+            ) : (
+              <Button className={styles.tradeButton} onClick={handleUpdateBio}>
+                Add Bio
+              </Button>
+            )}
+          </div>
         </div>
 
-        <div className={styles.wheel}>
-          {allAvatars.length > 0 && purchasedAvatar[0].length > 0 ? (
-            <Wheel />
-          ) : null}
+        <div className={styles.right}>
+          <div className={styles.upperRight}>
+            <div className={styles.avatarSection}>
+              <Card className={styles.cardContainer}>
+                <Card.Body className={styles.cardBody}>
+                  <div className={styles.pointTitle}>
+                    Choose a unique avatar for 100 points!
+                  </div>
+                  <div classname={styles.levelContainer}>
+                    <select
+                      classname={styles.levelOption}
+                      onChange={handleChange}
+                    >
+                      <option value="1">Level 1</option>
+                      <option value="2">Level 2</option>
+                      <option value="3">Level 3</option>
+                    </select>
+                  </div>
+                  {/* ? : means if else. for ex : 1+1 ==2 ? print('right') : print('wrong') => result will be 'right' */}
+                  {allAvatars.length > 0 ? (
+                    // <AvatarCarousel />
+                    <AvatarCarousel />
+                  ) : // <AvatarCarousel level={level} allAvatars={allAvatars} />
+                  null}
+                  {/* <div className={styles.buttonContainer}> */}
+                  {/* <Button
+                      className={styles.tradeButton}
+                      onClick={handleChosenAvatar}
+                    >
+                      Choose this avatar
+                    </Button> */}
+                  {/* <Button
+                      className={styles.tradeButton}
+                      onClick={handleTradeCustomAvatar}
+                    >
+                      Generate new avatar
+                    </Button> */}
+                  {/* </div> */}
+                </Card.Body>
+              </Card>
+            </div>
+          </div>
+
+          <div className={styles.lowerRight}>
+            <div className={styles.avatarSection}>
+              <Card className={styles.cardContainer}>
+                <div className={styles.pointTitle}>
+                  Choose a random avatar for 50 points!
+                </div>
+                {/* <div className  */}
+                <div className={styles.wheel}>
+                  {allAvatars.length > 0 && purchasedAvatar[0].length > 0 ? (
+                    <Wheel />
+                  ) : null}
+                </div>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>
