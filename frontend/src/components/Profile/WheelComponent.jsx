@@ -25,9 +25,9 @@ const WheelComponent = () => {
   let avatar = useSelector(state => state.UserState.avatar);
   const purchasedAvatar = useSelector(state => state.UserState.purchasedAvatar);
   const allAvatars = useSelector(state => state.UserState.allAvatars);
-  const [avatarUrl, setAvatarUrl] = useState(
-    useSelector(state => state.UserState.avatar),
-  );
+  // const [avatarUrl, setAvatarUrl] = useState(
+  //   useSelector(state => state.UserState.avatar),
+  // );
   const [isModalOpen, setIsModalOpen] = useState(false);
   let tempPoints = points;
   let flag = false;
@@ -180,7 +180,11 @@ const WheelComponent = () => {
     return response.data;
   };
   const deductPoints = async () => {
-    const token = JSON.parse(localStorage.getItem('user')).token;
+    let user = JSON.parse(localStorage.getItem('user'));
+    let token;
+    if (user !== null) {
+      token = user.token;
+    }
     const response = await axios.put(
       `http://localhost:5000/api/users/deduct`,
       { pointsToDeduct: 50 },
