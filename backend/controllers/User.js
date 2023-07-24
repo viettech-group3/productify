@@ -119,23 +119,16 @@ const loginorsignup = async (req, res) => {
 
     if (existingUser) {
       // User exists, attempt to log in
-      const correctPassword = await existingUser.matchPassword(password);
-
-      if (correctPassword) {
-        // Log in successful
-        return res.status(200).json({
-          _id: existingUser._id,
-          username: existingUser.username,
-          email: existingUser.email,
-          token: generateToken(existingUser._id),
-          points: existingUser.points,
-          totalpoints: existingUser.totalpoints,
-          purchasedAvatars: existingUser.purchasedAvatars,
-        });
-      } else {
-        // Incorrect password
-        return res.status(401).json({ msg: 'Invalid credentials' });
-      }
+      // Log in successful
+      return res.status(200).json({
+        _id: existingUser._id,
+        username: existingUser.username,
+        email: existingUser.email,
+        token: generateToken(existingUser._id),
+        points: existingUser.points,
+        totalpoints: existingUser.totalpoints,
+        purchasedAvatars: existingUser.purchasedAvatars,
+      });
     } else {
       // User does not exist, create a new account
       const salt = await bcrypt.genSalt(10);
