@@ -247,7 +247,11 @@ const forgotPassword = async (req, res) => {
   user.resetToken = token;
   user.resetTokenExpiresAt = Date.now() + 3600000;
   await user.save();
-  sendPasswordResetEmail(email, token);
+  sendPasswordResetEmail(
+    email,
+    `This is the link to change your password: http://localhost:3000/forgotpassword?email=${email}&token=${token}`,
+    'Password Reset',
+  );
 
   res.status(200).json({ token });
 };
