@@ -143,7 +143,7 @@ const EventUpdateForm = ({ eventInformation }) => {
       .then(response => {
         console.log('Finish event successfully');
         toast.success(
-          `We get ${points(
+          `Congratulations! You get ${points(
             response.data.event.start,
             response.data.event.end,
           )} points`,
