@@ -12,6 +12,7 @@ import { fetchTodayEvents } from '../slices/TodayEventsSlice';
 import { switchViewMode } from '../slices/ViewModeSlice';
 import { useNavigate } from 'react-router-dom';
 import ShowPoints from '../components/Calendar/ShowPoints/ShowPoints';
+import toast, { Toaster } from 'react-hot-toast';
 function Calendar() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
@@ -70,6 +71,8 @@ function Calendar() {
         </div>
       </div>
       <Footer />
+      <Toaster />{' '}
+      {/*Put <Toaster/> here is set up the toast inside EventUpdateForm will be shown in Calendar page - so toast won't be turned off if we turn off the update form */}
     </div>
   );
 }
