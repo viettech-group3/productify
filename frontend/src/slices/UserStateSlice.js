@@ -58,6 +58,7 @@ export const {
   setPurchasedAvatar,
   setLevel,
   setAllAvatars,
+  addPoints,
   setBio,
 } = UserState.actions;
 export default UserState.reducer;

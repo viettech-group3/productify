@@ -12,6 +12,7 @@ import { fetchTodayEvents } from '../slices/TodayEventsSlice';
 import { switchViewMode } from '../slices/ViewModeSlice';
 import { useNavigate } from 'react-router-dom';
 import ShowPoints from '../components/Calendar/ShowPoints/ShowPoints';
+import toast, { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion'; //transition effect
 function Calendar() {
   const slideInVariants = {
@@ -105,6 +106,8 @@ function Calendar() {
         </div>
       </motion.div>
       <Footer />
+      <Toaster />{' '}
+      {/*Put <Toaster/> here is set up the toast inside EventUpdateForm will be shown in Calendar page - so toast won't be turned off if we turn off the update form */}
     </motion.div>
   );
 }
