@@ -8,6 +8,7 @@ import {
   faClock,
   faEnvelope,
   faCalendar,
+  faTags,
 } from '@fortawesome/free-solid-svg-icons';
 import { toggleUpdateForm } from '../../slices/ShowEventUpdateFormSlice';
 import {
@@ -34,6 +35,7 @@ const EventUpdateForm = ({ eventInformation }) => {
     invited: eventInformation.invited || [],
     label: eventInformation.label || '',
   });
+  const [finish, setFinish] = useState(false);
 
   const [invitedGuest, setInvitedGuest] = useState(
     eventInformation.invited || [],
@@ -73,8 +75,8 @@ const EventUpdateForm = ({ eventInformation }) => {
     }));
   };
 
-  const handleLabelChange = e => {
-    const selectedLabelName = e.target.value;
+  const handleLabelChange = name => {
+    const selectedLabelName = name;
     console.log('Current SelectedLabelname is', selectedLabelName);
     const selectedLabel = labelList.find(
       label => label.name === selectedLabelName,
@@ -93,6 +95,7 @@ const EventUpdateForm = ({ eventInformation }) => {
 
   const handleUpdate = async event => {
     event.preventDefault();
+    console.log('We just run handleUpdate');
     console.log('formData to update is:', formData);
     try {
       const response = await axios
@@ -117,6 +120,30 @@ const EventUpdateForm = ({ eventInformation }) => {
       );
       console.log('ERROR: ', error);
     }
+  };
+
+  const handleFinishEventClick = (e, eventFinish) => {
+    e.stopPropagation();
+    dispatch(updateStatus({ _id: eventFinish._id, status: 'completed' }));
+
+    axios
+      .post(
+        `http://localhost:5000/api/events/finish/${eventFinish._id}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${exampleTokenForPhuoc}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log('Finish event successfully');
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log('There are some bugs when we try to finish events');
+        console.log(error);
+      });
   };
 
   return (
@@ -144,146 +171,112 @@ const EventUpdateForm = ({ eventInformation }) => {
             <button className={styles.typeButton}>Reminder</button>
           </span>
           <br />
-          <div className={styles.formRow}>
-            <div className={styles.labelColumn}>
-              {/* <FontAwesomeIcon icon={faAlignLeft} className={styles.icon} /> */}
-              <label className={styles.label} htmlFor="descriptionInput">
-                <FontAwesomeIcon icon={faAlignLeft} className={styles.icon} />
-                Description
-              </label>
-              <label className={styles.label} htmlFor="startInput">
-                <FontAwesomeIcon icon={faCalendar} className={styles.icon} />
-                Start
-              </label>
-              <label className={styles.label} htmlFor="endInput">
-                <FontAwesomeIcon icon={faClock} className={styles.icon} />
-                End
-              </label>
-              <label className={styles.label} htmlFor="emailInput">
-                <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
-                Invite Guest
-              </label>
+          <div className={styles.columns}>
+            {/* First Column */}
+            <div className={styles.columnLabel}>
+              <FontAwesomeIcon icon={faAlignLeft} className={styles.icon} />
+              <FontAwesomeIcon icon={faCalendar} className={styles.icon} />
+              <FontAwesomeIcon icon={faClock} className={styles.icon} />
+              <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
+              <FontAwesomeIcon icon={faTags} className={styles.icon} />
             </div>
 
-            <div className={styles.inputColumn}>
-              <input
-                type="text"
-                id="descriptionInput"
-                name="describe"
-                placeholder="Describe your event"
-                value={formData.describe}
-                onChange={handleChange}
-                className={styles.input}
-              />
-              <input
-                type="datetime-local"
-                id="startInput"
-                name="start"
-                value={formData.start}
-                onChange={handleChange}
-                className={styles.input}
-              />
-              <input
-                type="datetime-local"
-                id="endInput"
-                name="end"
-                value={formData.end}
-                onChange={handleChange}
-                className={styles.input}
-              />
-              <input
-                type="email"
-                id="emailInput"
-                name="invitedInput"
-                placeholder="Invite Guests"
-                value={formData.invitedInput}
-                onChange={handleChange}
-                className={styles.input}
-              />
-              <div className={styles.labelDropdown}>
+            {/* Second Column */}
+            <div className={styles.columnTitle}>
+              <span className={styles.label}>Description</span>
+              <span className={styles.label}>Start</span>
+              <span className={styles.label}>End</span>
+              <span className={styles.label}>Invite Guest</span>
+              <span className={styles.label}>Select Label</span>
+            </div>
+
+            {/* Third Column */}
+            <div className={styles.columnInput}>
+              <div className={styles.inputContainer}>
                 <input
                   type="text"
-                  id="labelInput"
-                  name="label"
-                  placeholder="Select Label"
-                  value={formData.label.name}
-                  onChange={handleLabelChange}
+                  id="descriptionInput"
+                  name="describe"
+                  placeholder="Describe your event"
+                  value={formData.describe}
+                  onChange={handleChange}
                   className={styles.input}
                 />
-                <div className={styles.labelOptions}>
-                  {labelList.map(label => (
-                    <div
-                      key={label.name}
-                      className={styles.labelOption}
-                      onClick={() =>
-                        handleLabelChange({ target: { value: label.name } })
-                      }
-                    >
-                      {label.name}
-                      <span
-                        style={{
-                          backgroundColor: label.color,
-                          width: '10px',
-                          height: '10px',
-                          display: 'inline-block',
-                          marginLeft: '5px',
-                        }}
-                      ></span>
-                    </div>
-                  ))}
-                </div>
               </div>
 
-              {/* <input
-                type="text"
-                id="labelInput"
-                name="label"
-                placeholder="Select Label"
-                list="labelList"
-                onChange={handleLabelChange}
-                className={styles.input}
-                value={formData.label.name}
-              />
-              <datalist id="labelList">
-                {labelList.map(label => (
-                  <option key={label.name} value={label.name}>
-                    {label.name}
-                    <span
-                      style={{
-                        backgroundColor: label.color,
-                        width: '10px',
-                        height: '10px',
-                        display: 'inline-block',
-                        marginLeft: '5px',
-                      }}
-                    ></span>
-                  </option>
-                ))}
-              </datalist> */}
+              <div className={styles.inputContainer}>
+                <input
+                  type="datetime-local"
+                  id="startInput"
+                  name="start"
+                  value={formData.start}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <input
+                  type="datetime-local"
+                  id="endInput"
+                  name="end"
+                  value={formData.end}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <input
+                  type="email"
+                  id="emailInput"
+                  name="invitedInput"
+                  placeholder="Invite Guest"
+                  value={formData.invitedInput}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <div className={styles.customDropdown}>
+                  <div className={styles.dropdownLabel}>
+                    {formData.label.name}
+                  </div>
+                  <div className={styles.dropdownOptions}>
+                    {labelList.map(label => (
+                      <div
+                        key={label.name}
+                        className={styles.dropdownOption}
+                        onClick={() => handleLabelChange(label.name)}
+                      >
+                        <span
+                          className={styles.labelColor}
+                          style={{ backgroundColor: label.color }}
+                        ></span>
+                        {label.name}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <button
-            type="button"
-            className={` btn btn-primary ${styles.addGuestButton}`}
-            onClick={handleAddGuest}
-          >
-            Add Guest
-          </button>{' '}
-          {/* Button to add Guest  */}
-          <div className={styles.emailList}>
-            {invitedGuest.map(email => (
-              <div className={styles.invitedEmail}>{email}</div>
-            ))}
+          <div className={styles.buttonContainer}>
+            <div className={styles.submitContainer}>
+              <button className={styles.submitButton} form="my-form">
+                Update Changes
+              </button>
+
+              <button
+                className={styles.finishEvent}
+                onClick={e => handleFinishEventClick(e, eventInformation)}
+              >
+                Finish Event
+              </button>
+            </div>
           </div>
         </form>
-
-        <div className={styles.submitContainer}>
-          <button type="submit" className={styles.submitButton} form="my-form">
-            {' '}
-            {/* Form attribute to connect with form, because this button is outside of form */}
-            Update Changes
-          </button>
-        </div>
       </div>
     </div>
   );

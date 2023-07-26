@@ -16,7 +16,11 @@
     "@livekit/components-react": "^1.0.6",
     "@livekit/components-styles": "^1.0.1",
     "@mui/material": "^5.13.1",
+    "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "@supabase/auth-helpers-react": "^0.4.1",
+    "@supabase/auth-ui-react": "^0.4.2",
+    "@supabase/supabase-js": "^2.26.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -33,6 +37,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.9.0",
+    "react-modal": "^3.16.1",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^5.0.1",
@@ -41,7 +46,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build":"npm run build",
+    "build": "npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
