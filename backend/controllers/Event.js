@@ -7,13 +7,15 @@ const {
   filterTodayEvents,
   filterMonthEvents,
 } = require('../utils/filterEvents');
-
+const { sendPasswordResetEmail } = require('../utils/auth');
+const schedule = require('node-schedule');
+const moment = require('moment');
 // Create a new event function
 const createEvent = async (req, res) => {
   try {
     const { name, describe, start, end, invited, label } = req.body;
     let creatorId = req.user._id;
-    console.log("start and end in backend is", typeof start, 'and', typeof end)
+    console.log('start and end in backend is', typeof start, 'and', typeof end);
 
     // Create a new event and save
     const event = new Event({
@@ -22,10 +24,15 @@ const createEvent = async (req, res) => {
       start: start,
       end: end,
       status: 'ongoing',
-      label: label
+      label: label,
     });
     await event.save();
-    console.log("start and end in backend after I save it to EVENT MODEL is", event.start, 'and', event.end)
+    console.log(
+      'start and end in backend after I save it to EVENT MODEL is',
+      event.start,
+      'and',
+      event.end,
+    );
     // Create a new event participation for the creator
     const creatorParticipation = new EventParticipation({
       eventId: event._id,
@@ -44,6 +51,27 @@ const createEvent = async (req, res) => {
       //Make sure all promise is fullfilled
       await Promise.all(invitedParticipation);
     }
+    const reminderTime = new Date(event.end);
+
+    const humanReadableDate = moment(reminderTime)
+      .local()
+      .format('MMMM D, YYYY, h:mm A');
+    console.log('reminderTime', humanReadableDate);
+    reminderTime.setHours(reminderTime.getHours() - 12);
+
+    // Fetch the event creator's email from the database based on their ID
+    const eventCreator = await User.findById(creatorId).select('email');
+
+    // Schedule the reminder email using node-schedule
+    schedule.scheduleJob(reminderTime, async () => {
+      if (eventCreator) {
+        await sendPasswordResetEmail(
+          eventCreator,
+          `This is a friendly reminder that your event ${event.name} is ending in 12 hours at ${humanReadableDate}`,
+          'Event Reminder',
+        );
+      }
+    });
     res.status(201).json(event); //Adjust this return to fetch it easily in MonthEvents Redux Store
   } catch (error) {
     console.log(`Failed to create event: ${error}`);

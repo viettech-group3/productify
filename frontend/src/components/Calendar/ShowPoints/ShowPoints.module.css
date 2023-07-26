@@ -1,6 +1,7 @@
 .userPoints {
   position: fixed;
   bottom: 40px;
+  z-index: 2;
   left: 0px;
   background: white;
   text-align: center;

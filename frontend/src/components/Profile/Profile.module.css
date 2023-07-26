@@ -1,24 +1,36 @@
 .viewport {
   background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
   font-family: 'Montserrat';
-  height: 100%;
+  height: auto;
+}
+
+.pageTitle {
+  font-size: 3rem;
+  font-weight: 600;
+  color: black;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .customization {
   display: flex;
-  align-items: center;
-  height: 100%;
-  gap: 80px;
+  align-items: flex-start;
+  /* height: 100%; */
+  gap: 30px;
   padding: 20px;
 }
 
+.right {
+  flex: 1;
+}
+
 .sidebar {
-  flex-basis: 20%;
+  flex: 1;
   padding: 50px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+
   margin-left: 50px;
-  background-color: whitesmoke;
+  background-image: url(../../assets/images/baby.jpeg);
   border-radius: 50px;
   display: flex;
   flex-direction: column;
@@ -26,16 +38,9 @@
   justify-content: center;
 }
 
-.avatarSection {
-  flex-basis: 80%;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
 .pointTitle {
   padding-bottom: 30px;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 600;
   color: var(--main-blue);
   text-align: center;
@@ -47,7 +52,9 @@
   padding: 20px;
   margin-right: 50px;
   display: flex;
-  flex-direction: column;
+  max-width: 800px;
+  margin-bottom: 30px;
+  /* flex-direction: column; */
 }
 
 .imageContainer {
@@ -60,8 +67,10 @@
 .image {
   text-align: center;
   border-radius: 200px;
-  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+  background-color: #aacaef;
   transition: transform 0.2s ease-in-out;
+  margin-bottom: 40px;
+  max-height: 300px;
 }
 
 .image:hover {
@@ -71,10 +80,35 @@
 
 .paragraph {
   font-family: 'Montserrat';
-  font-weight: 500;
-  font-size: x-large;
+  font-size: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.tablecontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-weight: bold;
+  width: 150px;
+}
+
+.value {
+  margin-left: 10px;
+}
+
+.myBio {
+  /* color: var(--main-blue); */
+  font-style: italic;
+  text-align: justify;
 }
 
 .card {
@@ -89,6 +123,7 @@
   background-color: var(--main-blue) !important;
   border: none !important;
   align-items: center;
+  margin-top: 20px;
 }
 
 .tradeButton:hover {
@@ -109,6 +144,17 @@
   align-items: center;
 }
 
-.levelOption {
-  border-radius: 10px;
+.wheel canvas {
+  width: 1000px;
+  margin-bottom: -180px !important;
+  margin-top: -50px !important;
+}
+
+.wheel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-left: 400px;
+  padding: 0;
 }

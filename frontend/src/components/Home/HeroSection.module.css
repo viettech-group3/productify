@@ -13,7 +13,7 @@
   align-items: center;
   padding-top: 40px;
   padding-bottom: 50px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   /* max-width: 600px; */
   text-align: center;
   z-index: 2;
@@ -88,7 +88,6 @@
 .image:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   transform: translateY(-5px);
-  
 }
 
 .gradientBackground {
