@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './InvitationModal.module.css';
 import { useDispatch } from 'react-redux';
 import { toggleInvitationModal } from '../../../slices/ShowInvitationModal';
+import { set, add, remove, update } from '../../../slices/MonthEventsSlice';
+import { addTodayEvent } from '../../../slices/TodayEventsSlice';
 
 const InvitationModal = () => {
   const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
@@ -52,6 +54,9 @@ const InvitationModal = () => {
       .then(response => {
         // Handle the response
         console.log(response.data);
+        dispatch(add(response.data));
+        dispatch(addTodayEvent(response.data));
+        dispatch(toggleInvitationModal());
       })
       .catch(error => {
         // Handle the error
@@ -74,6 +79,8 @@ const InvitationModal = () => {
       .then(response => {
         // Handle the response
         console.log(response.data);
+
+        dispatch(toggleInvitationModal());
       })
       .catch(error => {
         // Handle the error
@@ -114,17 +121,41 @@ const InvitationModal = () => {
           </div>
         ) : (
           <div>
+            <div
+              className="row"
+              style={{ fontSize: '19px', fontWeight: 'bold', color: '#a2d2ff' }}
+            >
+              <div className="col d-flex align-items-center justify-content-center">
+                Event's Name
+              </div>
+              <div className="col d-flex align-items-center justify-content-center">
+                Event's Creator
+              </div>
+              <div className="col d-flex align-items-center p-0">
+                Accept Or Deny?
+              </div>
+            </div>
             {invitations.map(invitation => (
-              <div className={styles.eachInvitation}>
-                <p>{invitation.creator}</p>
-                <p>{invitation.name}</p>
-                <p>{invitation.invitedBy}</p>
-                <div>
+              <div
+                className={`row my-2 ${styles.eachInvitation}`}
+                style={{
+                  fontSize: '17px',
+                  fontWeight: 'bold',
+                  color: '#a2d2ff',
+                }}
+              >
+                <div className="col d-flex align-items-center justify-content-center">
+                  {invitation.name}
+                </div>
+                <div className="col d-flex align-items-center justify-content-center">
+                  {invitation.invitedBy}
+                </div>
+                <div className="col d-flex align-items-center p-0">
                   <button
                     onClick={() => {
                       handleAcceptInvitation(invitation._id);
                     }}
-                    className="btn btn-primary"
+                    className={styles.button}
                   >
                     Accept
                   </button>
@@ -132,7 +163,7 @@ const InvitationModal = () => {
                     onClick={() => {
                       handleDenyInvitation(invitation._id);
                     }}
-                    className="btn btn-primary"
+                    className={styles.button}
                   >
                     Deny
                   </button>
