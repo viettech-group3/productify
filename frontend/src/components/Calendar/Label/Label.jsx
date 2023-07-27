@@ -82,10 +82,14 @@ const Label = () => {
   };
 
   return (
-    <div>
-      <div style={{ marginLeft: '10px' }}>
+    <div className={styles.labels}>
+      {/* <div style={{ marginLeft: '10px' }}>
         <b>My Calendar</b>
-      </div>
+      </div> */}
+
+      <div className={styles.button1}>
+        My Calendar
+        </div>
       <div>
         {labelList.map(label => (
           <span className={styles.bigcheck} key={label.name}>
@@ -117,7 +121,7 @@ const Label = () => {
           </span>
         ))}
       </div>
-      <button className="btn btn-primary" onClick={handleAddLabelForm}>
+      <button className={styles.addLabelButton} onClick={handleAddLabelForm}>
         Add Labels
       </button>
       {ShowLabelForm && <AddLabelForm />}

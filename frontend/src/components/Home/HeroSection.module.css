@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 40px;
+  padding-top: 80px;
   padding-bottom: 50px;
   font-family: 'Montserrat', sans-serif;
   /* max-width: 600px; */
@@ -67,8 +67,7 @@
 }
 
 .button:hover {
-  background-color: #aacaef; /* Change the background color on hover */
-  color: #fff; /* Change the text color on hover */
+  background-color: #f7e6f9; /* Change the background color on hover */
 }
 
 .imageContainer {

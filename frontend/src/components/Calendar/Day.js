@@ -103,7 +103,7 @@ function Day({ day, row, loadingState }) {
               {event.name}
               {event.status === 'completed' && (
                 <span class={styles.finishBadge}>
-                  <h3 style={{ fontSize: "12px", marginLeft: "2px", color: "black" }}>&#x2713;</h3>
+                  <h3 style={{ fontSize: "12px", marginLeft: "2px", color: "#E1ECC8" }}>&#x2713;</h3>
                 </span>
               )}
             </div>

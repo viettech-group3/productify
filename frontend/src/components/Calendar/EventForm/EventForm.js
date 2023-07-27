@@ -7,6 +7,7 @@ import {
   faClock,
   faEnvelope,
   faCalendar,
+  faTags,
 } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
 import { toggle } from '../../../slices/ShowModalSlice'; //Import toggle function to turn on/off Modal
@@ -107,13 +108,27 @@ const EventForm = () => {
     }));
   };
 
-  const handleLabelChange = e => {
-    const selectedLabelName = e.target.value;
-    console.log('Current SelectedLabelname is', selectedLabelName);
-    const selectedLabel = labelList.find(
-      label => label.name === selectedLabelName,
-    );
-    console.log('Current label object is', selectedLabel);
+  // const handleLabelChange = e => {
+  //   const selectedLabelName = e.target.value;
+  //   console.log('Current SelectedLabelname is', selectedLabelName);
+  //   const selectedLabel = labelList.find(
+  //     label => label.name === selectedLabelName,
+  //   );
+  //   console.log('Current label object is', selectedLabel);
+  //   if (selectedLabel) {
+  //     setFormData(prevData => ({
+  //       ...prevData,
+  //       label: {
+  //         name: selectedLabel.name,
+  //         color: selectedLabel.color,
+  //       },
+  //     }));
+  //   }
+  //   console.log('curent formData is', formData);
+  // };
+
+  const handleLabelChange = selectedLabel => {
+    console.log('Current SelectedLabel is', selectedLabel);
     if (selectedLabel) {
       setFormData(prevData => ({
         ...prevData,
@@ -123,7 +138,7 @@ const EventForm = () => {
         },
       }));
     }
-    console.log('curent formData is', formData);
+    console.log('current formData is', formData);
   };
 
   return (
@@ -145,90 +160,99 @@ const EventForm = () => {
           <button className={styles.typeButton}>Reminder</button>
         </span>
         <br />
-        <div className={styles.formRow}>
-          <div className={styles.labelColumn}>
-            {/* <FontAwesomeIcon icon={faAlignLeft} className={styles.icon} /> */}
-            <label className={styles.label} htmlFor="descriptionInput">
+
+        <div className={styles.columns}>
+            {/* First Column */}
+            <div className={styles.columnLabel}>
               <FontAwesomeIcon icon={faAlignLeft} className={styles.icon} />
-              Description
-            </label>
-            <label className={styles.label} htmlFor="startInput">
               <FontAwesomeIcon icon={faCalendar} className={styles.icon} />
-              Start
-            </label>
-            <label className={styles.label} htmlFor="endInput">
               <FontAwesomeIcon icon={faClock} className={styles.icon} />
-              End
-            </label>
-            <label className={styles.label} htmlFor="emailInput">
               <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
-              Invite Guest
-            </label>
+              <FontAwesomeIcon icon={faTags} className={styles.icon} />
+            </div>
+
+            {/* Second Column */}
+            <div className={styles.columnTitle}>
+              <span className={styles.label}>Description</span>
+              <span className={styles.label}>Start</span>
+              <span className={styles.label}>End</span>
+              <span className={styles.label}>Invite Guest</span>
+              <span className={styles.label}>Select Label</span>
+            </div>
+
+            {/* Third Column */}
+            <div className={styles.columnInput}>
+              <div className={styles.inputContainer}>
+                <input
+                  type="text"
+                  id="descriptionInput"
+                  name="describe"
+                  placeholder="Describe your event"
+                  value={formData.describe}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <input
+                  type="datetime-local"
+                  id="startInput"
+                  name="start"
+                  value={formData.start}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <input
+                  type="datetime-local"
+                  id="endInput"
+                  name="end"
+                  value={formData.end}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <input
+                  type="email"
+                  id="emailInput"
+                  name="invitedInput"
+                  placeholder="Invite Guest"
+                  value={formData.invitedInput}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <div className={styles.customDropdown}>
+                  <div className={styles.dropdownLabel}>
+                    {formData.label.name}
+                  </div>
+                  <div className={styles.dropdownOptions}>
+                    {labelList.map(label => (
+                      <div
+                        key={label.name}
+                        className={styles.dropdownOption}
+                        onClick={() => handleLabelChange(label)}
+                      >
+                        <span
+                          className={styles.labelColor}
+                          style={{ backgroundColor: label.color }}
+                        ></span>
+                        {label.name}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className={styles.inputColumn}>
-            <input
-              type="text"
-              id="descriptionInput"
-              name="describe"
-              placeholder="Describe your event"
-              value={formData.describe}
-              onChange={handleChange}
-              className={styles.input}
-            />
-            <input
-              type="datetime-local"
-              id="startInput"
-              name="start"
-              value={formData.start}
-              onChange={handleChange}
-              className={styles.input}
-            />
-            <input
-              type="datetime-local"
-              id="endInput"
-              name="end"
-              value={formData.end}
-              onChange={handleChange}
-              className={styles.input}
-            />
-            <input
-              type="email"
-              id="emailInput"
-              name="invitedInput"
-              placeholder="Invite Guests"
-              value={formData.invitedInput}
-              onChange={handleChange}
-              className={styles.input}
-            />
-
-            <input
-              type="text"
-              id="labelInput"
-              name="label"
-              placeholder="Select Label"
-              list="labelList"
-              onChange={handleLabelChange}
-              className={styles.input}
-            />
-            <datalist id="labelList">
-              {labelList.map(label => (
-                <option key={label.name} value={label.name}>
-                  {label.name}
-                  <span
-                    style={{
-                      backgroundColor: label.color,
-                      width: '10px',
-                      height: '10px',
-                      display: 'inline-block',
-                      marginLeft: '5px',
-                    }}
-                  ></span>
-                </option>
-              ))}
-            </datalist>
-          </div>
-        </div>
         <button
           type="button"
           className={` btn btn-primary ${styles.addGuestButton}`}
@@ -236,7 +260,6 @@ const EventForm = () => {
         >
           Add Guest
         </button>{' '}
-        {/* Button to add Guest  */}
         <div className={styles.emailList}>
           {invitedGuest.map(email => (
             <div className={styles.invitedEmail}>{email}</div>
@@ -246,8 +269,6 @@ const EventForm = () => {
 
       <div className={styles.submitContainer}>
         <button type="submit" className={styles.submitButton} form="my-form">
-          {' '}
-          {/* Form attribute to connect with form, because this button is outside of form */}
           Submit
         </button>
       </div>

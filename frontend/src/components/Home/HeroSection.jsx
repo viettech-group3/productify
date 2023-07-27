@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./HeroSection.module.css"; // Import your CSS module for HeroSection
-import myImage from '../../assets/images/hero.jpg';
+import myImage from '../../assets/images/hero2.png';
 import '../../styles/global.css'
 import Login from "../../components/Authentication/Login";
 import Signup from "../../components/Authentication/Signup";

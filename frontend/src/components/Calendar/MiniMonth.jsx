@@ -9,7 +9,7 @@ const MiniMonth = ({ month }) => {
   const dispatch = useDispatch(); //To increase and decrease MonthIndex global state
   return (
     <div className={styles.container}>
-      <button
+      {/* <button
         className={styles.buttonArrow}
         onClick={() => {
           dispatch(increase());
@@ -25,7 +25,7 @@ const MiniMonth = ({ month }) => {
         className={styles.buttonArrow}
       >
         <RightArrow />
-      </button>
+      </button> */}
       {month.map((week, weekIndex) => (
         <div key={weekIndex} className={styles.week}>
           {week.map((day, dayIndex) => (
