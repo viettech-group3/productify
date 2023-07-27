@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getMonth } from "../../service/util";
-import MiniMonth from "./MiniMonth";
-import Points from "./Points";
-import UserSearch from "./UserSearch";
+import { getMonth } from '../../service/util';
+import MiniMonth from './MiniMonth';
+import Points from './Points';
+import UserSearch from './UserSearch';
 import { useSelector, useDispatch } from 'react-redux'; //To manage Global State of Redux
-import Label from "./Label/Label"
+import Label from './Label/Label';
 
 const SideBar = () => {
   const MonthIndex = useSelector(state => state.MonthIndex.value);
@@ -25,7 +25,6 @@ const SideBar = () => {
       <div>
         <UserSearch />
       </div>
-
     </div>
   );
 };

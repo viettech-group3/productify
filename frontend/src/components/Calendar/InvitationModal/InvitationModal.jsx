@@ -117,6 +117,7 @@ const InvitationModal = () => {
               style={{ width: '3rem', height: '3rem' }}
             >
               <span className="sr-only">Loading...</span>
+
             </div>
           </div>
         ) : (
@@ -151,11 +152,14 @@ const InvitationModal = () => {
                   {invitation.invitedBy}
                 </div>
                 <div className="col d-flex align-items-center p-0">
+
                   <button
                     onClick={() => {
                       handleAcceptInvitation(invitation._id);
                     }}
+
                     className={styles.button}
+
                   >
                     Accept
                   </button>
@@ -163,7 +167,9 @@ const InvitationModal = () => {
                     onClick={() => {
                       handleDenyInvitation(invitation._id);
                     }}
+
                     className={styles.button}
+
                   >
                     Deny
                   </button>
