@@ -10,6 +10,7 @@ const InvitationModal = () => {
   const [invitations, setInvitations] = useState([]);
   const dispatch = useDispatch();
   const modalRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
   useEffect(() => {
     //Fetch Events of currentUser by getAllEvents() when we open <TodayModal/>
     axios
@@ -25,6 +26,7 @@ const InvitationModal = () => {
           'Fetch successfully invitation',
           fetchedEventsData.invitedEvents,
         );
+        setIsLoading(false);
         setInvitations(response.data.invitedEvents);
       })
       .catch(error => {
@@ -85,6 +87,7 @@ const InvitationModal = () => {
       dispatch(toggleInvitationModal());
     }
   };
+
   return (
     <div className={styles.overlay} onClick={handleOutsideClick}>
       <div className={styles.invitationModal} ref={modalRef}>
@@ -96,33 +99,48 @@ const InvitationModal = () => {
         >
           X
         </div>
-        <div>
-          {invitations.map(invitation => (
-            <div className={styles.eachInvitation}>
-              <p>{invitation.creator}</p>
-              <p>{invitation.name}</p>
-              <p>{invitation.invitedBy}</p>
-              <div>
-                <button
-                  onClick={() => {
-                    handleAcceptInvitation(invitation._id);
-                  }}
-                  className="btn btn-primary"
-                >
-                  Accept
-                </button>
-                <button
-                  onClick={() => {
-                    handleDenyInvitation(invitation._id);
-                  }}
-                  className="btn btn-primary"
-                >
-                  Deny
-                </button>
-              </div>
+        {isLoading ? (
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ marginTop: '7rem' }}
+          >
+            <div
+              className="spinner-border "
+              role="status"
+              style={{ width: '3rem', height: '3rem' }}
+            >
+              <span className="sr-only">Loading...</span>
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div>
+            {invitations.map(invitation => (
+              <div className={styles.eachInvitation}>
+                <p>{invitation.creator}</p>
+                <p>{invitation.name}</p>
+                <p>{invitation.invitedBy}</p>
+                <div>
+                  <button
+                    onClick={() => {
+                      handleAcceptInvitation(invitation._id);
+                    }}
+                    className="btn btn-primary"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleDenyInvitation(invitation._id);
+                    }}
+                    className="btn btn-primary"
+                  >
+                    Deny
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
