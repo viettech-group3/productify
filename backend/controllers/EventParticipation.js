@@ -83,8 +83,7 @@ const updateInvitationStatus = async (req, res) => {
         new: true,
       },
     );
-    console.log(eventParticipation);
-    res.status(200).json({ message: 'Updated Status' });
+    res.status(200).json(event);
   }
 };
 
