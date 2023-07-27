@@ -28,7 +28,8 @@ const CalendarHeader = () => {
           <img src={icon} alt="Add Icon" className={styles.icon} />
           <span className={styles.sentence}>Create</span>
         </div>
-        <button
+        
+        {/* <button
           onClick={() => {
             dispatch(toggleInvitationModal());
           }}
@@ -39,7 +40,7 @@ const CalendarHeader = () => {
             2+
             <span class="visually-hidden">unread messages</span>
           </span>
-        </button>
+        </button> */}
         {/*we can add icon then */}
         <button
           className={styles.button}

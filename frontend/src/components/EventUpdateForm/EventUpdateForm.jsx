@@ -58,7 +58,7 @@ const EventUpdateForm = ({ eventInformation }) => {
   };
 
   const handleChange = e => {
-    toast.success('Increase Points');
+    // toast.success('Increase Points');
     const name = e.target.name;
     const value = e.target.value;
     setFormData(prevData => ({

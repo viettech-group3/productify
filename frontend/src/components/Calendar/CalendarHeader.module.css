@@ -25,7 +25,7 @@
   padding: 10px 50px;
   font-size: 1.2rem;
   cursor: pointer;
-  margin-left: 20px;
+  margin-left: 150px;
   border-radius: 10%;
   transition: background-color 0.5s ease;
   border: 2px solid var(--main-blue);
@@ -95,7 +95,7 @@
 }
 
 .switchView {
-  margin-left: 16%;
+  margin-left: 25%;
   padding: 0px;
 }
 

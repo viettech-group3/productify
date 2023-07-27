@@ -25,3 +25,42 @@ span.bigcheck {
 .deletedLabelButton:hover {
   background-color: #6c757d;
 }
+
+.labels {
+  margin-left: 20px;
+}
+
+.addLabelButton {
+  margin-top: 5px;
+  background-color: var(--main-blue);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 10px;
+  justify-content: end;
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.addLabelButton:hover {
+  background-color: #8cb9eb;
+}
+
+.button1 {
+  background-color: #fff;
+  margin-bottom: 20px;
+  color: #000;
+  margin-top: 20px;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 10%;
+  transition: background-color 0.5s ease;
+  border: 2px solid #aacaef;
+  width: 200px;
+}
+
+.button1:hover {
+  background-color: #aacaef;
+  color: #fff;
+}

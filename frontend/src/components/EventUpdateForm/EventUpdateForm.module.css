@@ -8,7 +8,6 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  display: flex;
 }
 
 .form {
@@ -192,15 +191,9 @@
   justify-content: space-between;
 }
 
-/* .label,
-.labelOption {
-  margin-bottom: 5px;
-} */
-
 .labelOptions {
   display: flex;
   flex-wrap: wrap;
-  /* margin-top: 5px; */
 }
 
 .labelOption {
@@ -217,22 +210,10 @@
   margin-left: 5px;
 }
 
-/* Additional styles for handling labelOptions overflow */
 .labelOptions::after {
   content: '';
   flex-grow: 9999;
 }
-
-/* .labelColor {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-left: 5px;
-  margin-right: 10px;
-} */
-
-/* ... (previous CSS rules) */
 
 .customDropdown {
   position: relative;
@@ -284,7 +265,6 @@
   background-color: #f1f1f1;
 }
 
-/* Additional styles for handling dropdownOptions overflow */
 .dropdownOptions::after {
   content: '';
   flex-grow: 9999;
