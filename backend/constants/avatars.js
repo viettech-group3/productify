@@ -136,14 +136,7 @@ const allAvatars = [
       {
         type: 'url',
         identifier:
-          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated1_csdptc.gif',
-        name: 'Xiao Long Bao',
-        unlocked: false,
-      },
-      {
-        type: 'url',
-        identifier:
-          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688711668/crying-dei-dei_qyjcxg.gif',
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1690234608/crying-dei-new_q9gsyb.gif',
         name: 'Crying Dei',
         unlocked: false,
       },
@@ -151,7 +144,14 @@ const allAvatars = [
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707067/animated3_lnf5ap.gif',
-        name: 'Haute Codeture',
+        name: 'Hi there',
+        unlocked: false,
+      },
+      {
+        type: 'url',
+        identifier:
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated1_csdptc.gif',
+        name: 'Xiao Long Bao',
         unlocked: false,
       },
       {
@@ -171,8 +171,8 @@ const allAvatars = [
       {
         type: 'url',
         identifier:
-          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688711668/no-more-school_w8uw41.gif',
-        name: 'No More School',
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1690234608/drama_ipvuxb.gif',
+        name: 'Drama',
         unlocked: false,
       },
       {
@@ -194,6 +194,20 @@ const allAvatars = [
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated9_pjvjzt.gif',
         name: 'Team 3',
+        unlocked: false,
+      },
+      {
+        type: 'url',
+        identifier:
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1690234608/check-var_xik6xo.gif',
+        name: 'check VAR',
+        unlocked: false,
+      },
+      {
+        type: 'url',
+        identifier:
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1690234607/stare_jkg0rc.gif',
+        name: 'anh Khoa',
         unlocked: false,
       },
       {

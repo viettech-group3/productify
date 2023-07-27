@@ -158,6 +158,9 @@ const WheelComponent = () => {
     flag = true;
   }
   const handleSpinClick = () => {
+    if (points < 50) {
+      return;
+    }
     if (audioRef.current) {
       audioRef.current.play().catch(error => {
         // Handle the error if the browser blocks autoplay
