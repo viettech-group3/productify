@@ -18,6 +18,9 @@ import {
   update,
   updateStatus,
 } from '../../slices/MonthEventsSlice';
+import { addPoints } from '../../slices/UserStateSlice';
+import toast, { Toaster } from 'react-hot-toast';
+const { points } = require('../../service/points');
 
 const EventUpdateForm = ({ eventInformation }) => {
   console.log('Event information is', eventInformation);
@@ -55,6 +58,7 @@ const EventUpdateForm = ({ eventInformation }) => {
   };
 
   const handleChange = e => {
+    toast.success('Increase Points');
     const name = e.target.name;
     const value = e.target.value;
     setFormData(prevData => ({
@@ -75,8 +79,8 @@ const EventUpdateForm = ({ eventInformation }) => {
     }));
   };
 
-  const handleLabelChange = e => {
-    const selectedLabelName = e.target.value;
+  const handleLabelChange = name => {
+    const selectedLabelName = name;
     console.log('Current SelectedLabelname is', selectedLabelName);
     const selectedLabel = labelList.find(
       label => label.name === selectedLabelName,
@@ -95,6 +99,7 @@ const EventUpdateForm = ({ eventInformation }) => {
 
   const handleUpdate = async event => {
     event.preventDefault();
+    console.log('We just run handleUpdate');
     console.log('formData to update is:', formData);
     try {
       const response = await axios
@@ -123,9 +128,8 @@ const EventUpdateForm = ({ eventInformation }) => {
 
   const handleFinishEventClick = (e, eventFinish) => {
     e.stopPropagation();
-    setFinish(value => !value);
     dispatch(updateStatus({ _id: eventFinish._id, status: 'completed' }));
-
+    dispatch(toggleUpdateForm());
     axios
       .post(
         `http://localhost:5000/api/events/finish/${eventFinish._id}`,
@@ -138,7 +142,15 @@ const EventUpdateForm = ({ eventInformation }) => {
       )
       .then(response => {
         console.log('Finish event successfully');
-        console.log(response.data);
+        toast.success(
+          `Congratulations! You get ${points(
+            response.data.event.start,
+            response.data.event.end,
+          )} points`,
+        );
+        dispatch(
+          addPoints(points(response.data.event.start, response.data.event.end)),
+        );
       })
       .catch(error => {
         console.log('There are some bugs when we try to finish events');
@@ -240,15 +252,15 @@ const EventUpdateForm = ({ eventInformation }) => {
 
               <div className={styles.inputContainer}>
                 <div className={styles.customDropdown}>
-                  <div className={styles.dropdownLabel}>Select Label</div>
+                  <div className={styles.dropdownLabel}>
+                    {formData.label.name}
+                  </div>
                   <div className={styles.dropdownOptions}>
                     {labelList.map(label => (
                       <div
                         key={label.name}
                         className={styles.dropdownOption}
-                        onClick={() =>
-                          handleLabelChange({ target: { value: label.name } })
-                        }
+                        onClick={() => handleLabelChange(label.name)}
                       >
                         <span
                           className={styles.labelColor}
@@ -268,13 +280,12 @@ const EventUpdateForm = ({ eventInformation }) => {
                 Update Changes
               </button>
 
-              <button
+              <div
                 className={styles.finishEvent}
-                onClick={handleFinishEventClick}
+                onClick={e => handleFinishEventClick(e, eventInformation)}
               >
-                {' '}
                 Finish Event
-              </button>
+              </div>
             </div>
           </div>
         </form>

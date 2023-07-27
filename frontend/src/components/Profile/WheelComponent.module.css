@@ -1,0 +1,67 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  border-radius: 200px;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 50%; /* Adjust the maximum width as needed */
+  max-height: auto;
+  background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
+  /* background-image: url(../../assets/images/baby.jpeg); */
+  /* background-color: var(--main-blue); */
+  padding: 30px 30px;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  justify-content: center;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  padding: 30px 30px;
+}
+
+.image {
+  border-radius: 200px;
+  max-width: 300px;
+  /* background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%); */
+  background-color: whitesmoke;
+  transition: transform 0.2s ease-in-out;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 200px;
+}
+
+.image:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+}
+
+.paragraph {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 100px;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background-color: #f5f5f5;
+}

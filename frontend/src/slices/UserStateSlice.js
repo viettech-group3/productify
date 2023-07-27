@@ -9,13 +9,23 @@ export const UserState = createSlice({
     purchasedAvatar: [[]],
     level: 1,
     allAvatars: [],
+    bio: '',
   },
   reducers: {
     setUser(state, action) {
-      state.value = action.payload;
+      const { points, totalpoints, avatar, purchasedAvatar, level, allAvatars } = action.payload;
+      state.points = points;
+      state.totalpoints = totalpoints;
+      state.avatar = avatar;
+      state.purchasedAvatar = purchasedAvatar;
+      state.level = level;
+      state.allAvatars = allAvatars;
     },
     setPoints(state, action) {
       state.points = action.payload;
+    },
+    addPoints(state, action) {
+      state.points += action.payload;
     },
     setTotalPoints(state, action) {
       state.totalpoints = action.payload;
@@ -23,8 +33,6 @@ export const UserState = createSlice({
     setAvatar(state, action) {
       state.avatar = action.payload;
       return state;
-
-      // return { ...state, avatar: action.payload };
     },
     setPurchasedAvatar(state, action) {
       state.purchasedAvatar = action.payload;
@@ -34,6 +42,9 @@ export const UserState = createSlice({
     },
     setAllAvatars(state, action) {
       state.allAvatars = action.payload;
+    },
+    setBio(state, action) {
+      state.bio = action.payload;
     },
   },
 });
@@ -47,5 +58,7 @@ export const {
   setPurchasedAvatar,
   setLevel,
   setAllAvatars,
+  addPoints,
+  setBio,
 } = UserState.actions;
 export default UserState.reducer;

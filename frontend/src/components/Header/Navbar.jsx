@@ -15,12 +15,12 @@ import DefaultProfile from '../../assets/images/Defaultprofile.png';
 const Navbar = () => {
   const dispatch = useDispatch();
   const avatar = useSelector(state => state.UserState.avatar);
-  const [exampleTokenForPhuoc, setExampleTokenForPhuoc] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        setExampleTokenForPhuoc(JSON.parse(localStorage.getItem('user')).token);
+        let user = JSON.parse(localStorage.getItem('user'));
+        let exampleTokenForPhuoc = user.token;
         const response = await axios.get(
           'http://localhost:5000/api/users/getUser',
           {
@@ -29,7 +29,8 @@ const Navbar = () => {
             },
           },
         );
-        console.log('User information:', response.data);
+
+        console.log('user in navbar', response.data);
 
         // if avatar is default, chaneg it so that it appear as initials of user
         // else set current avatar of user
@@ -52,7 +53,7 @@ const Navbar = () => {
       }
     };
     fetchUser();
-  });
+  }, [avatar]);
   return (
     <nav className={styles.navbar}>
       <a href="/">
@@ -79,23 +80,24 @@ const Navbar = () => {
             Study Room
           </a>
         </li>
-        {exampleTokenForPhuoc !== null && (
-          <>
-            <li className={styles.navbarItem}>
-              <a href="/profile">
-                <img
-                  src={`${avatar}`}
-                  alt="User Profile"
-                  className={`${styles.image}`}
-                />
-              </a>
-            </li>
 
+        <li className={styles.navbarItem}>
+          <a href="/profile">
+            <img
+              src={`${avatar}`}
+              alt="User Profile"
+              className={`${styles.image}`}
+            />
+          </a>
+        </li>
+        {JSON.parse(localStorage.getItem('user')) !== null && (
+          <>
             <li className={styles.navbarItem}>
               <button
                 className={styles.signOutButton}
                 onClick={() => {
                   localStorage.removeItem('user');
+                  localStorage.removeItem('ggToken');
                   window.location.href = '/';
                 }}
               >

@@ -5,61 +5,61 @@ const allAvatars = [
       {
         type: 'thumbs',
         identifier: 'Annie',
-        name: 'Annie',
+        name: 'Mimi',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'Zoe',
-        name: 'Zoe',
+        name: 'Lulu',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'Loki',
-        name: 'Loki',
+        name: 'Chibi',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'Smokey',
-        name: 'Smokey',
+        name: 'Tofu',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'Cookie',
-        name: 'Cookie',
+        name: 'Mochi',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'Zoey',
-        name: 'Zoey',
+        name: 'Bép',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'Lily',
-        name: 'Lily',
+        name: 'Kiki',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'Charlie',
-        name: 'Charlie',
+        name: 'Mèo',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'Precious',
-        name: 'Precious',
+        name: 'Milo',
         unlocked: false,
       },
       {
         type: 'thumbs',
         identifier: 'hans',
-        name: 'hans',
+        name: 'Vàng',
         unlocked: false,
       },
     ],
@@ -136,71 +136,85 @@ const allAvatars = [
       {
         type: 'url',
         identifier:
-          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated1_csdptc.gif',
-        name: 'Cutie',
-        unlocked: false,
-      },
-      {
-        type: 'url',
-        identifier:
-          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688711668/crying-dei-dei_qyjcxg.gif',
-        name: 'Crying Dei Dei',
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1690234608/crying-dei-new_q9gsyb.gif',
+        name: 'Crying Dei',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707067/animated3_lnf5ap.gif',
-        name: 'Awwww',
+        name: 'Hi there',
+        unlocked: false,
+      },
+      {
+        type: 'url',
+        identifier:
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated1_csdptc.gif',
+        name: 'Xiao Long Bao',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated4_itiaov.gif',
-        name: '1 nam 1 can nha',
+        name: 'Real Estate Manager',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707067/animated5_otzkzi.gif',
-        name: 'debug or đi bar',
+        name: 'BARbie',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
-          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688711668/no-more-school_w8uw41.gif',
-        name: 'NO MORE SCHOOL',
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1690234608/drama_ipvuxb.gif',
+        name: 'Drama',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated7_hgmmpb.gif',
-        name: 'Phuoc & his mukbang session',
+        name: 'Mukbanger',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated8_ipyzc7.gif',
-        name: 'every coder dream',
+        name: 'Eat Sleep Code Repeat',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688707068/animated9_pjvjzt.gif',
-        name: 'code den chek',
+        name: 'Team 3',
+        unlocked: false,
+      },
+      {
+        type: 'url',
+        identifier:
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1690234608/check-var_xik6xo.gif',
+        name: 'check VAR',
+        unlocked: false,
+      },
+      {
+        type: 'url',
+        identifier:
+          'https://res.cloudinary.com/dkpwyawp9/image/upload/v1690234607/stare_jkg0rc.gif',
+        name: 'anh Khoa',
         unlocked: false,
       },
       {
         type: 'url',
         identifier:
           'https://res.cloudinary.com/dkpwyawp9/image/upload/v1688711668/pay-mau_lmo4ji.gif',
-        name: 'Pay Mau',
+        name: '1 2 con đom đóm',
         unlocked: false,
       },
     ],

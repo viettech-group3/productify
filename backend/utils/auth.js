@@ -41,21 +41,22 @@ const protect = async (req, res, next) => {
 const parseJwt = token => {
   return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
 };
-const sendPasswordResetEmail = (email, token) => {
+const sendPasswordResetEmail = (email, text, subject) => {
   const transporter = nodemailer.createTransport({
-    // Configure your email service provider here
-    service: 'Outlook',
+    host: 'smtp-relay.brevo.com',
+    port: 587,
+    secure: false,
     auth: {
-      user: 'huudangphamt1k11@outlook.com',
-      pass: '@Phamhuudangt1k11',
+      user: 'huudangphamt1k11@gmail.com',
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
   const mailOptions = {
-    from: 'huudangphamt1k11@outlook.com',
+    from: 'huudangphamt1k11@gmail.com',
     to: email,
-    subject: 'Password Reset',
-    text: `This is the link to change your password: http://localhost:3000/forgotpassword?email=${email}&token=${token}`,
+    subject: subject,
+    text: text,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

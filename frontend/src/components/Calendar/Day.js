@@ -10,6 +10,8 @@ import EventUpdateForm from '../EventUpdateForm/EventUpdateForm';
 import { toggleUpdateForm } from '../../slices/ShowEventUpdateFormSlice';
 import { setSelectedEvent } from '../../slices/SelectedEventSlice';
 
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function Day({ day, row, loadingState }) {
   const currentDate = new Date(day);
   const dispatch = useDispatch();
@@ -101,6 +103,7 @@ function Day({ day, row, loadingState }) {
               {event.name}
               {event.status === 'completed' && (
                 <span class={styles.finishBadge}>
+                  <h3 style={{ fontSize: "12px", marginLeft: "2px", color: "black" }}>&#x2713;</h3>
                 </span>
               )}
             </div>
