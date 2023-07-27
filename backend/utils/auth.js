@@ -48,7 +48,7 @@ const sendPasswordResetEmail = (email, text, subject) => {
     secure: false,
     auth: {
       user: 'huudangphamt1k11@gmail.com',
-      pass: 'xsmtpsib-3cb7144e34052ae66f61b4ad5bfd0597f8cf44e12be811923b6c7aef311f0c41-HzDgrkb0MFxpZBTG',
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
