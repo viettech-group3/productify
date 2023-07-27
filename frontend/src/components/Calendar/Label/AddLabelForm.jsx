@@ -4,12 +4,32 @@ import { useSelector, useDispatch } from 'react-redux';
 import { set, add, remove, update } from '../../../slices/LabelSlice';
 import { toggleLabelForm } from '../../../slices/ShowLabelForm';
 import styles from './AddLabelForm.module.css';
+import { faPalette, faTags } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AddLabelForm = () => {
   const [formData, setFormData] = useState({ name: '', color: '' });
   const dispatch = useDispatch();
   const exampleTokenForPhuoc = JSON.parse(localStorage.getItem('user')).token;
   const modalRef = useRef(null);
+  const colors = [
+    { name: 'Midnight', color: '#6485ad' },
+    { name: 'Blue', color: '#a9caee' },
+    { name: 'Green', color: '#a0c3d2' },
+    { name: 'Purple', color: '#c8a1c9' },
+
+    { name: 'Pink', color: '#e8a2a3' },
+    { name: 'Orange', color: '#f98172' },
+  ]; // Predefined label colors
+  const [selectedColor, setSelectedColor] = useState(''); // New state to hold the selected color
+
+  const handleColorChange = color => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      color: color,
+    }));
+    setSelectedColor(color); // Update the selected color state
+  };
 
   const handleOutsideClick = event => {
     /* When we click outside the modal form, it will toggle off the modal */
@@ -56,41 +76,89 @@ const AddLabelForm = () => {
   return (
     <div className={styles.overlay} onClick={handleOutsideClick}>
       <div className={styles.labelForm} ref={modalRef}>
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            dispatch(toggleLabelForm());
-          }}
-        >
-          X
-        </button>
-        <div className={styles.labelFormTitle}>Add Labels Form</div>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="nameInput">Name</label>
-            <input
-              type="text"
-              id="nameInput"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
+        <div className={styles.ModalTitle}>
+          <button
+            className={styles.closeButton}
+            onClick={() => {
+              dispatch(toggleLabelForm());
+            }}
+          >
+            X
+          </button>
+        </div>
+
+        <div className={styles.columns}>
+          {/**first column */}
+          <div className={styles.columnLabel}>
+            <FontAwesomeIcon icon={faTags} className={styles.icon} />
+            <FontAwesomeIcon icon={faPalette} className={styles.icon} />
           </div>
 
-          <div>
-            <label htmlFor="colorInput">Color</label>
-            <input
-              type="text"
-              id="colorInput"
-              name="color"
-              value={formData.color}
-              onChange={handleChange}
-            />
+          {/**second column */}
+          <div className={styles.columnTitle}>
+            <span className={styles.label}>Name</span>
+            <span className={styles.label}>Color</span>
           </div>
-          <button type="submit" className="btn btn-primary">
-            Submit Label Form
-          </button>
-        </form>
+
+          {/**third column */}
+          <div className={styles.columnInput}>
+            <form onSubmit={handleSubmit}>
+              <div className={styles.inputContainer}>
+                <input
+                  type="text"
+                  id="nameInput"
+                  name="name"
+                  value={formData.name}
+                  placeholder="Add Label Name"
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <div className={styles.customDropdown}>
+                  <div className={styles.dropdownOptions}>
+                    {colors.map(colorOption => (
+                      <div
+                        key={colorOption.name}
+                        className={styles.dropdownOption}
+                        onClick={() => setSelectedColor(colorOption.name)}
+                      >
+                        <span
+                          className={styles.labelColor}
+                          style={{ backgroundColor: colorOption.color }}
+                        ></span>
+                        {colorOption.name}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={styles.inputContainer}>
+                    <input
+                      type="text"
+                      id="colorInput"
+                      name="color"
+                      value={selectedColor}
+                      placeholder="Select Label Color"
+                      onChange={handleChange}
+                      className={styles.input}
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className={styles.buttonContainer}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            onClick={handleSubmit}
+          >
+            Add Label
+          </button>{' '}
+          {/* </div> */}
+        </div>
       </div>
     </div>
   );
