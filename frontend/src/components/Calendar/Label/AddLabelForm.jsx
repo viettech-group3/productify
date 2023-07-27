@@ -15,7 +15,7 @@ const AddLabelForm = () => {
   const colors = [
     { name: 'Midnight', color: '#6485ad' },
     { name: 'Blue', color: '#a9caee' },
-    { name: 'Green', color: '#a0c3d2' },
+    { name: 'Green', color: '#9EBF99' },
     { name: 'Purple', color: '#c8a1c9' },
     { name: 'Pink', color: '#e8a2a3' },
     { name: 'Orange', color: '#f98172' },

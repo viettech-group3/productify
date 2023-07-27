@@ -108,13 +108,27 @@ const EventForm = () => {
     }));
   };
 
-  const handleLabelChange = e => {
-    const selectedLabelName = e.target.value;
-    console.log('Current SelectedLabelname is', selectedLabelName);
-    const selectedLabel = labelList.find(
-      label => label.name === selectedLabelName,
-    );
-    console.log('Current label object is', selectedLabel);
+  // const handleLabelChange = e => {
+  //   const selectedLabelName = e.target.value;
+  //   console.log('Current SelectedLabelname is', selectedLabelName);
+  //   const selectedLabel = labelList.find(
+  //     label => label.name === selectedLabelName,
+  //   );
+  //   console.log('Current label object is', selectedLabel);
+  //   if (selectedLabel) {
+  //     setFormData(prevData => ({
+  //       ...prevData,
+  //       label: {
+  //         name: selectedLabel.name,
+  //         color: selectedLabel.color,
+  //       },
+  //     }));
+  //   }
+  //   console.log('curent formData is', formData);
+  // };
+
+  const handleLabelChange = selectedLabel => {
+    console.log('Current SelectedLabel is', selectedLabel);
     if (selectedLabel) {
       setFormData(prevData => ({
         ...prevData,
@@ -124,7 +138,7 @@ const EventForm = () => {
         },
       }));
     }
-    console.log('curent formData is', formData);
+    console.log('current formData is', formData);
   };
 
   return (
@@ -224,7 +238,7 @@ const EventForm = () => {
                       <div
                         key={label.name}
                         className={styles.dropdownOption}
-                        onClick={() => handleLabelChange(label.name)}
+                        onClick={() => handleLabelChange(label)}
                       >
                         <span
                           className={styles.labelColor}

@@ -64,6 +64,7 @@ const Leaderboard = () => {
             <span className={styles.rankNumber}>2</span>
           </div>
           <div className={styles.username}>{top3Users[1].username}</div>
+          <div className={styles.topPoints}>{top3Users[1].points}</div>
         </div>
 
         <div className={styles.userCard}>
@@ -73,6 +74,8 @@ const Leaderboard = () => {
             <span className={styles.rankNumber}>1</span>
           </div>
           <div className={styles.username}>{top3Users[0].username}</div>
+          <div className={styles.topPoints}>{top3Users[0].points}</div>
+
         </div>
 
         <div className={styles.userCard}>
@@ -82,6 +85,8 @@ const Leaderboard = () => {
             <span className={styles.rankNumber}>3</span>
           </div>
           <div className={styles.username}>{top3Users[2].username}</div>
+          <div className={styles.topPoints}>{top3Users[2].points}</div>
+
         </div>
       </div>
 

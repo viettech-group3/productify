@@ -4,3 +4,6 @@
 .link_edit:hover {
   color: #495057 !important;
 }
+button:hover {
+  background-color: #8cb9eb;
+}

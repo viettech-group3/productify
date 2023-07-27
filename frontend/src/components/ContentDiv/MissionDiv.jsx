@@ -15,7 +15,7 @@ const MissionDiv = () => {
         At Productify, our mission is to empower individuals and teams to
         enhance their productivity and achieve their goals efficiently. We
         believe that by providing a comprehensive and intuitive task management
-        solution, we can help users stay organized, focused, and in control of
+        solution, we can help users stay organized and in control of
         their busy lives.
       </p>
       <div className="d-flex justify-content-evenly pb-5">

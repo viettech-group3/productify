@@ -6,6 +6,7 @@ import {
   faAddressBook,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from './TeamDiv.module.css';
+import teamImage from '../../assets/images/teamImage4.png';
 
 const TeamDiv = () => {
   return (
@@ -73,7 +74,7 @@ const TeamDiv = () => {
               height: '100%',
               objectPosition: 'left',
             }}
-            src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/350101806_785816833255761_533086508457761949_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_ohc=6HTVBGGOHOIAX9Hpw0z&_nc_ht=scontent.fsgn2-6.fna&oh=03_AdRwLj8J2otSD6Qzc-UrzroO_35YAxgoNDYcTR3D3MMPFg&oe=64992558"
+            src={teamImage}
           ></img>
         </div>
         {/* End of Image of calendar */}
