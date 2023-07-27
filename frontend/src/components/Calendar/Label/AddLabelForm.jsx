@@ -17,19 +17,9 @@ const AddLabelForm = () => {
     { name: 'Blue', color: '#a9caee' },
     { name: 'Green', color: '#a0c3d2' },
     { name: 'Purple', color: '#c8a1c9' },
-
     { name: 'Pink', color: '#e8a2a3' },
     { name: 'Orange', color: '#f98172' },
   ]; // Predefined label colors
-  const [selectedColor, setSelectedColor] = useState(''); // New state to hold the selected color
-
-  const handleColorChange = color => {
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      color: color,
-    }));
-    setSelectedColor(color); // Update the selected color state
-  };
 
   const handleOutsideClick = event => {
     /* When we click outside the modal form, it will toggle off the modal */
@@ -115,30 +105,35 @@ const AddLabelForm = () => {
                 />
               </div>
 
-              <div className={styles.inputContainer}>
-                <div className={styles.customDropdown}>
-                  <div className={styles.dropdownOptions}>
-                    {colors.map(colorOption => (
-                      <div
-                        key={colorOption.name}
-                        className={styles.dropdownOption}
-                        onClick={() => setSelectedColor(colorOption.name)}
-                      >
-                        <span
-                          className={styles.labelColor}
-                          style={{ backgroundColor: colorOption.color }}
-                        ></span>
-                        {colorOption.name}
-                      </div>
-                    ))}
-                  </div>
+            <div className={styles.inputContainer}>
+              <div className={styles.customDropdown}>
+                <div className={styles.dropdownOptions}>
+                  {colors.map(colorOption => (
+                    <div
+                      key={colorOption.name}
+                      className={styles.dropdownOption}
+                      onClick={() => {
+                        setFormData(prevFormData => ({
+                          ...prevFormData,
+                          color: colorOption.color, // Update color directly in the form data when clicked
+                        }));
+                      }}
+                    >
+                      <span
+                        className={styles.labelColor}
+                        style={{ backgroundColor: colorOption.color }}
+                      ></span>
+                      {colorOption.name}
+                    </div>
+                  ))}
+                </div>
 
                   <div className={styles.inputContainer}>
                     <input
                       type="text"
                       id="colorInput"
                       name="color"
-                      value={selectedColor}
+                      value={formData.color}
                       placeholder="Select Label Color"
                       onChange={handleChange}
                       className={styles.input}

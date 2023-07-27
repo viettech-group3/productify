@@ -280,8 +280,8 @@
 }
 
 .addGuestButton {
-  background-color: var(--main-blue);
-  border: none;
+  background-color: var(--main-blue) !important;
+  border: none !important;
   margin-top: 20px;
   margin-left: 50px;
 }
