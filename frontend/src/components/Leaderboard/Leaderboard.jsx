@@ -58,7 +58,6 @@ const Leaderboard = () => {
 
       <div className={styles.topUsers}>
         <div className={styles.userCard}>
-          {/* <div className={styles.points}>{top3Users[1].points} points</div> */}
           <BsFillAwardFill className={`${styles.rankIcon} ${styles.silver}`} />
           <div className={styles.badgeIcon}>
             <span className={styles.rankNumber}>2</span>
@@ -68,7 +67,6 @@ const Leaderboard = () => {
         </div>
 
         <div className={styles.userCard}>
-          {/* <div className={styles.points}>{top3Users[0].points} points</div> */}
           <BsFillAwardFill className={`${styles.rankIcon} ${styles.gold}`} />
           <div className={styles.badgeIcon}>
             <span className={styles.rankNumber}>1</span>
@@ -79,7 +77,6 @@ const Leaderboard = () => {
         </div>
 
         <div className={styles.userCard}>
-          {/* <div className={styles.points}>{top3Users[2].points} points</div> */}
           <BsFillAwardFill className={`${styles.rankIcon} ${styles.bronze}`} />
           <div className={styles.badgeIcon}>
             <span className={styles.rankNumber}>3</span>

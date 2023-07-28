@@ -54,3 +54,20 @@ p {
   box-shadow: 0 0 5px 3px rgba(202, 240, 248, 0.8);
   border: #a2d2ff solid 2px;
 }
+
+.buttonDecline {
+  border: 1px solid;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #e8a2a3;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.buttonDecline:hover {
+  box-shadow: 0 0 5px 3px rgba(202, 240, 248, 0.8);
+  border: #f98172 solid 2px;
+}

@@ -72,7 +72,7 @@
 
 .userCard:nth-child(3) {
   align-self: flex-end;
-  height: 250px;
+  height: 280px;
 }
 
 .badgeIcon {
@@ -109,6 +109,8 @@
 .username {
   font-weight: bold;
   color: var(--main-blue);
+  max-width: 250px;
+  text-align: center;
 }
 
 .nextUsers {
