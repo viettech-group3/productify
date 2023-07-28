@@ -3,12 +3,11 @@ import Confetti from 'react-confetti';
 import { useEffect, useState } from 'react';
 
 const ConfettiRain = () => {
-  const [isRaining, setIsRaining] = useState(false);
+  const [isRaining, setIsRaining] = useState(true); // Set to true by default
 
   useEffect(() => {
-    const isReloaded =
-      performance.navigation.type === performance.navigation.TYPE_RELOAD;
-    setIsRaining(isReloaded);
+    // You can remove the check for reload, and always set isRaining to true
+    setIsRaining(true);
 
     const timeout = setTimeout(() => {
       setIsRaining(false);
