@@ -95,28 +95,52 @@ const AvatarCarousel = () => {
         currentAvatar.toString(),
       )}`;
 
-      let tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+      //let tempAvatar = await dispatch(setAvatar(avatarDataUrl));
       let temp = JSON.parse(JSON.stringify(purchasedAvatar));
-      temp[0][0] = tempAvatar.payload;
-      console.log(temp);
+      temp[0][0] = avatarDataUrl;
+      console.log('temp', temp);
 
       //update user infor on database
-      const response = await axios.put(
-        `http://localhost:5000/api/users/update`,
-        { purchasedAvatars: temp, points: points - 100 },
-        {
-          headers: {
-            Authorization: `Bearer ${exampleTokenForPhuoc}`,
-          },
-        },
-      );
+      const response1 = await changeProfilePic(temp);
+      dispatch(setPurchasedAvatar(temp));
 
-      dispatch(setAvatar(response.data.purchasedAvatars[0][0]));
-      dispatch(setPoints(response.data.points));
+      const response2 = await deductPoints();
+      dispatch(setPoints(response2.points));
     } catch (error) {
       console.error(error);
       console.log('There is something wrong with update avatar');
     }
+  };
+
+  const changeProfilePic = async purchasedAvatar => {
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    const response = await axios.put(
+      `http://localhost:5000/api/users/update`,
+      { purchasedAvatars: purchasedAvatar },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  };
+  const deductPoints = async () => {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let token;
+    if (user !== null) {
+      token = user.token;
+    }
+    const response = await axios.put(
+      `http://localhost:5000/api/users/deduct`,
+      { pointsToDeduct: 50 },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
   };
 
   return (

@@ -113,7 +113,8 @@ const WheelComponent = () => {
       const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
         dicebearAvatar.toString(),
       )}`;
-      tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+      tempAvatar = avatarDataUrl;
+      // await dispatch(setAvatar(avatarDataUrl));
       //points
       const response = await deductPoints();
       dispatch(setPoints(response.points));
@@ -125,14 +126,16 @@ const WheelComponent = () => {
       const avatarDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
         dicebearAvatar.toString(),
       )}`;
-      tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+      tempAvatar = avatarDataUrl;
+      //tempAvatar = await dispatch(setAvatar(avatarDataUrl));
       //points
       const response = await deductPoints();
       dispatch(setPoints(response.points));
     } else if (level === 3) {
       // no testing yet
       const avatarDataUrl = currentLevelObj[targetIndex].identifier;
-      tempAvatar = await dispatch(setAvatar(avatarDataUrl));
+      tempAvatar = avatarDataUrl;
+      //tempAvatar = await dispatch(setAvatar(avatarDataUrl));
       //points
       const response = await deductPoints();
       dispatch(setPoints(response.points));
@@ -142,7 +145,7 @@ const WheelComponent = () => {
 
     // avatars
     let temp = JSON.parse(JSON.stringify(purchasedAvatar));
-    temp[0][0] = tempAvatar.payload;
+    temp[0][0] = tempAvatar;
     temp[level].push(currentLevelObj[targetIndex].identifier);
     await changeProfilePic(temp);
     dispatch(setPurchasedAvatar(temp));
