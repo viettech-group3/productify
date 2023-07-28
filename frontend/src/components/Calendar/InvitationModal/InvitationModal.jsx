@@ -132,7 +132,7 @@ const InvitationModal = () => {
                 Event's Creator
               </div>
               <div className="col d-flex align-items-center p-0">
-                Accept Or Deny?
+                Accept Or Decline?
               </div>
             </div>
             {invitations.map(invitation => (
@@ -163,9 +163,9 @@ const InvitationModal = () => {
                     onClick={() => {
                       handleDenyInvitation(invitation._id);
                     }}
-                    className={styles.button}
+                    className={styles.buttonDecline}
                   >
-                    Deny
+                    Decline
                   </button>
                 </div>
               </div>

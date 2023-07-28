@@ -68,6 +68,7 @@ p {
 }
 
 .buttonDecline:hover {
-  box-shadow: 0 0 5px 3px rgba(202, 240, 248, 0.8);
+  box-shadow: 0 0 5px 3px #f98172;
   border: #f98172 solid 2px;
+  background-color: #e8a2a3;
 }
