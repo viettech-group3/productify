@@ -1,14 +1,14 @@
-## Productify
+## 📅 Productify
 > Your all-in-one solution for managing tasks, events, and collaboration while boosting your productivity and fostering a sense of achievement. Whether you're a student, an experienced professional, or anyone seeking a better way to stay organized, Productify has you covered.
  ![Image 8-5-23 at 12 27 PM](https://github.com/viettech-group3/productify/assets/116319999/c7f578e4-a0cd-4644-b20e-815ddac5195e)
 
-## Contributors:
-- Truc Linh (Robin) Hoang robintlhoang@gmail.com
-- Tuyet Hoa (Jenny) Quach hoatuyet423@gmail.com
-- Phuoc (Peter) Ong onggiaphuoc2004@gmail.com
-- Dang Pham danghuupham@usf.edu
+## 👨‍💻👩‍💻 Contributors:
+- 👩‍💻 Truc Linh (Robin) Hoang robintlhoang@gmail.com
+- 👩‍💻 Tuyet Hoa (Jenny) Quach hoatuyet423@gmail.com
+- 👨‍💻 Phuoc (Peter) Ong onggiaphuoc2004@gmail.com
+- 👨‍💻 Dang Pham danghuupham@usf.edu
 
-## Technologies 
+## 💾 Technologies 
 - Frontend: React.js, Material UI, Chakra UI Bootstrap
 - Backend: Node.js, Express.js
 - Database: MongoDB Atlas
