@@ -81,8 +81,6 @@ const createEvent = async (req, res) => {
 
 /**
  * Controller function to get events of a user
- * Name: getAllEvents
- * Asignee: Phuoc
  * req: request object containing user id.
  * res: response object to return status 200 and events array.
  */
@@ -193,8 +191,6 @@ const getAllEventsMonths = async (req, res) => {
 
 /**
  * Controller function to modify event of a user
- * Asignee: chi Jenny
- * Name: modifyEvent
  * req: request object containing user id, event id, and new event info. For example, new description.
  * res: response object to return status 200.
  */
@@ -221,8 +217,6 @@ const modifyEvent = async (req, res) => {
 
 /**
  * Controller function when a user finish an event
- * Asignee: chi Jenny
- * Name: finishEvent
  * req: request object containing user id and event id.
  * res: response object to return status 200.
  */
@@ -278,8 +272,6 @@ const finishEvent = async (req, res) => {
 
 /**
  * Check for overdued event and change status accordingly
- * Asignee: Dang
- * Name: finishEvent
  * req: request object containing event id.
  * res: response object to return status 200.
  */
