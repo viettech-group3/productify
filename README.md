@@ -11,8 +11,9 @@
 ## 💾 Technologies 
 - Frontend: React.js, Material UI, Chakra UI Bootstrap
 - Backend: Node.js, Express.js
-- Database: MongoDB Atlas
+- Database: MongoDB Atlas, Cloudinary
 - APIs: Google API, Dicebear API
+- Deployment: Render, Netlify
 
 ## Features
 🗓️ Interactive Calendar
