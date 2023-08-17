@@ -6,8 +6,7 @@
 - 👩‍💻 Truc Linh (Robin) Hoang robintlhoang@gmail.com
 - 👩‍💻 Tuyet Hoa (Jenny) Quach hoatuyet423@gmail.com
 - 👨‍💻 Phuoc (Peter) Ong onggiaphuoc2004@gmail.com
-- 👨‍💻 Dang Pham danghuupham@usf.edu
-
+- 👨‍💻 Dang (Dei) Pham danghuuphamusf@gmail.com
 ## 💾 Technologies 
 - Frontend: React.js, Material UI, Chakra UI Bootstrap
 - Backend: Node.js, Express.js
